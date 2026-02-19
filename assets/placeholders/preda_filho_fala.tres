@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CutsceneFlowLinear" format=3 uid="uid://ygung85xwbdt"]
+
+[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/cutscene_action_base.gd" id="1_48awn"]
+[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/cutscene_action_dialogue.gd" id="2_4cj40"]
+[ext_resource type="Script" uid="uid://b261pmt02ibn8" path="res://cutscene/cutscene_flow_linear.gd" id="2_rujfw"]
+[ext_resource type="Script" uid="uid://dyr0awso8vtj" path="res://cutscene/cutscene_action_set_bool.gd" id="3_8sqbu"]
+
+[sub_resource type="Resource" id="Resource_s3jxq"]
+script = ExtResource("2_4cj40")
+close_dialogue_box_on_end = true
+dialogue = PackedStringArray("Hello {test()} there", "You found me", "Can you take me with you?", "Thanks")
+metadata/_custom_type_script = "uid://c5daiygjvie4n"
+
+[sub_resource type="Resource" id="Resource_bnctm"]
+script = ExtResource("3_8sqbu")
+value = true
+metadata/_custom_type_script = "uid://dyr0awso8vtj"
+
+[resource]
+script = ExtResource("2_rujfw")
+actions = Array[ExtResource("1_48awn")]([SubResource("Resource_s3jxq"), SubResource("Resource_bnctm")])
+metadata/_custom_type_script = "uid://b261pmt02ibn8"

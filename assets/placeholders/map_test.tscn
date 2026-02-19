@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bf62rybkrxs6s"]
+
+[ext_resource type="PackedScene" uid="uid://cvgmeo84fvgyh" path="res://main_scene/player.tscn" id="1_pkidb"]
+[ext_resource type="PackedScene" uid="uid://dapv7eo6g6jxi" path="res://assets/placeholders/talking_stone.tscn" id="2_0pdgp"]
+[ext_resource type="PackedScene" uid="uid://d4cc40qhjh34h" path="res://assets/placeholders/mushroom.tscn" id="3_dsfex"]
+
+[node name="MapTest" type="Node2D" unique_id=117067816]
+
+[node name="Character" parent="." unique_id=1676178987 instance=ExtResource("1_pkidb")]
+position = Vector2(20, 18)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=702702198]
+
+[node name="TalkingStone" parent="." unique_id=132182893 instance=ExtResource("2_0pdgp")]
+position = Vector2(54, 49)
+
+[node name="Mushroom" parent="." unique_id=38719174 instance=ExtResource("3_dsfex")]
+position = Vector2(-14, 39)

@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dapv7eo6g6jxi"]
+
+[ext_resource type="Texture2D" uid="uid://bcn4ks5nwxuwu" path="res://assets/placeholders/Decorations.png" id="1_px658"]
+[ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="2_2ehh8"]
+[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://script/cutscene_trigger.gd" id="3_2ehh8"]
+[ext_resource type="Resource" uid="uid://e87i4afl3ng7" path="res://assets/placeholders/pedra_fala.tres" id="4_erqx0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_erqx0"]
+radius = 16.0
+
+[node name="TalkingStone" type="Sprite2D" unique_id=132182893]
+texture = ExtResource("1_px658")
+region_enabled = true
+region_rect = Rect2(163, 133, 26, 22)
+
+[node name="Interactable" type="Area2D" parent="." unique_id=268613623]
+script = ExtResource("2_2ehh8")
+pop_up_type = 1
+metadata/_custom_type_script = "uid://bgp4ssm03oorx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=274360711]
+shape = SubResource("CircleShape2D_erqx0")
+
+[node name="Node2D" type="Node2D" parent="Interactable" unique_id=562012298]
+position = Vector2(0, -13)
+
+[node name="CutsceneTrigger" type="Node" parent="." unique_id=2097457927]
+script = ExtResource("3_2ehh8")
+lock_player = true
+cutscene = ExtResource("4_erqx0")
+metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
+
+[connection signal="interacted" from="Interactable" to="CutsceneTrigger" method="start_cutscene"]
