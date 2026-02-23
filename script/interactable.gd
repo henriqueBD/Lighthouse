@@ -3,15 +3,17 @@ extends Area2D
 
 enum pop_up_texture{
 	INVISIBLE,
+	CUSTOM,
 	DIALOGUE,
-	CUSTOM
 }
 
 signal interacted
 
-@export var pop_up_type: pop_up_texture
+const DIALOGUE_ICON: Texture2D = preload("res://assets/icon/dialogue_icon.png")
 
-var _pop_up_image: Sprite2D
+@export var pop_up_type: pop_up_texture
+@export var pop_up_image: Sprite2D
+
 var _anchor_bottom_center: Node2D
 var _player_inside: bool
 
@@ -26,22 +28,26 @@ func _ready() -> void:
 				_anchor_bottom_center = child
 				break
 		
-		_pop_up_image = Sprite2D.new()
-		_pop_up_image.centered = false
-		_pop_up_image.hide()
+		if pop_up_type != pop_up_texture.CUSTOM:
+			assert(not pop_up_image)
+			pop_up_image = Sprite2D.new()
+			pop_up_image.centered = false
+			pop_up_image.hide()
 		
 		match pop_up_type:
+			pop_up_texture.CUSTOM:
+				assert(pop_up_image, "no custom image")
 			pop_up_texture.DIALOGUE:
-				_pop_up_image.texture = load("res://assets/icon/dialogue_icon.png") as Texture2D
+				pop_up_image.texture = DIALOGUE_ICON
 		
-		add_child(_pop_up_image)
+		add_child(pop_up_image)
 		
 		assert(_anchor_bottom_center, "no anchor for interactable")
-		assert(_pop_up_image,  "no image for interactable")
+		assert(pop_up_image,  "no image for interactable")
 		
 		@warning_ignore("integer_division")
-		_pop_up_image.offset.x = -(_pop_up_image.texture.get_width() / 2)
-		_pop_up_image.offset.y = -_pop_up_image.texture.get_height()
+		pop_up_image.offset.x = -(pop_up_image.texture.get_width() / 2)
+		pop_up_image.offset.y = -pop_up_image.texture.get_height()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if GameManager.is_player_locked(): return
@@ -52,15 +58,15 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_body_entered(_body: Node2D) -> void:
 	if pop_up_type != pop_up_texture.INVISIBLE:
-		_pop_up_image.global_position = _anchor_bottom_center.global_position
-		_pop_up_image.show()
+		pop_up_image.global_position = _anchor_bottom_center.global_position
+		pop_up_image.show()
 	
 	_player_inside = true
 	set_process_unhandled_input(true)
 
 func _on_body_exited(_body: Node2D) -> void:
 	if pop_up_type != pop_up_texture.INVISIBLE:
-		_pop_up_image.hide()
+		pop_up_image.hide()
 	
 	_player_inside = false
 	set_process_unhandled_input(false)

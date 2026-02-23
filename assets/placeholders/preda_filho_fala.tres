@@ -8,7 +8,7 @@
 [sub_resource type="Resource" id="Resource_s3jxq"]
 script = ExtResource("2_4cj40")
 close_dialogue_box_on_end = true
-dialogue = PackedStringArray("Hello {test()} there", "You found me", "Can you take me with you?", "Thanks")
+dialogue = PackedStringArray("Hello there", "You found me", "Can you take me with you?", "Thanks{mushroom.queue_free()}!")
 metadata/_custom_type_script = "uid://c5daiygjvie4n"
 
 [sub_resource type="Resource" id="Resource_bnctm"]

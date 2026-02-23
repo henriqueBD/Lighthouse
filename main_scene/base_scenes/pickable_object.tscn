@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://eyq3nn0ftgis"]
+
+[ext_resource type="Texture2D" uid="uid://bruqfk8f3du42" path="res://icon.svg" id="1_4frei"]
+[ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="1_xvmly"]
+[ext_resource type="Script" uid="uid://bq1kkl6a4be32" path="res://script/pickable_object.gd" id="2_v22s2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q8mcc"]
+radius = 256.0
+
+[node name="PickableOjbect" type="Sprite2D" unique_id=830724298]
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("1_4frei")
+script = ExtResource("2_v22s2")
+
+[node name="Interactable" type="Area2D" parent="." unique_id=1437380185]
+script = ExtResource("1_xvmly")
+metadata/_custom_type_script = "uid://bgp4ssm03oorx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=765540356]
+shape = SubResource("CircleShape2D_q8mcc")
+
+[connection signal="interacted" from="Interactable" to="." method="pick"]

@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://cvgmeo84fvgyh" path="res://main_scene/player.tscn" id="1_pkidb"]
 [ext_resource type="PackedScene" uid="uid://dapv7eo6g6jxi" path="res://assets/placeholders/talking_stone.tscn" id="2_0pdgp"]
 [ext_resource type="PackedScene" uid="uid://d4cc40qhjh34h" path="res://assets/placeholders/mushroom.tscn" id="3_dsfex"]
+[ext_resource type="Texture2D" uid="uid://cj5vpki1uyv1u" path="res://assets/light/light_texture.png" id="4_saeq4"]
+[ext_resource type="PackedScene" uid="uid://eyq3nn0ftgis" path="res://main_scene/base_scenes/pickable_object.tscn" id="5_xqf8e"]
 
 [node name="MapTest" type="Node2D" unique_id=117067816]
 
@@ -16,3 +18,11 @@ position = Vector2(54, 49)
 
 [node name="Mushroom" parent="." unique_id=38719174 instance=ExtResource("3_dsfex")]
 position = Vector2(-14, 39)
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=659713202]
+position = Vector2(44, 42)
+shadow_enabled = true
+texture = ExtResource("4_saeq4")
+
+[node name="PickableOjbect" parent="." unique_id=830724298 instance=ExtResource("5_xqf8e")]
+position = Vector2(-24, -4)

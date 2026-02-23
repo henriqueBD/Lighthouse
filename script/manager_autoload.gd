@@ -16,6 +16,7 @@ var _current_dialogue: CutsceneActionDialogue
 var _can_advance_dialogue: bool
 var _next_char_countdown: float
 
+var _unique_entities_map: Dictionary[String, Tracker]
 var _global_variables_bool_map: Dictionary[global_variables_bool, bool]
 var _global_variables_string_map: Dictionary[String, String]
 
@@ -107,8 +108,34 @@ func bool_set(key: global_variables_bool, value: bool) -> void:
 		else:
 			assert(false, "Tried to erase a null global bool")
 
-func call_global_method(method_name: String, arguments: Array) -> void:
-	if _global_methods_map.has(method_name):
-		_global_methods_map[method_name].call()
+func call_global_method(name_space: String, method_name: String, arguments: Array) -> void:
+	assert(not method_name.is_empty(), "method name is empty")
+	if name_space.is_empty():
+		if _global_methods_map.has(method_name):
+			if arguments.is_empty(): 
+				_global_methods_map[method_name].call()
+			else: 
+				_global_methods_map[method_name].call(arguments)
+		else:
+			assert(false, "no function with name " + method_name)
 	else:
-		assert(false, "no function with name " + method_name)
+		if _unique_entities_map.has(name_space):
+			_unique_entities_map[name_space].call_method(method_name, arguments)
+		else:
+			assert(false, "invalid namespace: " + name_space)
+
+func register_unique_entity(unique_name: String, node: Node) -> void:
+	assert(not _unique_entities_map.has(unique_name), "Name " + unique_name + "is not unique")
+	_unique_entities_map[unique_name] = node
+
+func unregister_unique_entity(unique_name: String) -> void:
+	assert(_unique_entities_map.has(unique_name), "No active entity with name: " + unique_name)
+	_unique_entities_map.erase(unique_name)
+
+func get_unique_entity(unique_name: String) -> Tracker:
+	assert(_unique_entities_map.has(unique_name), "No active entity with name: " + unique_name)
+	return _unique_entities_map[unique_name]
+
+func get_unique_entity_parent(unique_name: String) -> Node2D:
+	assert(_unique_entities_map.has(unique_name), "No active entity with name: " + unique_name)
+	return _unique_entities_map[unique_name].get_parent()

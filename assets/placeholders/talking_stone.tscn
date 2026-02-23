@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="2_2ehh8"]
 [ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://script/cutscene_trigger.gd" id="3_2ehh8"]
 [ext_resource type="Resource" uid="uid://e87i4afl3ng7" path="res://assets/placeholders/pedra_fala.tres" id="4_erqx0"]
+[ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="5_rrv4y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_erqx0"]
 radius = 16.0
@@ -15,10 +16,11 @@ region_rect = Rect2(163, 133, 26, 22)
 
 [node name="Interactable" type="Area2D" parent="." unique_id=268613623]
 script = ExtResource("2_2ehh8")
-pop_up_type = 1
+pop_up_type = 2
 metadata/_custom_type_script = "uid://bgp4ssm03oorx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=274360711]
+visible = false
 shape = SubResource("CircleShape2D_erqx0")
 
 [node name="Node2D" type="Node2D" parent="Interactable" unique_id=562012298]
@@ -29,5 +31,10 @@ script = ExtResource("3_2ehh8")
 lock_player = true
 cutscene = ExtResource("4_erqx0")
 metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
+
+[node name="Tracker" type="Node" parent="." unique_id=1387829592]
+script = ExtResource("5_rrv4y")
+unique_name = "stone"
+metadata/_custom_type_script = "uid://bhkymgw54xfkd"
 
 [connection signal="interacted" from="Interactable" to="CutsceneTrigger" method="start_cutscene"]

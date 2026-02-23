@@ -1,11 +1,9 @@
 [gd_scene format=3 uid="uid://cvgmeo84fvgyh"]
 
 [ext_resource type="Script" uid="uid://d23olrs8sfahq" path="res://script/player.gd" id="1_apw8i"]
-[ext_resource type="PackedScene" uid="uid://cr37csya8pvfj" path="res://main_scene/character.tscn" id="1_m66g2"]
+[ext_resource type="PackedScene" uid="uid://cr37csya8pvfj" path="res://main_scene/base_scenes/character.tscn" id="1_m66g2"]
 
 [node name="Character" unique_id=1676178987 instance=ExtResource("1_m66g2")]
-can_turn = true
-can_walk = true
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=326698374]
 autoplay = &"down_idle"
@@ -15,5 +13,4 @@ position = Vector2(0, 4)
 
 [node name="Player" type="Node" parent="." index="3" unique_id=94685682]
 script = ExtResource("1_apw8i")
-walk_speed = 60.0
 metadata/_custom_type_script = "uid://d23olrs8sfahq"

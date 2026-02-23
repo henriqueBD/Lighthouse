@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://script/cutscene_trigger.gd" id="2_l0icy"]
 [ext_resource type="Resource" uid="uid://ygung85xwbdt" path="res://assets/placeholders/preda_filho_fala.tres" id="3_mpddc"]
 [ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="4_du75k"]
+[ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="5_mpddc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eqla6"]
 
@@ -20,13 +21,21 @@ metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 
 [node name="Interactable" type="Area2D" parent="." unique_id=78292996]
 script = ExtResource("4_du75k")
-pop_up_type = 1
+pop_up_type = 2
 metadata/_custom_type_script = "uid://bgp4ssm03oorx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=831391020]
+visible = false
 shape = SubResource("CircleShape2D_eqla6")
 
 [node name="Node2D" type="Node2D" parent="Interactable" unique_id=2017247807]
 position = Vector2(0, -8)
+
+[node name="Tracker" type="Node" parent="." unique_id=493004967 node_paths=PackedStringArray("sources")]
+script = ExtResource("5_mpddc")
+unique_name = "mushroom"
+sources = [NodePath("..")]
+method_name = PackedStringArray("queue_free")
+metadata/_custom_type_script = "uid://bhkymgw54xfkd"
 
 [connection signal="interacted" from="Interactable" to="CutsceneTrigger" method="start_cutscene"]
