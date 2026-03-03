@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://dtup8fe66n30o"]
+
+[ext_resource type="Texture2D" uid="uid://dy3xor2n1vjp" path="res://assets/placeholders/difuse.png" id="1_p8u1f"]
+
+[node name="DialogueBox" type="Control" unique_id=1409851303]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=444665831]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -225.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0, 0, 0.27450982)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect" unique_id=1480743773]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Portrait" type="TextureRect" parent="ColorRect/HBoxContainer" unique_id=1328992279]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("1_p8u1f")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="ColorRect/HBoxContainer" unique_id=1104181122]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Testttttt"

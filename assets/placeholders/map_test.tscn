@@ -1,28 +1,38 @@
 [gd_scene format=3 uid="uid://bf62rybkrxs6s"]
 
 [ext_resource type="PackedScene" uid="uid://cvgmeo84fvgyh" path="res://main_scene/player.tscn" id="1_pkidb"]
+[ext_resource type="Texture2D" uid="uid://bxatjn4sepj5l" path="res://assets/placeholders/Screenshot 2026-02-25 003017.png" id="1_sdybm"]
 [ext_resource type="PackedScene" uid="uid://dapv7eo6g6jxi" path="res://assets/placeholders/talking_stone.tscn" id="2_0pdgp"]
 [ext_resource type="PackedScene" uid="uid://d4cc40qhjh34h" path="res://assets/placeholders/mushroom.tscn" id="3_dsfex"]
-[ext_resource type="Texture2D" uid="uid://cj5vpki1uyv1u" path="res://assets/light/light_texture.png" id="4_saeq4"]
 [ext_resource type="PackedScene" uid="uid://eyq3nn0ftgis" path="res://main_scene/base_scenes/pickable_object.tscn" id="5_xqf8e"]
+[ext_resource type="PackedScene" uid="uid://dqlndycv37j2l" path="res://assets/placeholders/tree.tscn" id="6_sdybm"]
 
 [node name="MapTest" type="Node2D" unique_id=117067816]
 
-[node name="Character" parent="." unique_id=1676178987 instance=ExtResource("1_pkidb")]
-position = Vector2(20, 18)
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=952390972]
+position = Vector2(69, -4)
+texture = ExtResource("1_sdybm")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=702702198]
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1514776886]
+position = Vector2(69, -4)
+color = Color(0.45, 0.48666662, 1, 1)
 
-[node name="TalkingStone" parent="." unique_id=132182893 instance=ExtResource("2_0pdgp")]
+[node name="Objects" type="Node2D" parent="." unique_id=575530911]
+y_sort_enabled = true
+
+[node name="Tree" parent="Objects" unique_id=327538101 instance=ExtResource("6_sdybm")]
+position = Vector2(62, 11)
+
+[node name="TalkingStone" parent="Objects" unique_id=132182893 instance=ExtResource("2_0pdgp")]
 position = Vector2(54, 49)
 
-[node name="Mushroom" parent="." unique_id=38719174 instance=ExtResource("3_dsfex")]
+[node name="Mushroom" parent="Objects" unique_id=38719174 instance=ExtResource("3_dsfex")]
 position = Vector2(-14, 39)
 
-[node name="PointLight2D" type="PointLight2D" parent="." unique_id=659713202]
-position = Vector2(44, 42)
-shadow_enabled = true
-texture = ExtResource("4_saeq4")
-
-[node name="PickableOjbect" parent="." unique_id=830724298 instance=ExtResource("5_xqf8e")]
+[node name="PickableOjbect" parent="Objects" unique_id=830724298 instance=ExtResource("5_xqf8e")]
 position = Vector2(-24, -4)
+
+[node name="Character" parent="Objects" unique_id=1676178987 instance=ExtResource("1_pkidb")]
+position = Vector2(33, -13)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=702702198]

@@ -18,6 +18,7 @@ var _anchor_bottom_center: Node2D
 var _player_inside: bool
 
 func _ready() -> void:
+	collision_mask = 2
 	set_process_unhandled_input(false)
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
@@ -32,6 +33,7 @@ func _ready() -> void:
 			assert(not pop_up_image)
 			pop_up_image = Sprite2D.new()
 			pop_up_image.centered = false
+			pop_up_image.light_mask = 0
 			pop_up_image.hide()
 		
 		match pop_up_type:
@@ -53,7 +55,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if GameManager.is_player_locked(): return
 	
 	if event.is_action_pressed("Interact"):
-		print("Interacted")
+		#print("Interacted")
 		interacted.emit()
 
 func _on_body_entered(_body: Node2D) -> void:

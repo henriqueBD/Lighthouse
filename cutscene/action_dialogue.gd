@@ -1,10 +1,10 @@
-class_name CutsceneActionDialogue
+class_name TextBox
 extends CutsceneAction
 
 # TODO: Implement argument parsing
 # TODO: Implement namespaces function,
-#ex: shake_sceen(3) calls GameManager.call_global_method("", "heal", [50])
-#ex: player.heal(50) calls GameManager.call_global_method("player", "heal", [50])
+#ex: shake_sceen(3) calls GameManager.call_global_method("", "heal", ["50"])
+#ex: player.heal(50) calls GameManager.call_global_method("player", "heal", ["50"])
 
 @export var close_dialogue_box_on_end: bool
 @export_multiline var dialogue: PackedStringArray
@@ -15,14 +15,27 @@ var _count: int = 0
 var _current_char_index: int
 var _call_method_indexes: Dictionary[int, Array]
 
-func execute() -> void:
-	_count = 0
-	GameManager.start_dialogue(self)
-
 static func init_regex() -> RegEx:
 	var regex: RegEx = RegEx.new()
 	regex.compile("\\{(.*?)\\}")
 	return regex
+
+func execute() -> void:
+	_count = 0
+	GameManager.start_dialogue(self)
+
+func next_char() -> void:
+	if _call_method_indexes.has(_current_char_index):
+		for parameters: Array in _call_method_indexes[_current_char_index]:
+			GameManager.call_global_method(parameters[0], parameters[1], parameters[2])
+	_current_char_index += 1
+
+func next_dialogue() -> String:
+	_count += 1
+	if _count > dialogue.size():
+		return ""
+	else:
+		return _parse_text(dialogue[_count - 1])
 
 func _parse_text(text: String) -> String:
 	assert(not text.is_empty(), "Text should have content")
@@ -57,12 +70,11 @@ func _parse_text(text: String) -> String:
 				name_space = parts[0]
 				method_name = parts[1]
 			
-			# Use Godot's built-in parser to convert the string CSV into a typed Array
-			var parsed_args: Array = []
+			var parsed_args: PackedStringArray = []
 			if not args_string.strip_edges().is_empty():
-				var evaluated_array: Variant = str_to_var("[ " + args_string + " ]")
-				if evaluated_array is Array:
-					parsed_args = evaluated_array
+				var raw_args: PackedStringArray = args_string.split(",")
+				for arg: String in raw_args:
+					parsed_args.append(arg.strip_edges())
 			
 			var current_idx: int = final_output.length()
 			if not _call_method_indexes.has(current_idx):
@@ -79,19 +91,6 @@ func _parse_text(text: String) -> String:
 	
 	final_output += text.substr(cursor)
 	return final_output
-
-func next_char() -> void:
-	if _call_method_indexes.has(_current_char_index):
-		for parameters: Array in _call_method_indexes[_current_char_index]:
-			GameManager.call_global_method(parameters[0], parameters[1], parameters[2])
-	_current_char_index += 1
-
-func next_dialogue() -> String:
-	_count += 1
-	if _count > dialogue.size():
-		return ""
-	else:
-		return _parse_text(dialogue[_count - 1])
 
 func _evaluate_function_call(content: String) -> String:
 	return content.trim_suffix("()")

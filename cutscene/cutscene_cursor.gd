@@ -1,37 +1,37 @@
 class_name CutsceneCursor
 extends Object
 
-signal cutscene_ended(reset_cutscene: CutsceneFlow)
+signal cutscene_ended(reset_cutscene: Cutscene)
 
-var _current: CutsceneFlow
-var _previous: CutsceneFlow
+var _count: int
+var _cutscene: Cutscene
+var _current_action: CutsceneAction
 
-func start(start_point: CutsceneFlow) -> void:
-	_current = start_point
-	_current.cursor_arrived()
-	_try_advance()
+func start_cutscene(start: Cutscene) -> void:
+	_count = -1
+	_cutscene = start
+	_advance()
 	_execute()
 
 func _execute() -> void:
-	var action_ended: Signal = _current.get_action_finish_signal()
-	action_ended.connect(_on_action_ended, CONNECT_ONE_SHOT)
-	_current.execute_action()
+	_current_action.action_ended.connect(_on_action_ended, CONNECT_ONE_SHOT)
+	_current_action.execute()
 
-func _try_advance() -> void:
-	while _current.should_advance():
-		_previous = _current
-		_current = _current.get_next()
-		if not _current: break
-		_current.cursor_arrived()
+func _advance() -> void:
+	_count += 1
+	if _count >= _cutscene.actions.size():
+		_current_action = null
+	else:
+		_current_action = _cutscene.actions[_count]
+		if _current_action is GotoBool:
+			var evaluated: Cutscene = _current_action.evaluate()
+			if evaluated: start_cutscene.call_deferred(evaluated)
 
 func _on_action_ended() -> void:
-	_try_advance()
+	_advance()
 	
-	if not _current:
-		if _previous is CutsceneFlowSetReset:
-			cutscene_ended.emit(_previous.reset_value)
-		else:
-			cutscene_ended.emit(null)
+	if not _current_action:
+		cutscene_ended.emit(null)
 		return
 	
-	_execute()
+	_execute.call_deferred()

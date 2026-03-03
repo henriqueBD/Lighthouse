@@ -23,7 +23,7 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	GameManager.unregister_unique_entity(unique_name)
 
-func call_method(to_call: String, arguments: Array) -> void:
+func call_method(to_call: String, arguments: PackedStringArray) -> void:
 	assert(arguments.is_empty(), "not implemented yet")
 	if _actions.has(to_call):
 		var tmp: Callable = _actions[to_call]

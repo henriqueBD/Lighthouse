@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dqlndycv37j2l"]
+
+[ext_resource type="Texture2D" uid="uid://bddswoc6hlxyq" path="res://assets/placeholders/albedo_tree.png" id="1_fnlja"]
+[ext_resource type="Texture2D" uid="uid://dwrkb0xkr7a0c" path="res://assets/placeholders/normal_tree.png" id="2_yxwi4"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_fnlja"]
+diffuse_texture = ExtResource("1_fnlja")
+normal_texture = ExtResource("2_yxwi4")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fnlja"]
+radius = 6.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_yxwi4"]
+polygon = PackedVector2Array(-4, -5, -2, 0, 4, 1, 5, -4)
+
+[node name="Tree" type="Node2D" unique_id=1834443342]
+light_mask = 2
+
+[node name="Node2D" type="Sprite2D" parent="." unique_id=892834310]
+light_mask = 2
+position = Vector2(0, -33)
+texture = SubResource("CanvasTexture_fnlja")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=471981246]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=51770650]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_fnlja")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=1333465793]
+occluder = SubResource("OccluderPolygon2D_yxwi4")

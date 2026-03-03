@@ -283,7 +283,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_apw8i"]
-size = Vector2(12, 22)
+size = Vector2(12, 6.5)
 
 [node name="Character" type="CharacterBody2D" unique_id=1676178987]
 script = ExtResource("1_j02d8")
@@ -298,5 +298,5 @@ frame = 9
 libraries/ = SubResource("AnimationLibrary_apw8i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2114423630]
-position = Vector2(0, 4.5)
+position = Vector2(0, 12.25)
 shape = SubResource("RectangleShape2D_apw8i")
