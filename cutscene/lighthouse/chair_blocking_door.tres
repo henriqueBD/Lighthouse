@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Cutscene" format=3 uid="uid://dcwm7u0jd6yw5"]
+
+[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/action_base.gd" id="1_kr8i5"]
+[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/action_dialogue.gd" id="2_5dtoo"]
+[ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/cutscene.gd" id="2_g3o31"]
+
+[sub_resource type="Resource" id="Resource_7ssgb"]
+script = ExtResource("2_5dtoo")
+close_dialogue_box_on_end = true
+dialogue = PackedStringArray("So that was blocking the door outside.", "Did Pete do that?")
+metadata/_custom_type_script = "uid://c5daiygjvie4n"
+
+[resource]
+script = ExtResource("2_g3o31")
+actions = Array[ExtResource("1_kr8i5")]([SubResource("Resource_7ssgb")])
+metadata/_custom_type_script = "uid://c43wcx0hfq43l"

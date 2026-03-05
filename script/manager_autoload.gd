@@ -7,14 +7,19 @@ enum global_variables_bool{
 	TEST
 }
 
-var _is_playing_dialogue: bool
+signal room_changed(spawn_location: String)
 
+var _player: Player
+var _player_parent: Character
 var _main_node: ManagerMainNode
+var _is_playing_dialogue: bool
 
 #dialogue related
 var _current_dialogue: TextBox
 var _can_advance_dialogue: bool
 var _next_char_countdown: float
+
+var _spawn_points_on_current_room: Dictionary[String, Transition] = {}
 
 #global varibles
 var _unique_entities_map: Dictionary[String, Tracker]
@@ -37,6 +42,12 @@ func _ready() -> void:
 func set_main_node(node_to_add: ManagerMainNode) -> void:
 	assert(not _main_node, "main node set twice")
 	_main_node = node_to_add
+
+func set_player(player: Player) -> void:
+	assert(not _player, "two players on scene")
+	_player = player
+	_player_parent = _player.get_parent()
+	assert(_player_parent)
 
 func get_string_var(key: String) -> String:
 	return _global_variables_string_map.get(key, "")
@@ -73,6 +84,16 @@ func call_global_method(name_space: String, method_name: String, arguments: Pack
 func register_unique_entity(unique_name: String, node: Node) -> void:
 	assert(not _unique_entities_map.has(unique_name), "Name " + unique_name + "is not unique")
 	_unique_entities_map[unique_name] = node
+
+func register_spawn_point(point: Transition) -> void:
+	assert(not _spawn_points_on_current_room.has(point.transition_name), 
+	"Two transitions with the same name " + point.transition_name)
+	
+	_spawn_points_on_current_room[point.transition_name] = point
+
+func get_spawn_point(point_name: String) -> Transition:
+	assert(_spawn_points_on_current_room.has(point_name), "No spawn with name: " + point_name)
+	return _spawn_points_on_current_room[point_name]
 
 func unregister_unique_entity(unique_name: String) -> void:
 	assert(_unique_entities_map.has(unique_name), "No active entity with name: " + unique_name)
@@ -145,6 +166,11 @@ func _process(delta: float) -> void:
 			_can_advance_dialogue = true
 
 #endregion
+
+func change_scene(new_scene: PackedScene, spawn_name: String) -> void:
+	_spawn_points_on_current_room.clear()
+	_player_parent.global_position = Vector2.ZERO
+	_main_node.change_scene(new_scene, spawn_name, _player_parent)
 
 func is_player_locked() -> bool:
 	return _is_playing_dialogue

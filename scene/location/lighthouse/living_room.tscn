@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://kb7byravxoof"]
+
+[ext_resource type="Texture2D" uid="uid://bgx0s4ucm3w3" path="res://assets/place/lighthouse/room_floor.png" id="1_dgaau"]
+[ext_resource type="Texture2D" uid="uid://cp38vwrs6ih0j" path="res://assets/place/lighthouse/roomNormal.png" id="2_m50gm"]
+[ext_resource type="Texture2D" uid="uid://bpjjfdjy3v48a" path="res://assets/place/lighthouse/room_walls.png" id="2_qyrgb"]
+[ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="3_7fqpu"]
+[ext_resource type="Texture2D" uid="uid://b55lxfbd71k7k" path="res://assets/furniture/chair.png" id="4_x0hpa"]
+[ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="5_b6s8w"]
+[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/cutscene_trigger.gd" id="6_x0hpa"]
+[ext_resource type="Resource" uid="uid://d3xh44u7o525r" path="res://cutscene/lighthouse/map_on_kitchen_table.tres" id="7_8uvcd"]
+[ext_resource type="Resource" uid="uid://dcwm7u0jd6yw5" path="res://cutscene/lighthouse/chair_blocking_door.tres" id="7_vis30"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_b6s8w"]
+diffuse_texture = ExtResource("2_qyrgb")
+normal_texture = ExtResource("2_m50gm")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8uvcd"]
+size = Vector2(16, 22)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_shjv7"]
+radius = 14.035668
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m50gm"]
+size = Vector2(16, 28)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_i1dq0"]
+closed = false
+polygon = PackedVector2Array(15, 214, 15, 199, 150, 199, 150, 96, 27, 96, 27, 15, 44, 15)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7fqpu"]
+closed = false
+polygon = PackedVector2Array(-150, 59, -150, 26, -43, 26, -43, 71, -109, 71, -109, 97, -26, 97, -26, -39, -89, -39, -89, -55, -29, -55, -29, -163, 151, -163, 151, -110, 27, -110, 27, -9, 44, -9)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_m50gm"]
+closed = false
+polygon = PackedVector2Array(-9, 215, -9, 199, -150, 199, -150, 160)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_x0hpa"]
+closed = false
+polygon = PackedVector2Array(-150, 127, -150, 90)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_dgaau"]
+polygon = PackedVector2Array(47, 108, 49, 110, 56, 110, 58, 108, 58, 104, 56, 102, 49, 102, 47, 104)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qyrgb"]
+polygon = PackedVector2Array(-53, 171, -53, 169, -50, 169, -50, 171)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_b6s8w"]
+polygon = PackedVector2Array(-54, 141, -54, 143, -51, 143, -51, 141)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vis30"]
+
+[node name="LivingRoom" type="Node2D" unique_id=1060505341]
+
+[node name="Floor" type="Sprite2D" parent="." unique_id=984682791]
+visibility_layer = 3
+texture = ExtResource("1_dgaau")
+
+[node name="Walls" type="Sprite2D" parent="." unique_id=249294264]
+light_mask = 2
+texture = SubResource("CanvasTexture_b6s8w")
+
+[node name="Entities" type="Node2D" parent="." unique_id=220282718]
+unique_name_in_owner = true
+y_sort_enabled = true
+
+[node name="Chair" type="Sprite2D" parent="Entities" unique_id=433094377]
+position = Vector2(5, 187)
+texture = ExtResource("4_x0hpa")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Entities/Chair" unique_id=646927030]
+position = Vector2(-2, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chair/StaticBody2D" unique_id=1327434999]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_8uvcd")
+
+[node name="Interactable" type="Area2D" parent="Entities/Chair" unique_id=1047763280]
+script = ExtResource("5_b6s8w")
+pop_up_type = 2
+metadata/_custom_type_script = "uid://bgp4ssm03oorx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chair/Interactable" unique_id=1188438728]
+shape = SubResource("CircleShape2D_shjv7")
+
+[node name="Node2D" type="Node2D" parent="Entities/Chair/Interactable" unique_id=330964273]
+position = Vector2(0, -16)
+
+[node name="CutsceneTrigger" type="Node" parent="Entities/Chair/Interactable" unique_id=1997613198]
+script = ExtResource("6_x0hpa")
+cutscene = ExtResource("7_vis30")
+metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
+
+[node name="Transition" type="Area2D" parent="." unique_id=734764994]
+position = Vector2(38, 4)
+script = ExtResource("3_7fqpu")
+destination_path = "uid://b5lwc6r8gihdf"
+transition_name = "test"
+metadata/_custom_type_script = "uid://csoqjsxgxwixr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transition" unique_id=550245779]
+position = Vector2(2, -2)
+shape = SubResource("RectangleShape2D_m50gm")
+
+[node name="Node2D" type="Node2D" parent="Transition" unique_id=451083292]
+position = Vector2(-16, -1)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1341103966]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2" unique_id=1507528885]
+polygon = PackedVector2Array(15, 215, 15, 199, 150, 199, 150, 96, 27, 96, 27, 14, 53, 14, 196, 45, 157, 212)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D2" unique_id=1169453899]
+polygon = PackedVector2Array(53, 14, 53, -9, 27, -9, 27, -110, 151, -110, 151, -163, 176, -103)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D2" unique_id=993249683]
+polygon = PackedVector2Array(151, -163, -29, -163, -29, -55, -49, -55, -49, -77, -75, -77, -75, -55, -89, -55, -71, -240)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="StaticBody2D2" unique_id=1187065625]
+polygon = PackedVector2Array(-109, 97, -109, 83, -43, 83, -43, 26, -150, 26, -150, -39, -26, -39, -26, 97)
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="StaticBody2D2" unique_id=2045504573]
+polygon = PackedVector2Array(-9, 215, -9, 199, -150, 199, -150, 26, -163, 212)
+
+[node name="OccludersFloor" type="Node" parent="." unique_id=950038710]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="OccludersFloor" unique_id=199027774]
+occluder = SubResource("OccluderPolygon2D_i1dq0")
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="OccludersFloor" unique_id=1122372774]
+occluder = SubResource("OccluderPolygon2D_7fqpu")
+
+[node name="LightOccluder2D3" type="LightOccluder2D" parent="OccludersFloor" unique_id=1045008562]
+occluder = SubResource("OccluderPolygon2D_m50gm")
+
+[node name="LightOccluder2D4" type="LightOccluder2D" parent="OccludersFloor" unique_id=1491501091]
+occluder = SubResource("OccluderPolygon2D_x0hpa")
+
+[node name="OccludersObjects" type="Node" parent="." unique_id=1270130737]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="OccludersObjects" unique_id=1057123220]
+occluder = SubResource("OccluderPolygon2D_dgaau")
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="OccludersObjects" unique_id=1917307743]
+occluder = SubResource("OccluderPolygon2D_qyrgb")
+
+[node name="LightOccluder2D3" type="LightOccluder2D" parent="OccludersObjects" unique_id=1471129668]
+occluder = SubResource("OccluderPolygon2D_b6s8w")
+
+[node name="Map" type="Area2D" parent="." unique_id=62021052]
+position = Vector2(-103, 25)
+script = ExtResource("5_b6s8w")
+pop_up_type = 2
+metadata/_custom_type_script = "uid://bgp4ssm03oorx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map" unique_id=1203863576]
+shape = SubResource("CircleShape2D_vis30")
+
+[node name="Node2D" type="Node2D" parent="Map" unique_id=1519602618]
+position = Vector2(0, -24)
+
+[node name="CutsceneTrigger" type="Node" parent="Map" unique_id=1768290238]
+script = ExtResource("6_x0hpa")
+lock_player = true
+cutscene = ExtResource("7_8uvcd")
+metadata/_custom_type_script = "uid://b8wvlfgcbauo7"

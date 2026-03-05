@@ -18,7 +18,7 @@ var _anchor_bottom_center: Node2D
 var _player_inside: bool
 
 func _ready() -> void:
-	collision_mask = 2
+	collision_mask = 2 ##TODO: MAKE THIS GLOBAL
 	set_process_unhandled_input(false)
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
@@ -32,9 +32,11 @@ func _ready() -> void:
 		if pop_up_type != pop_up_texture.CUSTOM:
 			assert(not pop_up_image)
 			pop_up_image = Sprite2D.new()
-			pop_up_image.centered = false
-			pop_up_image.light_mask = 0
-			pop_up_image.hide()
+		
+		pop_up_image.centered = false
+		pop_up_image.light_mask = 0
+		pop_up_image.hide()
+		pop_up_image.z_index = 5 ##TODO: MAKE THIS GLOBAL
 		
 		match pop_up_type:
 			pop_up_texture.CUSTOM:

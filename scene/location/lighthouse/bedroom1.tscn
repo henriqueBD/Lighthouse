@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://b5lwc6r8gihdf"]
+
+[ext_resource type="Texture2D" uid="uid://cfhq2a3v3wtxh" path="res://assets/place/lighthouse/room1_floor.png" id="1_31u5o"]
+[ext_resource type="Texture2D" uid="uid://bdmx3ar1achup" path="res://assets/place/lighthouse/room1_walls.png" id="2_2sxn8"]
+[ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="2_gie3k"]
+[ext_resource type="Texture2D" uid="uid://cvjjtqchptu6b" path="res://assets/place/lighthouse/room1_normals.png" id="3_cdqvu"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ishbb"]
+diffuse_texture = ExtResource("2_2sxn8")
+normal_texture = ExtResource("3_cdqvu")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b0165"]
+size = Vector2(20, 30)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gie3k"]
+closed = false
+polygon = PackedVector2Array(-71, 46, -59, 46, -59, -33, 66, -33, 66, 21)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_b0165"]
+closed = false
+polygon = PackedVector2Array(66, 54, 66, 82, -59, 82, -59, 74, -72, 74)
+
+[node name="Bedroom1" type="Node2D" unique_id=357618366]
+
+[node name="Floor" type="Sprite2D" parent="." unique_id=730249022]
+texture = ExtResource("1_31u5o")
+
+[node name="Walls" type="Sprite2D" parent="." unique_id=180253892]
+light_mask = 2
+texture = SubResource("CanvasTexture_ishbb")
+
+[node name="Transition" type="Area2D" parent="." unique_id=1000044582]
+position = Vector2(-66, 61)
+script = ExtResource("2_gie3k")
+destination_path = "uid://kb7byravxoof"
+transition_name = "test"
+metadata/_custom_type_script = "uid://csoqjsxgxwixr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transition" unique_id=409842770]
+position = Vector2(-12, -1)
+shape = SubResource("RectangleShape2D_b0165")
+
+[node name="Node2D" type="Node2D" parent="Transition" unique_id=1425680375]
+position = Vector2(5, 0)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=1799751081]
+occluder = SubResource("OccluderPolygon2D_gie3k")
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="." unique_id=1502469611]
+occluder = SubResource("OccluderPolygon2D_b0165")

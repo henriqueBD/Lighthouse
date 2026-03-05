@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://cvgmeo84fvgyh"]
 
 [ext_resource type="Script" uid="uid://d23olrs8sfahq" path="res://script/player.gd" id="1_apw8i"]
-[ext_resource type="PackedScene" uid="uid://cr37csya8pvfj" path="res://main_scene/base_scenes/character.tscn" id="1_m66g2"]
+[ext_resource type="PackedScene" uid="uid://cr37csya8pvfj" path="res://scene/base_scenes/character.tscn" id="1_m66g2"]
 [ext_resource type="Texture2D" uid="uid://cj5vpki1uyv1u" path="res://assets/light/light_texture.png" id="3_ujf4b"]
 
 [node name="Character" unique_id=1676178987 instance=ExtResource("1_m66g2")]
+z_index = 1
 collision_layer = 2
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=326698374]
@@ -17,13 +18,16 @@ position = Vector2(0, 13)
 unique_name_in_owner = true
 light_mask = 3
 position = Vector2(0, 13)
-color = Color(0.94, 0.8146667, 0, 1)
-energy = 5.0
+color = Color(0.94, 0.517, 0, 1)
+energy = 4.0
 range_item_cull_mask = 3
 shadow_enabled = true
+shadow_filter = 2
 texture = ExtResource("3_ujf4b")
 texture_scale = 2.0
 
 [node name="Player" type="Node" parent="." index="4" unique_id=94685682]
 script = ExtResource("1_apw8i")
 metadata/_custom_type_script = "uid://d23olrs8sfahq"
+
+[node name="Camera2D" type="Camera2D" parent="." index="5" unique_id=541293806]

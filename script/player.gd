@@ -11,6 +11,7 @@ func _ready() -> void:
 	_controller = $".."
 	_light = %Light
 	_light.enabled = false
+	GameManager.set_player(self)
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Toggle_lantern"): _toggle_lantern()

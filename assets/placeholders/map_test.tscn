@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://bf62rybkrxs6s"]
 
-[ext_resource type="PackedScene" uid="uid://cvgmeo84fvgyh" path="res://main_scene/player.tscn" id="1_pkidb"]
+[ext_resource type="PackedScene" uid="uid://cvgmeo84fvgyh" path="res://scene/player.tscn" id="1_pkidb"]
 [ext_resource type="Texture2D" uid="uid://bxatjn4sepj5l" path="res://assets/placeholders/Screenshot 2026-02-25 003017.png" id="1_sdybm"]
 [ext_resource type="PackedScene" uid="uid://dapv7eo6g6jxi" path="res://assets/placeholders/talking_stone.tscn" id="2_0pdgp"]
 [ext_resource type="PackedScene" uid="uid://d4cc40qhjh34h" path="res://assets/placeholders/mushroom.tscn" id="3_dsfex"]
-[ext_resource type="PackedScene" uid="uid://eyq3nn0ftgis" path="res://main_scene/base_scenes/pickable_object.tscn" id="5_xqf8e"]
+[ext_resource type="PackedScene" uid="uid://eyq3nn0ftgis" path="res://scene/base_scenes/pickable_object.tscn" id="5_xqf8e"]
 [ext_resource type="PackedScene" uid="uid://dqlndycv37j2l" path="res://assets/placeholders/tree.tscn" id="6_sdybm"]
 
 [node name="MapTest" type="Node2D" unique_id=117067816]
@@ -34,5 +34,3 @@ position = Vector2(-24, -4)
 
 [node name="Character" parent="Objects" unique_id=1676178987 instance=ExtResource("1_pkidb")]
 position = Vector2(33, -13)
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=702702198]
