@@ -8,16 +8,19 @@
 z_index = 1
 collision_layer = 2
 
+[node name="Sprite2D" parent="." index="0" unique_id=168343517]
+position = Vector2(0, -16)
+
 [node name="AnimationPlayer" parent="." index="1" unique_id=326698374]
 autoplay = &"down_idle"
 
 [node name="CollisionShape2D" parent="." index="2" unique_id=2114423630]
-position = Vector2(0, 13)
+position = Vector2(0, -3)
 
 [node name="Light" type="PointLight2D" parent="." index="3" unique_id=285483819]
 unique_name_in_owner = true
 light_mask = 3
-position = Vector2(0, 13)
+position = Vector2(0, -3)
 color = Color(0.94, 0.517, 0, 1)
 energy = 4.0
 range_item_cull_mask = 3
@@ -25,9 +28,11 @@ shadow_enabled = true
 shadow_filter = 2
 texture = ExtResource("3_ujf4b")
 texture_scale = 2.0
+height = 10.0
 
 [node name="Player" type="Node" parent="." index="4" unique_id=94685682]
 script = ExtResource("1_apw8i")
 metadata/_custom_type_script = "uid://d23olrs8sfahq"
 
 [node name="Camera2D" type="Camera2D" parent="." index="5" unique_id=541293806]
+position = Vector2(0, -16)

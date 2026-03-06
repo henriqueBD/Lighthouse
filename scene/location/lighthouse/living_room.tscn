@@ -9,6 +9,9 @@
 [ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/cutscene_trigger.gd" id="6_x0hpa"]
 [ext_resource type="Resource" uid="uid://d3xh44u7o525r" path="res://cutscene/lighthouse/map_on_kitchen_table.tres" id="7_8uvcd"]
 [ext_resource type="Resource" uid="uid://dcwm7u0jd6yw5" path="res://cutscene/lighthouse/chair_blocking_door.tres" id="7_vis30"]
+[ext_resource type="Texture2D" uid="uid://bo868i81pkqu1" path="res://assets/furniture/door.png" id="9_vis30"]
+[ext_resource type="Material" uid="uid://cygf3us2dwcbw" path="res://hidden_material.tres" id="11_onacj"]
+[ext_resource type="Texture2D" uid="uid://bruqfk8f3du42" path="res://icon.svg" id="12_w1vs7"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_b6s8w"]
 diffuse_texture = ExtResource("2_qyrgb")
@@ -22,6 +25,9 @@ radius = 14.035668
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m50gm"]
 size = Vector2(16, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shjv7"]
+size = Vector2(26, 8)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_i1dq0"]
 closed = false
@@ -105,6 +111,24 @@ shape = SubResource("RectangleShape2D_m50gm")
 [node name="Node2D" type="Node2D" parent="Transition" unique_id=451083292]
 position = Vector2(-16, -1)
 
+[node name="Transition2" type="Area2D" parent="." unique_id=2059519623]
+position = Vector2(-62, -57)
+script = ExtResource("3_7fqpu")
+destination_path = "uid://dle6tyljj31cl"
+transition_name = "lantern_room"
+metadata/_custom_type_script = "uid://csoqjsxgxwixr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transition2" unique_id=1370316399]
+shape = SubResource("RectangleShape2D_shjv7")
+
+[node name="Node2D" type="Node2D" parent="Transition2" unique_id=1276302689]
+position = Vector2(0, 14)
+
+[node name="Sprite2D" type="Sprite2D" parent="Transition2" unique_id=276370879]
+position = Vector2(0, -17)
+texture = ExtResource("9_vis30")
+hframes = 2
+
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1341103966]
 visible = false
 
@@ -165,3 +189,10 @@ script = ExtResource("6_x0hpa")
 lock_player = true
 cutscene = ExtResource("7_8uvcd")
 metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=587408007]
+light_mask = 3
+material = ExtResource("11_onacj")
+position = Vector2(13, 103)
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("12_w1vs7")

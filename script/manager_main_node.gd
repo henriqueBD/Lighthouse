@@ -3,7 +3,9 @@ extends Node2D
 
 const DIALOGUE_BOX_INFO: PackedScene = preload("res://scene/dialogue_box.tscn")
 const DIALOGUE_BOX_CHAR: PackedScene = preload("res://scene/dialogue_box_char.tscn")
+const SCREEN_TRANSITION: PackedScene = preload("res://scene/screen_transition.tscn")
 
+var _screen_transition: ScreenTransition
 var _canvas_layer: CanvasLayer
 var _info_instance: Control
 var _char_instance: Control
@@ -37,6 +39,12 @@ func _ready() -> void:
 	assert(_active_dialogue_portrait)
 	
 	assert(_info_instance and _char_instance)
+	
+	#Screen transition
+	_screen_transition = SCREEN_TRANSITION.instantiate()
+	assert(_screen_transition)
+	_screen_transition.hide()
+	add_child(_screen_transition)
 
 #region Dialogue
 
@@ -74,18 +82,26 @@ func change_dialogue_portrait(new_portrait: Texture2D) -> void:
 #endregion
 
 func change_scene(new_scene: PackedScene, spawn_name: String, player: Node) -> void:
-	player.owner = null
+	_screen_transition.show()
+	
+	await _screen_transition.fade_out()
+	
+	player.reparent(self)
 	_curr_map.queue_free()
 	_change_scene_deffered.call_deferred(new_scene, spawn_name, player)
 
 func _change_scene_deffered(new_scene: PackedScene, spawn_location: String, player: Node) -> void:
 	_curr_map = new_scene.instantiate()
 	_game_subviewport.add_child(_curr_map)
+	
 	var objects_node: Node2D = _curr_map.get_node_or_null("%Entities")
 	if objects_node:
 		player.reparent(objects_node)
 	else:
 		player.reparent(_curr_map)
+		
 	var player_spawn: Transition = GameManager.get_spawn_point(spawn_location)
 	assert(player_spawn)
 	GameManager._player_parent.global_position = player_spawn.spawn_point.global_position
+	
+	_screen_transition.fade_in().connect(_screen_transition.hide, CONNECT_ONE_SHOT)

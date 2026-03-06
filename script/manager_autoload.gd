@@ -7,6 +7,7 @@ enum global_variables_bool{
 	TEST
 }
 
+signal interact_pressed
 signal room_changed(spawn_location: String)
 
 var _player: Player
@@ -152,10 +153,6 @@ func end_dialogue() -> void:
 	
 	_current_dialogue.action_ended.emit()
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("Interact") and _can_advance_dialogue:
-		_continue_dialogue()
-
 func _process(delta: float) -> void:
 	_next_char_countdown -= delta
 	
@@ -167,9 +164,16 @@ func _process(delta: float) -> void:
 
 #endregion
 
+func toggle_listen_input(value: bool) -> void:
+	set_process_unhandled_input(value)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("Interact") and _can_advance_dialogue:
+		interact_pressed.emit()
+		_continue_dialogue()
+
 func change_scene(new_scene: PackedScene, spawn_name: String) -> void:
 	_spawn_points_on_current_room.clear()
-	_player_parent.global_position = Vector2.ZERO
 	_main_node.change_scene(new_scene, spawn_name, _player_parent)
 
 func is_player_locked() -> bool:

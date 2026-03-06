@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Cutscene" format=3 uid="uid://birypmifjp3ou"]
+
+[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/action_base.gd" id="1_rwykv"]
+[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/action_dialogue.gd" id="2_enb0f"]
+[ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/cutscene.gd" id="2_m7k0d"]
+
+[sub_resource type="Resource" id="Resource_t7r0g"]
+script = ExtResource("2_enb0f")
+close_dialogue_box_on_end = true
+dialogue = PackedStringArray("There is a chest here.", "It\'s locked.")
+metadata/_custom_type_script = "uid://c5daiygjvie4n"
+
+[resource]
+script = ExtResource("2_m7k0d")
+actions = Array[ExtResource("1_rwykv")]([SubResource("Resource_t7r0g")])
+metadata/_custom_type_script = "uid://c43wcx0hfq43l"

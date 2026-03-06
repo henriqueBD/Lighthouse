@@ -1,0 +1,108 @@
+[gd_scene format=3 uid="uid://dle6tyljj31cl"]
+
+[ext_resource type="Texture2D" uid="uid://dvt1tf12p10t7" path="res://assets/place/lighthouse/room2_floor.png" id="1_f6hxj"]
+[ext_resource type="Texture2D" uid="uid://dywttlajucbgr" path="res://assets/place/lighthouse/room2_walls.png" id="2_sqonx"]
+[ext_resource type="Texture2D" uid="uid://5ghbp63i063l" path="res://assets/furniture/chest.png" id="3_20ndq"]
+[ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="4_3r633"]
+[ext_resource type="Texture2D" uid="uid://jrj2xx2v7tb4" path="res://assets/furniture/chest_normal.png" id="4_20ndq"]
+[ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="5_34dd0"]
+[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/cutscene_trigger.gd" id="6_30tur"]
+[ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="7_psgul"]
+[ext_resource type="Resource" uid="uid://birypmifjp3ou" path="res://cutscene/lighthouse/chest_with_lantern.tres" id="7_sqonx"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_3r633"]
+diffuse_texture = ExtResource("3_20ndq")
+normal_texture = ExtResource("4_20ndq")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7f3sy"]
+size = Vector2(22, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sqonx"]
+size = Vector2(25, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_omk02"]
+size = Vector2(34, 9)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_20ndq"]
+closed = false
+cull_mode = 2
+polygon = PackedVector2Array(24, 88, 24, 77, -62, 77, -62, 10)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_3r633"]
+closed = false
+polygon = PackedVector2Array(-62, -18, -62, -39, 63, -39, 63, 77, 52, 77, 52, 89)
+
+[node name="Bedroom2" type="Node2D" unique_id=201229335]
+
+[node name="Floor" type="Sprite2D" parent="." unique_id=547638183]
+texture = ExtResource("1_f6hxj")
+
+[node name="Walls" type="Sprite2D" parent="." unique_id=1859911890]
+light_mask = 2
+texture = ExtResource("2_sqonx")
+
+[node name="Entities" type="Node2D" parent="." unique_id=1227164077]
+unique_name_in_owner = true
+y_sort_enabled = true
+
+[node name="Chest" type="Sprite2D" parent="Entities" unique_id=127826598]
+position = Vector2(26, -54)
+texture = SubResource("CanvasTexture_3r633")
+centered = false
+hframes = 3
+
+[node name="Tracker" type="Node" parent="Entities/Chest" unique_id=1550554042]
+script = ExtResource("4_3r633")
+unique_name = "chest"
+metadata/_custom_type_script = "uid://bhkymgw54xfkd"
+
+[node name="Interactable" type="Area2D" parent="Entities/Chest" unique_id=294728355]
+position = Vector2(12, 30)
+script = ExtResource("5_34dd0")
+pop_up_type = 2
+metadata/_custom_type_script = "uid://bgp4ssm03oorx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chest/Interactable" unique_id=1255281982]
+shape = SubResource("RectangleShape2D_7f3sy")
+
+[node name="Node2D" type="Node2D" parent="Entities/Chest/Interactable" unique_id=1070430461]
+position = Vector2(0, -22)
+
+[node name="CutsceneTrigger" type="Node" parent="Entities/Chest/Interactable" unique_id=587233080]
+script = ExtResource("6_30tur")
+cutscene = ExtResource("7_sqonx")
+metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Entities/Chest" unique_id=207077760]
+position = Vector2(10, 17)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chest/StaticBody2D" unique_id=1999731311]
+position = Vector2(2.5, 3.5)
+shape = SubResource("RectangleShape2D_sqonx")
+
+[node name="Transition" type="Area2D" parent="." unique_id=911525109]
+position = Vector2(38, 88)
+script = ExtResource("7_psgul")
+destination_path = "uid://kb7byravxoof"
+transition_name = "lantern_room"
+metadata/_custom_type_script = "uid://csoqjsxgxwixr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transition" unique_id=165771330]
+shape = SubResource("RectangleShape2D_omk02")
+
+[node name="Node2D" type="Node2D" parent="Transition" unique_id=398351300]
+position = Vector2(0, -13)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1442450821]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1969368350]
+polygon = PackedVector2Array(24, 88, 24, 77, -62, 77, -62, -38, -82, 87)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=2128640123]
+polygon = PackedVector2Array(-62, -37, 63, -37, 62, 77, 52, 77, 52, 89, 74, 88, 71, -48)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=824813611]
+occluder = SubResource("OccluderPolygon2D_20ndq")
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="." unique_id=505482824]
+occluder = SubResource("OccluderPolygon2D_3r633")
