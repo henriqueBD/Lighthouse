@@ -20,10 +20,9 @@ func _ready() -> void:
 	_sun_light = $DirectionalLight2D
 	assert(_sun_light)
 	assert(_sun_light.global_rotation == 0)
-	set_physics_process(false)
+	#set_physics_process(false)
 	_update_ambient_light()
 	_update_sun()
-
 
 func _physics_process(delta: float) -> void:
 	# Progress time

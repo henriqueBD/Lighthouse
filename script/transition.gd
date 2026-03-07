@@ -20,7 +20,7 @@ func _ready() -> void:
 		if child is Sprite2D: _animated_sprite = child
 	
 	body_entered.connect(_player_entered, CONNECT_ONE_SHOT)
-	assert(spawn_point)
+	assert(spawn_point, "no spawn point for transition: " + transition_name)
 	assert(not destination_path.is_empty(), "No destination path set for transition: " + transition_name)
 	assert(ResourceLoader.exists(destination_path), destination_path + " does not exist for transition: " + transition_name)
 

@@ -13,9 +13,13 @@ const DIALOGUE_ICON: Texture2D = preload("res://assets/icon/dialogue_icon.png")
 
 @export var pop_up_type: pop_up_texture
 @export var pop_up_image: Sprite2D
+@export var active: bool = true
 
 var _anchor_bottom_center: Node2D
 var _player_inside: bool
+
+func set_enable(value: PackedStringArray) -> void:
+	active = value[0].to_lower() == "true"
 
 func _ready() -> void:
 	collision_mask = 2 ##TODO: MAKE THIS GLOBAL
@@ -61,6 +65,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		interacted.emit()
 
 func _on_body_entered(_body: Node2D) -> void:
+	if not active: return
+	
 	if pop_up_type != pop_up_texture.INVISIBLE:
 		pop_up_image.global_position = _anchor_bottom_center.global_position
 		pop_up_image.show()

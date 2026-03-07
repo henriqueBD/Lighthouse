@@ -1,12 +1,13 @@
 class_name ManagerMainNode
 extends Node2D
 
-const DIALOGUE_BOX_INFO: PackedScene = preload("res://scene/dialogue_box.tscn")
-const DIALOGUE_BOX_CHAR: PackedScene = preload("res://scene/dialogue_box_char.tscn")
-const SCREEN_TRANSITION: PackedScene = preload("res://scene/screen_transition.tscn")
+const DIALOGUE_BOX_INFO: PackedScene = preload("res://scene/important/dialogue_box.tscn")
+const DIALOGUE_BOX_CHAR: PackedScene = preload("res://scene/important/dialogue_box_char.tscn")
+const SCREEN_TRANSITION: PackedScene = preload("res://scene/important/screen_transition.tscn")
 
 var _screen_transition: ScreenTransition
 var _canvas_layer: CanvasLayer
+var _canvas_layer_subviewport: CanvasLayer
 var _info_instance: Control
 var _char_instance: Control
 var _active_dialogue_box: Control
@@ -24,6 +25,8 @@ func _ready() -> void:
 	assert(_canvas_layer)
 	_game_subviewport = %SubViewport
 	assert(_game_subviewport)
+	_canvas_layer_subviewport = %CanvasLayerSubviewport
+	assert(_canvas_layer_subviewport)
 	_curr_map = _game_subviewport.get_child(0)
 	assert(_curr_map)
 	
@@ -80,6 +83,9 @@ func change_dialogue_portrait(new_portrait: Texture2D) -> void:
 	_active_dialogue_portrait.texture = new_portrait
 
 #endregion
+
+func add_node_subviewport(to_add: Node) -> void:
+	_canvas_layer_subviewport.add_child(to_add)
 
 func change_scene(new_scene: PackedScene, spawn_name: String, player: Node) -> void:
 	_screen_transition.show()

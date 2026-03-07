@@ -3,29 +3,27 @@ extends Node
 const DIALOGUE_SPEED_PER_CHAR: float = 0.1
 
 enum global_variables_bool{
-	STONE_SON_PICKED,
-	TEST
+	NULL,
+	SAW_MAP_ON_LIGHTHOUSE_LIVING_ROOM
 }
 
 signal interact_pressed
-signal room_changed(spawn_location: String)
 
+var is_playing_dialogue: bool
+
+#Important nodes
+var main_node: ManagerMainNode
 var _player: Player
 var _player_parent: Character
-var _main_node: ManagerMainNode
-var _is_playing_dialogue: bool
 
-#dialogue related
-var _current_dialogue: TextBox
-var _can_advance_dialogue: bool
-var _next_char_countdown: float
-
-var _spawn_points_on_current_room: Dictionary[String, Transition] = {}
-
-#global varibles
+#Global varibles
 var _unique_entities_map: Dictionary[String, Tracker]
 var _global_variables_bool_map: Dictionary[global_variables_bool, bool]
 var _global_variables_string_map: Dictionary[String, String]
+
+#Misc
+var _spawn_points_on_current_room: Dictionary[String, Transition] = {}
+var _process_func: Callable
 
 var _global_methods_map: Dictionary[String, Callable] = {
 	"test" : func() -> void: 
@@ -41,8 +39,8 @@ func _ready() -> void:
 #region variables
 
 func set_main_node(node_to_add: ManagerMainNode) -> void:
-	assert(not _main_node, "main node set twice")
-	_main_node = node_to_add
+	assert(not main_node, "main node set twice")
+	main_node = node_to_add
 
 func set_player(player: Player) -> void:
 	assert(not _player, "two players on scene")
@@ -108,73 +106,27 @@ func get_unique_entity_parent(unique_name: String) -> Node2D:
 	assert(_unique_entities_map.has(unique_name), "No active entity with name: " + unique_name)
 	return _unique_entities_map[unique_name].get_parent()
 
+func is_player_locked() -> bool:
+	return is_playing_dialogue
+
 #endregion
 
-#region Dialogue
-
-func start_dialogue(dialogue: TextBox, portrait: Texture2D = null) -> void:
-	_current_dialogue = dialogue
-	_is_playing_dialogue = true
-	
-	set_process_unhandled_input(true)
-	set_process(true)
-	
-	var next_text: String = _current_dialogue.next_dialogue()
-	
-	print(next_text)
-	
-	_main_node.show_dialogue_box(portrait)
-	_main_node.change_dialogue_text(next_text)
-
-func _continue_dialogue() -> void:
-	_can_advance_dialogue = false
-	
-	var next_text: String = _current_dialogue.next_dialogue()
-	if next_text.is_empty():
-		end_dialogue()
-		return
-	
-	#print(next_text)
-	
-	if _current_dialogue is TextBoxCharacter:
-		_main_node.change_dialogue_portrait(_current_dialogue.next_portrait())
-	
-	_main_node.change_dialogue_text(next_text)
-
-func end_dialogue() -> void:
-	set_process_unhandled_input(false)
-	
-	_is_playing_dialogue = false
-	print("dialogue ended")
-	
-	if _current_dialogue.close_dialogue_box_on_end:
-		set_process(false)
-		_main_node.hide_dialogue_box()
-	
-	_current_dialogue.action_ended.emit()
+func set_process_func(fn: Callable) -> void:
+	set_process(not fn.is_null())
+	_process_func = fn
 
 func _process(delta: float) -> void:
-	_next_char_countdown -= delta
-	
-	if _next_char_countdown <= 0.0 and not _can_advance_dialogue:
-		_next_char_countdown = DIALOGUE_SPEED_PER_CHAR
-		_current_dialogue.next_char()
-		if _main_node.show_next_char():
-			_can_advance_dialogue = true
+	_process_func.call(delta)
 
-#endregion
-
+##Also locks the player
 func toggle_listen_input(value: bool) -> void:
 	set_process_unhandled_input(value)
+	is_playing_dialogue = value
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("Interact") and _can_advance_dialogue:
+	if event.is_action_pressed("Interact"):
 		interact_pressed.emit()
-		_continue_dialogue()
 
 func change_scene(new_scene: PackedScene, spawn_name: String) -> void:
 	_spawn_points_on_current_room.clear()
-	_main_node.change_scene(new_scene, spawn_name, _player_parent)
-
-func is_player_locked() -> bool:
-	return _is_playing_dialogue
+	main_node.change_scene(new_scene, spawn_name, _player_parent)

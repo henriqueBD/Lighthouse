@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://bo868i81pkqu1" path="res://assets/furniture/door.png" id="9_vis30"]
 [ext_resource type="Material" uid="uid://cygf3us2dwcbw" path="res://hidden_material.tres" id="11_onacj"]
 [ext_resource type="Texture2D" uid="uid://bruqfk8f3du42" path="res://icon.svg" id="12_w1vs7"]
+[ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="13_w1vs7"]
+[ext_resource type="Resource" uid="uid://dgfnusn8rs2l" path="res://cutscene/lighthouse/hidden_door.tres" id="13_w4qbt"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_b6s8w"]
 diffuse_texture = ExtResource("2_qyrgb")
@@ -28,6 +30,8 @@ size = Vector2(16, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_shjv7"]
 size = Vector2(26, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w4qbt"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_i1dq0"]
 closed = false
@@ -55,6 +59,8 @@ polygon = PackedVector2Array(-53, 171, -53, 169, -50, 169, -50, 171)
 polygon = PackedVector2Array(-54, 141, -54, 143, -51, 143, -51, 141)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vis30"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_onacj"]
 
 [node name="LivingRoom" type="Node2D" unique_id=1060505341]
 
@@ -112,7 +118,7 @@ shape = SubResource("RectangleShape2D_m50gm")
 position = Vector2(-16, -1)
 
 [node name="Transition2" type="Area2D" parent="." unique_id=2059519623]
-position = Vector2(-62, -57)
+position = Vector2(-62, -59)
 script = ExtResource("3_7fqpu")
 destination_path = "uid://dle6tyljj31cl"
 transition_name = "lantern_room"
@@ -125,12 +131,24 @@ shape = SubResource("RectangleShape2D_shjv7")
 position = Vector2(0, 14)
 
 [node name="Sprite2D" type="Sprite2D" parent="Transition2" unique_id=276370879]
-position = Vector2(0, -17)
+position = Vector2(0, -15)
 texture = ExtResource("9_vis30")
 hframes = 2
 
+[node name="Transition3" type="Area2D" parent="." unique_id=535613321]
+position = Vector2(-101, -46)
+script = ExtResource("3_7fqpu")
+destination_path = "uid://dopm0mckrxugx"
+transition_name = "storage"
+metadata/_custom_type_script = "uid://csoqjsxgxwixr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Transition3" unique_id=1578011187]
+shape = SubResource("RectangleShape2D_w4qbt")
+
+[node name="Node2D" type="Node2D" parent="Transition3" unique_id=1910617917]
+position = Vector2(28, 2)
+
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1341103966]
-visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2" unique_id=1507528885]
 polygon = PackedVector2Array(15, 215, 15, 199, 150, 199, 150, 96, 27, 96, 27, 14, 53, 14, 196, 45, 157, 212)
@@ -196,3 +214,29 @@ material = ExtResource("11_onacj")
 position = Vector2(13, 103)
 scale = Vector2(0.075, 0.075)
 texture = ExtResource("12_w1vs7")
+
+[node name="HiddenDoor" type="Area2D" parent="." unique_id=1043029541]
+position = Vector2(-90, -47)
+script = ExtResource("5_b6s8w")
+pop_up_type = 2
+active = false
+metadata/_custom_type_script = "uid://bgp4ssm03oorx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HiddenDoor" unique_id=794351443]
+shape = SubResource("CircleShape2D_onacj")
+
+[node name="Node2D" type="Node2D" parent="HiddenDoor" unique_id=2105280195]
+position = Vector2(-11, -7)
+
+[node name="CutsceneTrigger" type="Node" parent="HiddenDoor" unique_id=1770520481]
+script = ExtResource("6_x0hpa")
+lock_player = true
+cutscene = ExtResource("13_w4qbt")
+metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
+
+[node name="Tracker" type="Node" parent="HiddenDoor" unique_id=1319714186 node_paths=PackedStringArray("sources")]
+script = ExtResource("13_w1vs7")
+unique_name = "hidden_door"
+sources = [NodePath("..")]
+method_name = PackedStringArray("set_enable")
+metadata/_custom_type_script = "uid://bhkymgw54xfkd"

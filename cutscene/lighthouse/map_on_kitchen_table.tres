@@ -3,14 +3,21 @@
 [ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/action_base.gd" id="1_mig0l"]
 [ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/cutscene.gd" id="2_exgbf"]
 [ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/action_dialogue.gd" id="2_s7wxx"]
+[ext_resource type="Texture2D" uid="uid://h6jn28utmtjg" path="res://assets/place/lighthouse/main_house_map.png" id="3_hhbfx"]
+[ext_resource type="Script" uid="uid://wiwfbe5cfydw" path="res://cutscene/action_show_image.gd" id="4_eenlc"]
 
 [sub_resource type="Resource" id="Resource_hhbfx"]
 script = ExtResource("2_s7wxx")
 close_dialogue_box_on_end = true
-dialogue = PackedStringArray("There is a map here")
+dialogue = PackedStringArray("There is a map here{hidden_door.set_enable(true)}")
 metadata/_custom_type_script = "uid://c5daiygjvie4n"
+
+[sub_resource type="Resource" id="Resource_1n8fa"]
+script = ExtResource("4_eenlc")
+image_to_show = ExtResource("3_hhbfx")
+metadata/_custom_type_script = "uid://wiwfbe5cfydw"
 
 [resource]
 script = ExtResource("2_exgbf")
-actions = Array[ExtResource("1_mig0l")]([SubResource("Resource_hhbfx")])
+actions = Array[ExtResource("1_mig0l")]([SubResource("Resource_hhbfx"), SubResource("Resource_1n8fa")])
 metadata/_custom_type_script = "uid://c43wcx0hfq43l"

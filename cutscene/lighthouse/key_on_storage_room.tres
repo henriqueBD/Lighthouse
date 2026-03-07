@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Cutscene" format=3 uid="uid://b2bt1swgojjdh"]
+
+[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/action_base.gd" id="1_xph7q"]
+[ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/cutscene.gd" id="2_081hw"]
+[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/action_dialogue.gd" id="2_ap5nr"]
+
+[sub_resource type="Resource" id="Resource_61xhy"]
+script = ExtResource("2_ap5nr")
+close_dialogue_box_on_end = true
+dialogue = PackedStringArray("A key.")
+metadata/_custom_type_script = "uid://c5daiygjvie4n"
+
+[resource]
+script = ExtResource("2_081hw")
+actions = Array[ExtResource("1_xph7q")]([SubResource("Resource_61xhy")])
+metadata/_custom_type_script = "uid://c43wcx0hfq43l"

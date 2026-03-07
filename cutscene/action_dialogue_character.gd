@@ -5,8 +5,8 @@ extends TextBox
 
 func execute() -> void:
 	assert(portraits.size() == dialogue.size())
-	_count = 0
-	GameManager.start_dialogue(self, portraits[0])
+	super()
 
-func next_portrait() -> Texture2D:
-	return portraits[_count - 1]
+func _continue_dialogue() -> void:
+	super()
+	GameManager.main_node.change_dialogue_portrait(portraits[_count])

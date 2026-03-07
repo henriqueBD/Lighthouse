@@ -36,8 +36,11 @@ func finish_cutscene(reset_value: Cutscene) -> void:
 	print("cutscene_ended")
 
 func _get_grandparent_name() -> String:
+	var res: String = "NULL"
 	var parent: Node = get_parent()
-	if not parent: return "NULL"
+	if not parent: return res
+	res = parent.name
 	parent = parent.get_parent()
-	if not parent: return "NULL"
-	return parent.name
+	if not parent: return res
+	res = parent.name + "/" + res
+	return res
