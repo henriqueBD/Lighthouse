@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="4_3r633"]
 [ext_resource type="Texture2D" uid="uid://jrj2xx2v7tb4" path="res://assets/furniture/chest_normal.png" id="4_20ndq"]
 [ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="5_34dd0"]
-[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/cutscene_trigger.gd" id="6_30tur"]
+[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_trigger.gd" id="6_30tur"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="7_psgul"]
 [ext_resource type="Resource" uid="uid://birypmifjp3ou" path="res://cutscene/lighthouse/chest_with_lantern.tres" id="7_sqonx"]
 

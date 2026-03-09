@@ -6,12 +6,10 @@
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="3_7fqpu"]
 [ext_resource type="Texture2D" uid="uid://b55lxfbd71k7k" path="res://assets/furniture/chair.png" id="4_x0hpa"]
 [ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="5_b6s8w"]
-[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/cutscene_trigger.gd" id="6_x0hpa"]
+[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_trigger.gd" id="6_x0hpa"]
 [ext_resource type="Resource" uid="uid://d3xh44u7o525r" path="res://cutscene/lighthouse/map_on_kitchen_table.tres" id="7_8uvcd"]
 [ext_resource type="Resource" uid="uid://dcwm7u0jd6yw5" path="res://cutscene/lighthouse/chair_blocking_door.tres" id="7_vis30"]
 [ext_resource type="Texture2D" uid="uid://bo868i81pkqu1" path="res://assets/furniture/door.png" id="9_vis30"]
-[ext_resource type="Material" uid="uid://cygf3us2dwcbw" path="res://hidden_material.tres" id="11_onacj"]
-[ext_resource type="Texture2D" uid="uid://bruqfk8f3du42" path="res://icon.svg" id="12_w1vs7"]
 [ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="13_w1vs7"]
 [ext_resource type="Resource" uid="uid://dgfnusn8rs2l" path="res://cutscene/lighthouse/hidden_door.tres" id="13_w4qbt"]
 
@@ -61,6 +59,8 @@ polygon = PackedVector2Array(-54, 141, -54, 143, -51, 143, -51, 141)
 [sub_resource type="CircleShape2D" id="CircleShape2D_vis30"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onacj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onacj"]
 
 [node name="LivingRoom" type="Node2D" unique_id=1060505341]
 
@@ -149,6 +149,7 @@ shape = SubResource("RectangleShape2D_w4qbt")
 position = Vector2(28, 2)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1341103966]
+visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2" unique_id=1507528885]
 polygon = PackedVector2Array(15, 215, 15, 199, 150, 199, 150, 96, 27, 96, 27, 14, 53, 14, 196, 45, 157, 212)
@@ -208,13 +209,6 @@ lock_player = true
 cutscene = ExtResource("7_8uvcd")
 metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 
-[node name="Icon" type="Sprite2D" parent="." unique_id=587408007]
-light_mask = 3
-material = ExtResource("11_onacj")
-position = Vector2(13, 103)
-scale = Vector2(0.075, 0.075)
-texture = ExtResource("12_w1vs7")
-
 [node name="HiddenDoor" type="Area2D" parent="." unique_id=1043029541]
 position = Vector2(-90, -47)
 script = ExtResource("5_b6s8w")
@@ -237,6 +231,12 @@ metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 [node name="Tracker" type="Node" parent="HiddenDoor" unique_id=1319714186 node_paths=PackedStringArray("sources")]
 script = ExtResource("13_w1vs7")
 unique_name = "hidden_door"
-sources = [NodePath("..")]
-method_name = PackedStringArray("set_enable")
+sources = [NodePath(".."), NodePath("../StaticBody2D")]
+method_name = PackedStringArray("set_enable", "queue_free")
 metadata/_custom_type_script = "uid://bhkymgw54xfkd"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="HiddenDoor" unique_id=560602849]
+position = Vector2(-9, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HiddenDoor/StaticBody2D" unique_id=111632546]
+shape = SubResource("RectangleShape2D_onacj")

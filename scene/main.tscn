@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://dce3xegws4wst" path="res://script/time_manager.gd" id="4_brvut"]
 
 [sub_resource type="Gradient" id="Gradient_0ha60"]
-offsets = PackedFloat32Array(0, 0.29166666, 0.625, 0.75, 1)
+offsets = PackedFloat32Array(0, 0.29166666, 0.625, 0.7916667, 1)
 colors = PackedColorArray(0.11764706, 0.09411765, 0.30980393, 1, 0.93, 0.84754, 0.6696, 1, 0.9942246, 0.5454179, 0.5475484, 1, 0.25295997, 0.0961, 0.31, 1, 0.117489986, 0.0961, 0.31, 1)
 metadata/_snap_enabled = true
 metadata/_snap_count = 24

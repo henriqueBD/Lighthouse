@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="3_2u2pa"]
 [ext_resource type="Texture2D" uid="uid://b7wlt38jon33h" path="res://assets/furniture/key.png" id="4_vncyk"]
 [ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="5_mes2a"]
-[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/cutscene_trigger.gd" id="6_s2flt"]
+[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_trigger.gd" id="6_s2flt"]
 [ext_resource type="Resource" uid="uid://b2bt1swgojjdh" path="res://cutscene/lighthouse/key_on_storage_room.tres" id="7_5p6u7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n3wrx"]

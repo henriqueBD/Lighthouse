@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://b8k8seqtpa1qa"]
+
+[ext_resource type="Texture2D" uid="uid://dmj2gqshher7s" path="res://assets/icon/inventory/slot.png" id="1_3c8lv"]
+[ext_resource type="Texture2D" uid="uid://0ht6q4di48nx" path="res://assets/icon/inventory/key.png" id="2_orj2c"]
+[ext_resource type="FontFile" uid="uid://cx1vxw1e7l5vd" path="res://inventory/windows_command_prompt.ttf" id="3_orj2c"]
+
+[node name="TextureRect" type="Sprite2D" unique_id=883907747]
+texture = ExtResource("1_3c8lv")
+centered = false
+
+[node name="Item" type="Sprite2D" parent="." unique_id=350481269]
+unique_name_in_owner = true
+position = Vector2(3, 3)
+texture = ExtResource("2_orj2c")
+centered = false
+
+[node name="Label" type="Label" parent="." unique_id=659445302]
+offset_left = 37.0
+offset_top = 1.0
+offset_right = 77.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("3_orj2c")
+text = "Key"
+
+[node name="Label2" type="Label" parent="." unique_id=919389791]
+offset_left = 37.0
+offset_top = 19.0
+offset_right = 156.0
+offset_bottom = 34.0
+theme_override_fonts/font = ExtResource("3_orj2c")
+text = "A small silver key"

@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Cutscene" format=3 uid="uid://d3xh44u7o525r"]
 
-[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/action_base.gd" id="1_mig0l"]
-[ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/cutscene.gd" id="2_exgbf"]
-[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/action_dialogue.gd" id="2_s7wxx"]
+[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/action_base.gd" id="1_mig0l"]
+[ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/scripts/cutscene.gd" id="2_exgbf"]
+[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/action_dialogue.gd" id="2_s7wxx"]
 [ext_resource type="Texture2D" uid="uid://h6jn28utmtjg" path="res://assets/place/lighthouse/main_house_map.png" id="3_hhbfx"]
-[ext_resource type="Script" uid="uid://wiwfbe5cfydw" path="res://cutscene/action_show_image.gd" id="4_eenlc"]
+[ext_resource type="Script" uid="uid://wiwfbe5cfydw" path="res://cutscene/scripts/action_show_image.gd" id="4_eenlc"]
 
 [sub_resource type="Resource" id="Resource_hhbfx"]
 script = ExtResource("2_s7wxx")

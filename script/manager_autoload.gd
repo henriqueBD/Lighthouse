@@ -13,6 +13,7 @@ var is_playing_dialogue: bool
 
 #Important nodes
 var main_node: ManagerMainNode
+var save_data: SaveData
 var _player: Player
 var _player_parent: Character
 
