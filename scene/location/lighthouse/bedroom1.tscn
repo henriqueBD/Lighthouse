@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://b5lwc6r8gihdf"]
 
+[ext_resource type="Script" uid="uid://d0jw7003rp8mw" path="res://script/place.gd" id="1_2sxn8"]
 [ext_resource type="Texture2D" uid="uid://cfhq2a3v3wtxh" path="res://assets/place/lighthouse/room1_floor.png" id="1_31u5o"]
 [ext_resource type="Texture2D" uid="uid://bdmx3ar1achup" path="res://assets/place/lighthouse/room1_walls.png" id="2_2sxn8"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="2_gie3k"]
@@ -21,6 +22,8 @@ closed = false
 polygon = PackedVector2Array(66, 54, 66, 82, -59, 82, -59, 74, -72, 74)
 
 [node name="Bedroom1" type="Node2D" unique_id=357618366]
+script = ExtResource("1_2sxn8")
+location_path = 1
 
 [node name="Floor" type="Sprite2D" parent="." unique_id=730249022]
 texture = ExtResource("1_31u5o")

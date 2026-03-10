@@ -8,6 +8,8 @@ extends Node
 var _actions: Dictionary[String, Callable]
 
 func _enter_tree() -> void:
+	assert(unique_name, "null name at " + str(get_path()))
+	assert(not unique_name.is_empty(), "empty name at " + str(get_path()))
 	assert(sources.size() == method_name.size(), "no")
 	
 	for i: int in range(sources.size()):
@@ -15,7 +17,7 @@ func _enter_tree() -> void:
 		if sources[i].has_method(method_name[i]):
 			_actions[method_name[i]] = Callable(sources[i], method_name[i])
 			continue
-		assert(false, "Invalid method: " + method_name[i])
+		assert(false, "Invalid method: " + method_name[i] + "at" + str(get_path()))
 	
 	GameManager.register_unique_entity(unique_name, self)
 

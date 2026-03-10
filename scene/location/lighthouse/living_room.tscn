@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://kb7byravxoof"]
 
 [ext_resource type="Texture2D" uid="uid://bgx0s4ucm3w3" path="res://assets/place/lighthouse/room_floor.png" id="1_dgaau"]
+[ext_resource type="Script" uid="uid://d0jw7003rp8mw" path="res://script/place.gd" id="1_w1vs7"]
 [ext_resource type="Texture2D" uid="uid://cp38vwrs6ih0j" path="res://assets/place/lighthouse/roomNormal.png" id="2_m50gm"]
 [ext_resource type="Texture2D" uid="uid://bpjjfdjy3v48a" path="res://assets/place/lighthouse/room_walls.png" id="2_qyrgb"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="3_7fqpu"]
@@ -12,6 +13,17 @@
 [ext_resource type="Texture2D" uid="uid://bo868i81pkqu1" path="res://assets/furniture/door.png" id="9_vis30"]
 [ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="13_w1vs7"]
 [ext_resource type="Resource" uid="uid://dgfnusn8rs2l" path="res://cutscene/lighthouse/hidden_door.tres" id="13_w4qbt"]
+[ext_resource type="Script" uid="uid://l0teuipo17rj" path="res://script/condition_rule.gd" id="15_hotc2"]
+
+[sub_resource type="Resource" id="Resource_w4qbt"]
+script = ExtResource("15_hotc2")
+target_var = "saw_map"
+operation = 1
+comparison_value = true
+source = NodePath("HiddenDoor")
+method_name = "set_active"
+method_arguments = PackedStringArray("true")
+metadata/_custom_type_script = "uid://l0teuipo17rj"
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_b6s8w"]
 diffuse_texture = ExtResource("2_qyrgb")
@@ -63,6 +75,9 @@ polygon = PackedVector2Array(-54, 141, -54, 143, -51, 143, -51, 141)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onacj"]
 
 [node name="LivingRoom" type="Node2D" unique_id=1060505341]
+script = ExtResource("1_w1vs7")
+location_path = 1
+actions = Array[ExtResource("15_hotc2")]([SubResource("Resource_w4qbt")])
 
 [node name="Floor" type="Sprite2D" parent="." unique_id=984682791]
 visibility_layer = 3
@@ -232,7 +247,7 @@ metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 script = ExtResource("13_w1vs7")
 unique_name = "hidden_door"
 sources = [NodePath(".."), NodePath("../StaticBody2D")]
-method_name = PackedStringArray("set_enable", "queue_free")
+method_name = PackedStringArray("set_active", "queue_free")
 metadata/_custom_type_script = "uid://bhkymgw54xfkd"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="HiddenDoor" unique_id=560602849]

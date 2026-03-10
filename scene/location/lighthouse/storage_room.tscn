@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dopm0mckrxugx"]
 
 [ext_resource type="Texture2D" uid="uid://ejpdcbn7t7y2" path="res://assets/place/lighthouse/room3_floor.png" id="1_1vqml"]
+[ext_resource type="Script" uid="uid://d0jw7003rp8mw" path="res://script/place.gd" id="1_kbp8g"]
 [ext_resource type="Texture2D" uid="uid://b70hv3g1gktvt" path="res://assets/place/lighthouse/room3_walls.png" id="2_kbp8g"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="3_2u2pa"]
 [ext_resource type="Texture2D" uid="uid://b7wlt38jon33h" path="res://assets/furniture/key.png" id="4_vncyk"]
@@ -29,6 +30,8 @@ size = Vector2(5, 9)
 [sub_resource type="CircleShape2D" id="CircleShape2D_e57cs"]
 
 [node name="StorageRoom" type="Node2D" unique_id=1387409414]
+script = ExtResource("1_kbp8g")
+location_path = 1
 
 [node name="Floor" type="Sprite2D" parent="." unique_id=1957505430]
 texture = ExtResource("1_1vqml")

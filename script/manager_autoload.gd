@@ -13,7 +13,7 @@ var is_playing_dialogue: bool
 
 #Important nodes
 var main_node: ManagerMainNode
-var save_data: SaveData
+var save_data: SaveData = SaveData.new()
 var _player: Player
 var _player_parent: Character
 
@@ -109,6 +109,11 @@ func get_unique_entity_parent(unique_name: String) -> Node2D:
 
 func is_player_locked() -> bool:
 	return is_playing_dialogue
+
+func set_global_var(var_name: String, value: Variant) -> void:
+	assert(main_node.curr_map is Place)
+	if main_node.curr_map is Place:
+		main_node.curr_map.save_var(var_name, value)
 
 #endregion
 

@@ -5,6 +5,7 @@ const DIALOGUE_BOX_INFO: PackedScene = preload("res://scene/important/dialogue_b
 const DIALOGUE_BOX_CHAR: PackedScene = preload("res://scene/important/dialogue_box_char.tscn")
 const SCREEN_TRANSITION: PackedScene = preload("res://scene/important/screen_transition.tscn")
 
+var curr_map: Node
 var _screen_transition: ScreenTransition
 var _canvas_layer: CanvasLayer
 var _canvas_layer_subviewport: CanvasLayer
@@ -13,10 +14,7 @@ var _char_instance: Control
 var _active_dialogue_box: Control
 var _active_dialogue_portrait: TextureRect
 var _active_dialogue_box_label: Label
-
 var _game_subviewport: SubViewport
-
-var _curr_map: Node
 
 func _ready() -> void:
 	GameManager.set_main_node(self)
@@ -27,8 +25,8 @@ func _ready() -> void:
 	assert(_game_subviewport)
 	_canvas_layer_subviewport = %CanvasLayerSubviewport
 	assert(_canvas_layer_subviewport)
-	_curr_map = _game_subviewport.get_child(0)
-	assert(_curr_map)
+	curr_map = _game_subviewport.get_child(0)
+	assert(curr_map)
 	
 	#Dialogue initialization
 	_info_instance = DIALOGUE_BOX_INFO.instantiate()
@@ -93,18 +91,20 @@ func change_scene(new_scene: PackedScene, spawn_name: String, player: Node) -> v
 	await _screen_transition.fade_out()
 	
 	player.reparent(self)
-	_curr_map.queue_free()
+	curr_map.queue_free()
 	_change_scene_deffered.call_deferred(new_scene, spawn_name, player)
 
 func _change_scene_deffered(new_scene: PackedScene, spawn_location: String, player: Node) -> void:
-	_curr_map = new_scene.instantiate()
-	_game_subviewport.add_child(_curr_map)
+	var instanciated_scene: Node = new_scene.instantiate()
+	assert(instanciated_scene is Place)
+	curr_map = instanciated_scene
+	_game_subviewport.add_child(curr_map)
 	
-	var objects_node: Node2D = _curr_map.get_node_or_null("%Entities")
+	var objects_node: Node2D = curr_map.get_node_or_null("%Entities")
 	if objects_node:
 		player.reparent(objects_node)
 	else:
-		player.reparent(_curr_map)
+		player.reparent(curr_map)
 		
 	var player_spawn: Transition = GameManager.get_spawn_point(spawn_location)
 	assert(player_spawn)
