@@ -1,3 +1,4 @@
+@icon("res://z_editor_only/transition_icon.svg")
 class_name Transition
 extends Area2D
 

@@ -12,7 +12,7 @@ static var _places_keys: Array = places.keys()
 @export var actions: Array[ConditionRule]
 
 var _location: String
-var _actions_dict: Dictionary[String, ConditionRule]
+var _actions_dict: Dictionary[String, Array]
 
 func _enter_tree() -> void:
 	assert(location_path != places.UNASSIGNED)
@@ -20,22 +20,24 @@ func _enter_tree() -> void:
 	GameManager.save_data.create_folder(_location)
 
 func _ready() -> void:
-	assert(actions, "Missing action for " + str(get_path()))
 	if not actions: return
 	_actions_dict = {}
 	
-	for action: ConditionRule in actions:
-		assert(not _actions_dict.has(action.target_var), "Not implemented one var having multiple actions")
-		_actions_dict[action.target_var] = action
-		_call_action_if_condition(action)
+	for single_action: ConditionRule in actions:
+		if _actions_dict.has(single_action.target_var):
+			_actions_dict[single_action.target_var].append(single_action)
+		else:
+			var new_array: Array[ConditionRule] = [single_action]
+			_actions_dict[single_action.target_var] = new_array
+		_call_action_if_condition(single_action)
 	
 	actions.clear()
 
 func save_var(var_name: String, value: Variant) -> void:
 	GameManager.save_data.store_var("%s/%s" % [_location, var_name], value)
 	if _actions_dict.has(var_name):
-		print("updating")
-		_call_action_if_condition(_actions_dict[var_name])
+		for action: ConditionRule in _actions_dict[var_name] as Array[ConditionRule]:
+			_call_action_if_condition(action)
 
 func get_var(local_path: String) -> Variant:
 	return GameManager.save_data.get_var_or_null("%s/%s" % [_location, local_path])

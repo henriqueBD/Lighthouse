@@ -1,3 +1,4 @@
+@icon("res://z_editor_only/interactable_icon.svg")
 class_name Interactable
 extends Area2D
 

@@ -2,15 +2,22 @@
 
 [ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/action_base.gd" id="1_jjyck"]
 [ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/action_dialogue.gd" id="2_4qc1k"]
+[ext_resource type="Script" uid="uid://dyr0awso8vtj" path="res://cutscene/scripts/action_set_value.gd" id="3_4qc1k"]
 [ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/scripts/cutscene.gd" id="3_mn5tl"]
 
 [sub_resource type="Resource" id="Resource_mn5tl"]
 script = ExtResource("2_4qc1k")
 close_dialogue_box_on_end = true
-dialogue = PackedStringArray("The map says there should be a room here.", "I don\'t see a door.", "...Wait{hidden_door.queue_free()}")
+dialogue = PackedStringArray("The map says there should be a room here.", "I don\'t see a door.", "...Wait")
 metadata/_custom_type_script = "uid://c5daiygjvie4n"
+
+[sub_resource type="Resource" id="Resource_mvc7k"]
+script = ExtResource("3_4qc1k")
+path = "open_door"
+value = true
+metadata/_custom_type_script = "uid://dyr0awso8vtj"
 
 [resource]
 script = ExtResource("3_mn5tl")
-actions = Array[ExtResource("1_jjyck")]([SubResource("Resource_mn5tl")])
+actions = Array[ExtResource("1_jjyck")]([SubResource("Resource_mn5tl"), SubResource("Resource_mvc7k")])
 metadata/_custom_type_script = "uid://c43wcx0hfq43l"

@@ -1,6 +1,6 @@
 extends Node
 
-const DIALOGUE_SPEED_PER_CHAR: float = 0.1
+const DIALOGUE_SPEED_PER_CHAR: float = 0.05
 
 enum global_variables_bool{
 	NULL,
@@ -101,11 +101,19 @@ func unregister_unique_entity(unique_name: String) -> void:
 
 func get_unique_entity(unique_name: String) -> Tracker:
 	assert(_unique_entities_map.has(unique_name), "No active entity with name: " + unique_name)
-	return _unique_entities_map[unique_name]
+	return _unique_entities_map.get(unique_name)
 
 func get_unique_entity_parent(unique_name: String) -> Node2D:
-	assert(_unique_entities_map.has(unique_name), "No active entity with name: " + unique_name)
-	return _unique_entities_map[unique_name].get_parent()
+	var catch: Tracker = _unique_entities_map.get(unique_name)
+	if catch:
+		return catch.get_parent()
+	assert(false, "No active entity with name: " + unique_name)
+	return null
+
+func get_marker(unique_name: String) -> Marker:
+	var marker: Marker = main_node.curr_map.get_node(unique_name)
+	assert(marker, "No marker with name " + unique_name)
+	return marker
 
 func is_player_locked() -> bool:
 	return is_playing_dialogue
@@ -136,3 +144,12 @@ func _unhandled_input(event: InputEvent) -> void:
 func change_scene(new_scene: PackedScene, spawn_name: String) -> void:
 	_spawn_points_on_current_room.clear()
 	main_node.change_scene(new_scene, spawn_name, _player_parent)
+
+func create_timer(time_sec: float) -> Signal:
+	return get_tree().create_timer(time_sec).timeout
+
+func teleport_entity_to_marker(entity_name: String, marker_name: String) -> void:
+	var entity: Node2D = get_unique_entity_parent(entity_name)
+	var marker: Marker = get_marker(marker_name)
+	if entity and marker:
+		entity.global_position = marker.global_position

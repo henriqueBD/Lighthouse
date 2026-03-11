@@ -1,3 +1,4 @@
+@icon("res://z_editor_only/cutscene_trigger_icon.svg")
 class_name CutsceneTrigger
 extends Node
 

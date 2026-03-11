@@ -85,10 +85,17 @@ func change_dialogue_portrait(new_portrait: Texture2D) -> void:
 func add_node_subviewport(to_add: Node) -> void:
 	_canvas_layer_subviewport.add_child(to_add)
 
-func change_scene(new_scene: PackedScene, spawn_name: String, player: Node) -> void:
+func fade_out_screen() -> Signal:
 	_screen_transition.show()
-	
-	await _screen_transition.fade_out()
+	return _screen_transition.fade_out()
+
+func fade_in_screen() -> Signal:
+	var finished: Signal = _screen_transition.fade_in()
+	finished.connect(_screen_transition.hide, CONNECT_ONE_SHOT)
+	return finished
+
+func change_scene(new_scene: PackedScene, spawn_name: String, player: Node) -> void:
+	await fade_out_screen()
 	
 	player.reparent(self)
 	curr_map.queue_free()
@@ -110,4 +117,4 @@ func _change_scene_deffered(new_scene: PackedScene, spawn_location: String, play
 	assert(player_spawn)
 	GameManager._player_parent.global_position = player_spawn.spawn_point.global_position
 	
-	_screen_transition.fade_in().connect(_screen_transition.hide, CONNECT_ONE_SHOT)
+	fade_in_screen()

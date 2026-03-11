@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://d23olrs8sfahq" path="res://script/player.gd" id="1_apw8i"]
 [ext_resource type="PackedScene" uid="uid://cr37csya8pvfj" path="res://scene/base_scenes/character.tscn" id="1_m66g2"]
 [ext_resource type="Texture2D" uid="uid://cj5vpki1uyv1u" path="res://assets/light/light_texture.png" id="3_ujf4b"]
+[ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="4_23glw"]
 
 [node name="Character" unique_id=1676178987 instance=ExtResource("1_m66g2")]
 z_index = 1
@@ -36,3 +37,8 @@ metadata/_custom_type_script = "uid://d23olrs8sfahq"
 
 [node name="Camera2D" type="Camera2D" parent="." index="5" unique_id=541293806]
 position = Vector2(0, -16)
+
+[node name="Tracker" type="Node" parent="." index="6" unique_id=962722039]
+script = ExtResource("4_23glw")
+unique_name = "player"
+metadata/_custom_type_script = "uid://bhkymgw54xfkd"

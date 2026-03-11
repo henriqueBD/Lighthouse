@@ -1,3 +1,4 @@
+@icon("res://z_editor_only/tracker_icon.svg")
 class_name Tracker
 extends Node
 
@@ -25,7 +26,6 @@ func _exit_tree() -> void:
 	GameManager.unregister_unique_entity(unique_name)
 
 func call_method(to_call: String, arguments: PackedStringArray) -> void:
-	#assert(arguments.is_empty(), "not implemented yet")
 	if _actions.has(to_call):
 		var tmp: Callable = _actions[to_call]
 		if tmp.is_valid():
