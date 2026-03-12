@@ -3,6 +3,7 @@ extends Resource
 
 enum Operation {
 	UNASSIGNED,
+	EXISTS,
 	EQUAL,
 	GREATER,
 	LESS,

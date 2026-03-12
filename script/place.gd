@@ -1,3 +1,4 @@
+@icon("res://z_editor_only/place_icon.svg")
 class_name Place
 extends Node
 
@@ -51,6 +52,8 @@ func _call_action_if_condition(action: ConditionRule) -> void:
 	
 	#evaluate
 	match action.operation:
+		ConditionRule.Operation.EXISTS:
+			_call_action_unconditional(action)
 		ConditionRule.Operation.EQUAL:
 			if target == action.comparison_value:
 				_call_action_unconditional(action)

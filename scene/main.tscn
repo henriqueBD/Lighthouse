@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://6ycd6lpjq6v5"]
 
 [ext_resource type="Script" uid="uid://cermwrmapnfm1" path="res://script/manager_main_node.gd" id="1_x58px"]
-[ext_resource type="PackedScene" uid="uid://kb7byravxoof" path="res://scene/location/lighthouse/living_room.tscn" id="2_v0l8b"]
+[ext_resource type="PackedScene" uid="uid://c0854c7mmdv3x" path="res://scene/location/lighthouse/outside.tscn" id="2_brvut"]
 [ext_resource type="PackedScene" uid="uid://cvgmeo84fvgyh" path="res://scene/important/player.tscn" id="3_wp4xf"]
 [ext_resource type="Script" uid="uid://dce3xegws4wst" path="res://script/time_manager.gd" id="4_brvut"]
 
 [sub_resource type="Gradient" id="Gradient_0ha60"]
-offsets = PackedFloat32Array(0, 0.29166666, 0.625, 0.7916667, 1)
+offsets = PackedFloat32Array(0, 0.375, 0.625, 0.7916667, 1)
 colors = PackedColorArray(0.11764706, 0.09411765, 0.30980393, 1, 0.93, 0.84754, 0.6696, 1, 0.9942246, 0.5454179, 0.5475484, 1, 0.25295997, 0.0961, 0.31, 1, 0.117489986, 0.0961, 0.31, 1)
 metadata/_snap_enabled = true
 metadata/_snap_count = 24
@@ -33,14 +33,14 @@ canvas_item_default_texture_filter = 0
 size = Vector2i(320, 180)
 render_target_update_mode = 4
 
-[node name="LivingRoom" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=1060505341 instance=ExtResource("2_v0l8b")]
+[node name="Outside" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=340469804 instance=ExtResource("2_brvut")]
 
 [node name="Player" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=1676178987 instance=ExtResource("3_wp4xf")]
+position = Vector2(0, 100)
 
 [node name="TimeManager" type="Node" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=1024819099]
 script = ExtResource("4_brvut")
 day_night_gradient = SubResource("Gradient_0ha60")
-game_hours_per_real_second = 5.0
 metadata/_custom_type_script = "uid://dce3xegws4wst"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer/SubViewportContainer/SubViewport/TimeManager" unique_id=380914159]

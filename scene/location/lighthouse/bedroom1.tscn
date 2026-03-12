@@ -21,6 +21,9 @@ polygon = PackedVector2Array(-71, 46, -59, 46, -59, -33, 66, -33, 66, 21)
 closed = false
 polygon = PackedVector2Array(66, 54, 66, 82, -59, 82, -59, 74, -72, 74)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2sxn8"]
+size = Vector2(20, 40)
+
 [node name="Bedroom1" type="Node2D" unique_id=357618366]
 script = ExtResource("1_2sxn8")
 location_path = 1
@@ -50,3 +53,15 @@ occluder = SubResource("OccluderPolygon2D_gie3k")
 
 [node name="LightOccluder2D2" type="LightOccluder2D" parent="." unique_id=1502469611]
 occluder = SubResource("OccluderPolygon2D_b0165")
+
+[node name="Bedroom1Window" type="Area2D" parent="." unique_id=1630927027]
+position = Vector2(81, 38)
+script = ExtResource("2_gie3k")
+destination_path = "uid://c0854c7mmdv3x"
+metadata/_custom_type_script = "uid://csoqjsxgxwixr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bedroom1Window" unique_id=1367801439]
+shape = SubResource("RectangleShape2D_2sxn8")
+
+[node name="Node2D" type="Node2D" parent="Bedroom1Window" unique_id=1077133937]
+position = Vector2(-29, 0)

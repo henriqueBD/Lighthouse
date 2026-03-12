@@ -10,7 +10,7 @@ const SUNSET_HOUR: float = 18.0
 
 var _canvas_modulate: CanvasModulate
 var _sun_light: DirectionalLight2D
-var _current_time_hours: float = 15.5
+var _current_time_hours: float = 8.00
 var _target_time: float
 var _custom_time_speed: float
 

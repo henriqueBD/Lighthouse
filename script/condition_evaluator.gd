@@ -19,6 +19,8 @@ func _ready() -> void:
 		
 		#evaluate
 		match action.operation:
+			ConditionRule.Operation.EXISTS:
+					_call_action(action)
 			ConditionRule.Operation.EQUAL:
 				if target == action.comparison_value:
 					_call_action(action)

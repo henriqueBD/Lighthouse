@@ -150,7 +150,7 @@ shape = SubResource("CircleShape2D_shjv7")
 [node name="Node2D" type="Node2D" parent="Entities/Chair/Interactable" unique_id=330964273]
 position = Vector2(0, -16)
 
-[node name="CutsceneTrigger" type="Node" parent="Entities/Chair/Interactable" unique_id=1997613198]
+[node name="CutsceneData" type="Node" parent="Entities/Chair/Interactable" unique_id=1997613198]
 script = ExtResource("6_x0hpa")
 cutscene = ExtResource("7_vis30")
 metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
@@ -264,9 +264,8 @@ shape = SubResource("CircleShape2D_vis30")
 [node name="Node2D" type="Node2D" parent="Map" unique_id=1519602618]
 position = Vector2(0, -24)
 
-[node name="CutsceneTrigger" type="Node" parent="Map" unique_id=1768290238]
+[node name="CutsceneData" type="Node" parent="Map" unique_id=1768290238]
 script = ExtResource("6_x0hpa")
-one_shot = true
 lock_player = true
 cutscene = ExtResource("7_8uvcd")
 metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
@@ -284,7 +283,7 @@ shape = SubResource("CircleShape2D_onacj")
 [node name="Node2D" type="Node2D" parent="HiddenDoor" unique_id=2105280195]
 position = Vector2(-11, -7)
 
-[node name="CutsceneTrigger" type="Node" parent="HiddenDoor" unique_id=1770520481]
+[node name="CutsceneData" type="Node" parent="HiddenDoor" unique_id=1770520481]
 script = ExtResource("6_x0hpa")
 lock_player = true
 cutscene = ExtResource("13_w4qbt")
