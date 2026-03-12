@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="4_3r633"]
 [ext_resource type="Texture2D" uid="uid://jrj2xx2v7tb4" path="res://assets/furniture/chest_normal.png" id="4_20ndq"]
 [ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="5_34dd0"]
-[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_trigger.gd" id="6_30tur"]
+[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_data.gd" id="6_30tur"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="7_psgul"]
 [ext_resource type="Resource" uid="uid://birypmifjp3ou" path="res://cutscene/lighthouse/chest_with_lantern.tres" id="7_sqonx"]
 
@@ -83,17 +83,16 @@ position = Vector2(10, 17)
 position = Vector2(2.5, 3.5)
 shape = SubResource("RectangleShape2D_sqonx")
 
-[node name="Transition" type="Area2D" parent="." unique_id=911525109]
+[node name="Bedroom2" type="Area2D" parent="." unique_id=911525109]
 position = Vector2(38, 88)
 script = ExtResource("7_psgul")
 destination_path = "uid://kb7byravxoof"
-transition_name = "lantern_room"
 metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Transition" unique_id=165771330]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bedroom2" unique_id=165771330]
 shape = SubResource("RectangleShape2D_omk02")
 
-[node name="Node2D" type="Node2D" parent="Transition" unique_id=398351300]
+[node name="Node2D" type="Node2D" parent="Bedroom2" unique_id=398351300]
 position = Vector2(0, -13)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1442450821]

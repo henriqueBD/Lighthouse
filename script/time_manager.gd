@@ -6,11 +6,30 @@ const SUNSET_HOUR: float = 18.0
 
 ## Gradient representing the 24-hour color cycle (0.0 is 0:00, 1.0 is 24:00)
 @export var day_night_gradient: Gradient
-@export var game_hours_per_real_second: float = 0.5
+@export var time_speed: float = 0.5
 
 var _canvas_modulate: CanvasModulate
 var _sun_light: DirectionalLight2D
 var _current_time_hours: float = 15.5
+var _target_time: float
+var _custom_time_speed: float
+
+func set_time(target: float) -> void:
+	_current_time_hours = clamp(target, 0.0, 24.0)
+
+func increment_time(time_delta: float) -> void:
+	_current_time_hours = fposmod(_current_time_hours + time_delta, 24.0)
+
+func set_time_smooth(target: float) -> void:
+	_target_time = clamp(target, 0.0, 24.0)
+	_start_process()
+
+func increment_time_smooth(time_delta: float) -> void:
+	if is_physics_processing():
+		_target_time = fposmod(_target_time + time_delta, 24.0)
+	else:
+		_target_time = fposmod(_current_time_hours + time_delta, 24.0)
+		set_physics_process(true)
 
 func _ready() -> void:
 	_canvas_modulate = $CanvasModulate
@@ -23,11 +42,15 @@ func _ready() -> void:
 	_update_sun()
 
 func _physics_process(delta: float) -> void:
-	_current_time_hours += delta * game_hours_per_real_second
-	
-	if _current_time_hours >= 24.0:
-		_current_time_hours -= 24.0
-		
+	_current_time_hours = move_toward(_current_time_hours, _target_time, delta * time_speed)
+	if _current_time_hours == _target_time:
+		set_physics_process(false)
+
+func _start_process(custom_speed: float = _target_time) -> void:
+	_custom_time_speed = custom_speed
+	set_physics_process(true)
+
+func _update_time() -> void:
 	_update_ambient_light()
 	_update_sun()
 

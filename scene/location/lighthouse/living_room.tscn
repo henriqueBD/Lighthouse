@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="3_7fqpu"]
 [ext_resource type="Texture2D" uid="uid://b55lxfbd71k7k" path="res://assets/furniture/chair.png" id="4_x0hpa"]
 [ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="5_b6s8w"]
-[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_trigger.gd" id="6_x0hpa"]
+[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_data.gd" id="6_x0hpa"]
 [ext_resource type="Resource" uid="uid://d3xh44u7o525r" path="res://cutscene/lighthouse/map_on_kitchen_table.tres" id="7_8uvcd"]
 [ext_resource type="Resource" uid="uid://dcwm7u0jd6yw5" path="res://cutscene/lighthouse/chair_blocking_door.tres" id="7_vis30"]
 [ext_resource type="Texture2D" uid="uid://bo868i81pkqu1" path="res://assets/furniture/door.png" id="9_vis30"]
@@ -71,6 +71,9 @@ size = Vector2(16, 28)
 size = Vector2(26, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w4qbt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ipm2w"]
+size = Vector2(28, 20)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_i1dq0"]
 closed = false
@@ -152,50 +155,59 @@ script = ExtResource("6_x0hpa")
 cutscene = ExtResource("7_vis30")
 metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 
-[node name="Transition" type="Area2D" parent="." unique_id=734764994]
+[node name="Bedroom1" type="Area2D" parent="." unique_id=734764994]
 position = Vector2(38, 4)
 script = ExtResource("3_7fqpu")
 destination_path = "uid://b5lwc6r8gihdf"
-transition_name = "test"
 metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Transition" unique_id=550245779]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bedroom1" unique_id=550245779]
 position = Vector2(2, -2)
 shape = SubResource("RectangleShape2D_m50gm")
 
-[node name="Node2D" type="Node2D" parent="Transition" unique_id=451083292]
+[node name="Node2D" type="Node2D" parent="Bedroom1" unique_id=451083292]
 position = Vector2(-16, -1)
 
-[node name="Transition2" type="Area2D" parent="." unique_id=2059519623]
+[node name="Bedroom2" type="Area2D" parent="." unique_id=2059519623]
 position = Vector2(-62, -59)
 script = ExtResource("3_7fqpu")
 destination_path = "uid://dle6tyljj31cl"
-transition_name = "lantern_room"
 metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Transition2" unique_id=1370316399]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bedroom2" unique_id=1370316399]
 shape = SubResource("RectangleShape2D_shjv7")
 
-[node name="Node2D" type="Node2D" parent="Transition2" unique_id=1276302689]
+[node name="Node2D" type="Node2D" parent="Bedroom2" unique_id=1276302689]
 position = Vector2(0, 14)
 
-[node name="Sprite2D" type="Sprite2D" parent="Transition2" unique_id=276370879]
+[node name="Sprite2D" type="Sprite2D" parent="Bedroom2" unique_id=276370879]
 position = Vector2(0, -15)
 texture = ExtResource("9_vis30")
 hframes = 2
 
-[node name="Transition3" type="Area2D" parent="." unique_id=535613321]
+[node name="StorageRoom" type="Area2D" parent="." unique_id=535613321]
 position = Vector2(-101, -46)
 script = ExtResource("3_7fqpu")
 destination_path = "uid://dopm0mckrxugx"
-transition_name = "storage"
 metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Transition3" unique_id=1578011187]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StorageRoom" unique_id=1578011187]
 shape = SubResource("RectangleShape2D_w4qbt")
 
-[node name="Node2D" type="Node2D" parent="Transition3" unique_id=1910617917]
+[node name="Node2D" type="Node2D" parent="StorageRoom" unique_id=1910617917]
 position = Vector2(28, 2)
+
+[node name="MainDoor" type="Area2D" parent="." unique_id=1694688327]
+position = Vector2(3, 220)
+script = ExtResource("3_7fqpu")
+destination_path = "uid://c0854c7mmdv3x"
+metadata/_custom_type_script = "uid://csoqjsxgxwixr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainDoor" unique_id=1091230155]
+shape = SubResource("RectangleShape2D_ipm2w")
+
+[node name="Node2D" type="Node2D" parent="MainDoor" unique_id=160355694]
+position = Vector2(0, -23)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1341103966]
 visible = false
@@ -254,6 +266,7 @@ position = Vector2(0, -24)
 
 [node name="CutsceneTrigger" type="Node" parent="Map" unique_id=1768290238]
 script = ExtResource("6_x0hpa")
+one_shot = true
 lock_player = true
 cutscene = ExtResource("7_8uvcd")
 metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
@@ -296,6 +309,6 @@ script = ExtResource("15_ipm2w")
 metadata/_custom_type_script = "uid://cwng3n1pucxf4"
 
 [node name="PlayerTable" type="Marker2D" parent="." unique_id=393522983]
-position = Vector2(-34, 127)
+position = Vector2(-34, 131)
 script = ExtResource("15_ipm2w")
 metadata/_custom_type_script = "uid://cwng3n1pucxf4"

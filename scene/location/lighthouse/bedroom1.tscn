@@ -32,18 +32,17 @@ texture = ExtResource("1_31u5o")
 light_mask = 2
 texture = SubResource("CanvasTexture_ishbb")
 
-[node name="Transition" type="Area2D" parent="." unique_id=1000044582]
+[node name="Bedroom1" type="Area2D" parent="." unique_id=1000044582]
 position = Vector2(-66, 61)
 script = ExtResource("2_gie3k")
 destination_path = "uid://kb7byravxoof"
-transition_name = "test"
 metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Transition" unique_id=409842770]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bedroom1" unique_id=409842770]
 position = Vector2(-12, -1)
 shape = SubResource("RectangleShape2D_b0165")
 
-[node name="Node2D" type="Node2D" parent="Transition" unique_id=1425680375]
+[node name="Node2D" type="Node2D" parent="Bedroom1" unique_id=1425680375]
 position = Vector2(5, 0)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=1799751081]

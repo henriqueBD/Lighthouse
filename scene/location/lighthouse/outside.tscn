@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://c0854c7mmdv3x"]
+
+[ext_resource type="Script" uid="uid://d0jw7003rp8mw" path="res://script/place.gd" id="1_k6ffn"]
+[ext_resource type="Texture2D" uid="uid://bwrb417361rvp" path="res://assets/place/lighthouse/light_house_outside.png" id="2_chmau"]
+[ext_resource type="Texture2D" uid="uid://bobbi1r46ycnj" path="res://assets/place/lighthouse/light_house_background.png" id="2_r1vk6"]
+[ext_resource type="Texture2D" uid="uid://d2458y0fo6bpl" path="res://assets/place/lighthouse/light_house_outside_normal.png" id="3_r1vk6"]
+[ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="4_tnwcy"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_a2sve"]
+diffuse_texture = ExtResource("2_chmau")
+normal_texture = ExtResource("3_r1vk6")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dcqnx"]
+size = Vector2(13, 5)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_chmau"]
+radius = 33.0
+height = 130.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r1vk6"]
+size = Vector2(16, 26)
+
+[node name="Outside" type="Node2D" unique_id=340469804]
+script = ExtResource("1_k6ffn")
+location_path = 1
+
+[node name="LightHouseBackground" type="Sprite2D" parent="." unique_id=862889578]
+position = Vector2(-11, 20)
+texture = ExtResource("2_r1vk6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=83801970]
+texture = SubResource("CanvasTexture_a2sve")
+
+[node name="MainDoor" type="Area2D" parent="." unique_id=939554037]
+position = Vector2(-18, 71)
+script = ExtResource("4_tnwcy")
+destination_path = "uid://kb7byravxoof"
+transition_name = "main_door"
+metadata/_custom_type_script = "uid://csoqjsxgxwixr"
+
+[node name="Node2D" type="Node2D" parent="MainDoor" unique_id=699190495]
+position = Vector2(0, 20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainDoor" unique_id=919774946]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_dcqnx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2037907869]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=227716405]
+position = Vector2(-17, 17)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_chmau")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=2042674656]
+position = Vector2(-33, 60)
+shape = SubResource("RectangleShape2D_r1vk6")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=118804416]
+position = Vector2(-2, 61)
+shape = SubResource("RectangleShape2D_r1vk6")

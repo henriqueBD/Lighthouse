@@ -86,10 +86,10 @@ func register_unique_entity(unique_name: String, node: Node) -> void:
 	_unique_entities_map[unique_name] = node
 
 func register_spawn_point(point: Transition) -> void:
-	assert(not _spawn_points_on_current_room.has(point.transition_name), 
-	"Two transitions with the same name " + point.transition_name)
+	assert(not _spawn_points_on_current_room.has(point.name), 
+	"Two transitions with the same name " + point.name)
 	
-	_spawn_points_on_current_room[point.transition_name] = point
+	_spawn_points_on_current_room[point.name] = point
 
 func get_spawn_point(point_name: String) -> Transition:
 	assert(_spawn_points_on_current_room.has(point_name), "No spawn with name: " + point_name)
