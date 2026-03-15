@@ -2,15 +2,14 @@
 class_name Tracker
 extends Node
 
-@export var unique_name: String
 @export var sources: Array[Node]
 @export var method_name: PackedStringArray
 
 var _actions: Dictionary[String, Callable]
+var _name: String
 
 func _enter_tree() -> void:
-	assert(unique_name, "null name at " + str(get_path()))
-	assert(not unique_name.is_empty(), "empty name at " + str(get_path()))
+	_name = get_parent().name
 	assert(sources.size() == method_name.size(), "no")
 	
 	for i: int in range(sources.size()):
@@ -20,10 +19,10 @@ func _enter_tree() -> void:
 			continue
 		assert(false, "Invalid method: " + method_name[i] + "at" + str(get_path()))
 	
-	GameManager.register_unique_entity(unique_name, self)
+	GameManager.register_unique_entity(_name, self)
 
 func _exit_tree() -> void:
-	GameManager.unregister_unique_entity(unique_name)
+	GameManager.unregister_unique_entity(_name)
 
 func call_method(to_call: String, arguments: PackedStringArray) -> void:
 	if _actions.has(to_call):
@@ -33,4 +32,4 @@ func call_method(to_call: String, arguments: PackedStringArray) -> void:
 			else: tmp.call(arguments)
 			return
 		assert(false, "invalid method: " + to_call)
-	assert(false, "no method on namespace " + unique_name + "with name: " + to_call)
+	assert(false, "no method on namespace " + _name + "with name: " + to_call)

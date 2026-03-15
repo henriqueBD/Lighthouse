@@ -1,8 +1,16 @@
 [gd_resource type="Resource" script_class="Cutscene" format=3 uid="uid://birypmifjp3ou"]
 
 [ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/action_base.gd" id="1_rwykv"]
+[ext_resource type="Resource" uid="uid://c2pwyyj7k8lvv" path="res://cutscene/lighthouse/lantern_chest_unlock.tres" id="2_3c6mj"]
 [ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/action_dialogue.gd" id="2_enb0f"]
 [ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/scripts/cutscene.gd" id="2_m7k0d"]
+[ext_resource type="Script" uid="uid://biukuwf275bnl" path="res://cutscene/scripts/action_goto_bool.gd" id="3_5s7ua"]
+
+[sub_resource type="Resource" id="Resource_jnjx4"]
+script = ExtResource("3_5s7ua")
+var_name = "key_picked"
+jump_to_if_true = ExtResource("2_3c6mj")
+metadata/_custom_type_script = "uid://biukuwf275bnl"
 
 [sub_resource type="Resource" id="Resource_t7r0g"]
 script = ExtResource("2_enb0f")
@@ -12,5 +20,5 @@ metadata/_custom_type_script = "uid://c5daiygjvie4n"
 
 [resource]
 script = ExtResource("2_m7k0d")
-actions = Array[ExtResource("1_rwykv")]([SubResource("Resource_t7r0g")])
+actions = Array[ExtResource("1_rwykv")]([SubResource("Resource_jnjx4"), SubResource("Resource_t7r0g")])
 metadata/_custom_type_script = "uid://c43wcx0hfq43l"

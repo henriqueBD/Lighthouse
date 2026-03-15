@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Cutscene" format=3 uid="uid://c2pwyyj7k8lvv"]
+
+[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/action_base.gd" id="1_0s8d8"]
+[ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/scripts/cutscene.gd" id="2_7sk7q"]
+[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/action_dialogue.gd" id="2_c8fv5"]
+[ext_resource type="Script" uid="uid://dyr0awso8vtj" path="res://cutscene/scripts/action_set_value.gd" id="3_r5ew7"]
+
+[sub_resource type="Resource" id="Resource_hq2ax"]
+script = ExtResource("2_c8fv5")
+dialogue = PackedStringArray("[Used key to unlock chest]")
+metadata/_custom_type_script = "uid://c5daiygjvie4n"
+
+[sub_resource type="Resource" id="Resource_mllej"]
+script = ExtResource("3_r5ew7")
+path = "chest_opened"
+value = true
+metadata/_custom_type_script = "uid://dyr0awso8vtj"
+
+[sub_resource type="Resource" id="Resource_fy8dw"]
+script = ExtResource("2_c8fv5")
+close_dialogue_box_on_end = true
+dialogue = PackedStringArray("...", "There is a lantern inside")
+metadata/_custom_type_script = "uid://c5daiygjvie4n"
+
+[resource]
+script = ExtResource("2_7sk7q")
+actions = Array[ExtResource("1_0s8d8")]([SubResource("Resource_hq2ax"), SubResource("Resource_mllej"), SubResource("Resource_fy8dw")])
+metadata/_custom_type_script = "uid://c43wcx0hfq43l"

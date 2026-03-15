@@ -5,7 +5,8 @@ const DIALOGUE_BOX_INFO: PackedScene = preload("res://scene/important/dialogue_b
 const DIALOGUE_BOX_CHAR: PackedScene = preload("res://scene/important/dialogue_box_char.tscn")
 const SCREEN_TRANSITION: PackedScene = preload("res://scene/important/screen_transition.tscn")
 
-var curr_map: Node
+var curr_map: Place
+var time_manager: TimeManager
 var _screen_transition: ScreenTransition
 var _canvas_layer: CanvasLayer
 var _canvas_layer_subviewport: CanvasLayer
@@ -25,6 +26,8 @@ func _ready() -> void:
 	assert(_game_subviewport)
 	_canvas_layer_subviewport = %CanvasLayerSubviewport
 	assert(_canvas_layer_subviewport)
+	time_manager = %TimeManager
+	assert(time_manager)
 	curr_map = _game_subviewport.get_child(0)
 	assert(curr_map)
 	
@@ -102,14 +105,16 @@ func change_scene(new_scene: PackedScene, spawn_name: String, player: Node) -> v
 	_change_scene_deffered.call_deferred(new_scene, spawn_name, player)
 
 func _change_scene_deffered(new_scene: PackedScene, spawn_location: String, player: Node) -> void:
+	assert(player)
 	var instanciated_scene: Node = new_scene.instantiate()
 	assert(instanciated_scene is Place)
 	curr_map = instanciated_scene
 	_game_subviewport.add_child(curr_map)
 	
-	var objects_node: Node2D = curr_map.get_node_or_null("%Entities")
-	if objects_node:
-		player.reparent(objects_node)
+	var entities_node: Node2D = curr_map.get_node_or_null("%Entities")
+	if entities_node:
+		entities_node.z_index = 1 ##TODO: Make this global
+		player.reparent(entities_node)
 	else:
 		player.reparent(curr_map)
 		

@@ -44,7 +44,9 @@ position = Vector2(-11, 20)
 texture = ExtResource("2_r1vk6")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=83801970]
+position = Vector2(-83, -74)
 texture = SubResource("CanvasTexture_a2sve")
+centered = false
 
 [node name="MainDoor" type="Area2D" parent="." unique_id=939554037]
 position = Vector2(-18, 71)

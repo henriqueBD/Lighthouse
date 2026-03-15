@@ -32,17 +32,17 @@ operation = 1
 comparison_value = true
 source = NodePath("HiddenDoor")
 method_name = "set_active"
-method_arguments = PackedStringArray("true")
+method_arguments = [true]
 metadata/_custom_type_script = "uid://l0teuipo17rj"
 
 [sub_resource type="Resource" id="Resource_hotc2"]
 script = ExtResource("15_hotc2")
 target_var = "chair_moved"
 operation = 1
-comparison_value = true
+comparison_value = null
 source = NodePath("ChairTable")
-method_name = "pull_objects"
-method_arguments = PackedStringArray("chair")
+method_name = "pull_object"
+method_arguments = ["Chair"]
 metadata/_custom_type_script = "uid://l0teuipo17rj"
 
 [sub_resource type="Resource" id="Resource_bpgmk"]
@@ -121,6 +121,7 @@ texture = SubResource("CanvasTexture_b6s8w")
 
 [node name="Entities" type="Node2D" parent="." unique_id=220282718]
 unique_name_in_owner = true
+z_as_relative = false
 y_sort_enabled = true
 
 [node name="Chair" type="Sprite2D" parent="Entities" unique_id=433094377]
@@ -129,7 +130,6 @@ texture = ExtResource("4_x0hpa")
 
 [node name="Tracker" type="Node" parent="Entities/Chair" unique_id=1347393825]
 script = ExtResource("13_w1vs7")
-unique_name = "chair"
 metadata/_custom_type_script = "uid://bhkymgw54xfkd"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Entities/Chair" unique_id=646927030]
@@ -181,8 +181,9 @@ shape = SubResource("RectangleShape2D_shjv7")
 position = Vector2(0, 14)
 
 [node name="Sprite2D" type="Sprite2D" parent="Bedroom2" unique_id=276370879]
-position = Vector2(0, -15)
+position = Vector2(-13, -33)
 texture = ExtResource("9_vis30")
+centered = false
 hframes = 2
 
 [node name="StorageRoom" type="Area2D" parent="." unique_id=535613321]
@@ -291,7 +292,6 @@ metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 
 [node name="Tracker" type="Node" parent="HiddenDoor" unique_id=1319714186 node_paths=PackedStringArray("sources")]
 script = ExtResource("13_w1vs7")
-unique_name = "hidden_door"
 sources = [NodePath(".."), NodePath("../StaticBody2D")]
 method_name = PackedStringArray("set_active", "queue_free")
 metadata/_custom_type_script = "uid://bhkymgw54xfkd"
@@ -308,6 +308,6 @@ script = ExtResource("15_ipm2w")
 metadata/_custom_type_script = "uid://cwng3n1pucxf4"
 
 [node name="PlayerTable" type="Marker2D" parent="." unique_id=393522983]
-position = Vector2(-34, 131)
+position = Vector2(-34, 137)
 script = ExtResource("15_ipm2w")
 metadata/_custom_type_script = "uid://cwng3n1pucxf4"

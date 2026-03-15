@@ -9,7 +9,9 @@
 [ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="5_34dd0"]
 [ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_data.gd" id="6_30tur"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="7_psgul"]
-[ext_resource type="Resource" uid="uid://birypmifjp3ou" path="res://cutscene/lighthouse/chest_with_lantern.tres" id="7_sqonx"]
+[ext_resource type="Resource" uid="uid://birypmifjp3ou" path="res://cutscene/lighthouse/lantern_chest.tres" id="7_sqonx"]
+[ext_resource type="Texture2D" uid="uid://gjdcuhmk5ts7" path="res://assets/furniture/bookshelf.png" id="10_30tur"]
+[ext_resource type="Texture2D" uid="uid://c7fa36hfukaix" path="res://assets/furniture/bookshelf_normal.png" id="11_psgul"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_3r633"]
 diffuse_texture = ExtResource("3_20ndq")
@@ -20,6 +22,13 @@ size = Vector2(22, 6)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sqonx"]
 size = Vector2(25, 13)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_7f3sy"]
+diffuse_texture = ExtResource("10_30tur")
+normal_texture = ExtResource("11_psgul")
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_30tur"]
+polygon = PackedVector2Array(0, 39, 0, 29, 29, 29, 29, 39)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omk02"]
 size = Vector2(34, 9)
@@ -56,7 +65,6 @@ hframes = 3
 
 [node name="Tracker" type="Node" parent="Entities/Chest" unique_id=1550554042]
 script = ExtResource("4_3r633")
-unique_name = "chest"
 metadata/_custom_type_script = "uid://bhkymgw54xfkd"
 
 [node name="Interactable" type="Area2D" parent="Entities/Chest" unique_id=294728355]
@@ -82,6 +90,16 @@ position = Vector2(10, 17)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chest/StaticBody2D" unique_id=1999731311]
 position = Vector2(2.5, 3.5)
 shape = SubResource("RectangleShape2D_sqonx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Entities" unique_id=267617673]
+light_mask = 2
+visibility_layer = 3
+position = Vector2(-1, 0)
+texture = SubResource("CanvasTexture_7f3sy")
+centered = false
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Entities/Sprite2D" unique_id=1923642477]
+occluder = SubResource("OccluderPolygon2D_30tur")
 
 [node name="Bedroom2" type="Area2D" parent="." unique_id=911525109]
 position = Vector2(38, 88)

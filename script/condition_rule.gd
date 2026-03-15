@@ -14,4 +14,4 @@ enum Operation {
 @export var comparison_value: Variant
 @export var source: NodePath
 @export var method_name: String
-@export var method_arguments: PackedStringArray
+@export var method_arguments: Array

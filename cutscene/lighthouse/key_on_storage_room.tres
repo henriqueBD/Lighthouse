@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/action_base.gd" id="1_xph7q"]
 [ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/scripts/cutscene.gd" id="2_081hw"]
 [ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/action_dialogue.gd" id="2_ap5nr"]
+[ext_resource type="Script" uid="uid://dyr0awso8vtj" path="res://cutscene/scripts/action_set_value.gd" id="3_ap5nr"]
 
 [sub_resource type="Resource" id="Resource_61xhy"]
 script = ExtResource("2_ap5nr")
@@ -10,7 +11,13 @@ close_dialogue_box_on_end = true
 dialogue = PackedStringArray("A key.")
 metadata/_custom_type_script = "uid://c5daiygjvie4n"
 
+[sub_resource type="Resource" id="Resource_ewjgy"]
+script = ExtResource("3_ap5nr")
+path = "key_picked"
+value = true
+metadata/_custom_type_script = "uid://dyr0awso8vtj"
+
 [resource]
 script = ExtResource("2_081hw")
-actions = Array[ExtResource("1_xph7q")]([SubResource("Resource_61xhy")])
+actions = Array[ExtResource("1_xph7q")]([SubResource("Resource_61xhy"), SubResource("Resource_ewjgy")])
 metadata/_custom_type_script = "uid://c43wcx0hfq43l"

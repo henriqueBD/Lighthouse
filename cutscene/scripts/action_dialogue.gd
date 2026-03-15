@@ -6,7 +6,7 @@ extends CutsceneAction
 #ex: shake_sceen(3) calls GameManager.call_global_method("", "heal", ["50"])
 #ex: player.heal(50) calls GameManager.call_global_method("player", "heal", ["50"])
 
-const DIALOGUE_SPEED_PER_CHAR: float = 0.1
+const DIALOGUE_SPEED_PER_CHAR: float = 0.04
 
 @export var close_dialogue_box_on_end: bool
 @export_multiline var dialogue: PackedStringArray
@@ -57,6 +57,7 @@ func _next_dialogue() -> void:
 	_next_char()
 	_count += 1
 	if _count >= dialogue.size():
+		#End dialogue
 		GameManager.is_playing_dialogue = false
 		GameManager.set_process_func(Callable())
 		GameManager.toggle_listen_input(false)
@@ -124,6 +125,3 @@ func _parse_text(text: String) -> String:
 	
 	final_output += text.substr(cursor)
 	return final_output
-
-func _evaluate_function_call(content: String) -> String:
-	return content.trim_suffix("()")

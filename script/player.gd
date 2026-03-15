@@ -16,6 +16,9 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Toggle_lantern"): _toggle_lantern()
 	
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().quit()
+	
 	if GameManager.is_player_locked():
 		_controller.move_4_axis(Vector2.ZERO)
 	else:

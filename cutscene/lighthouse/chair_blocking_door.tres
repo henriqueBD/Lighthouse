@@ -27,7 +27,7 @@ metadata/_custom_type_script = "uid://dyr0awso8vtj"
 [sub_resource type="Resource" id="Resource_6onf6"]
 script = ExtResource("3_5dtoo")
 function = 3
-args = ["player", "PlayerTable"]
+args = ["Player", "PlayerTable"]
 metadata/_custom_type_script = "uid://043tmom2vq86"
 
 [sub_resource type="Resource" id="Resource_bh01i"]

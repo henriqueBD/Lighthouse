@@ -75,7 +75,9 @@ func _call_action_unconditional(action: ConditionRule) -> void:
 	assert(target_method and target_method.is_valid())
 	if not target_method.is_valid(): return
 	if action.method_arguments:
-		target_method.call(action.method_arguments)
+		assert(target_method.get_argument_count() == action.method_arguments.size())
+		if target_method.get_argument_count() == action.method_arguments.size():
+			target_method.callv(action.method_arguments)
 	else:
 		target_method.call()
 

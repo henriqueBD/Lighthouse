@@ -19,8 +19,8 @@ const DIALOGUE_ICON: Texture2D = preload("res://assets/icon/dialogue_icon.png")
 var _anchor_bottom_center: Node2D
 var _player_inside: bool
 
-func set_active(value: PackedStringArray) -> void:
-	active = value[0].to_lower() == "true"
+func set_active(value: bool) -> void:
+	active = value
 
 func _ready() -> void:
 	collision_mask = 2 ##TODO: MAKE THIS GLOBAL
