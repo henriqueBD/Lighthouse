@@ -46,9 +46,13 @@ func get_var(local_path: String) -> Variant:
 func _call_action_if_condition(action: ConditionRule) -> void:
 	assert(action)
 	assert(_method_exists(action))
+	
 	#get var
 	var target: Variant = get_var(action.target_var)
-	if not target: return
+	if not target: 
+		if action.operation == ConditionRule.Operation.IS_NULL:
+			_call_action_unconditional(action)
+		return
 	
 	#evaluate
 	match action.operation:
@@ -56,6 +60,9 @@ func _call_action_if_condition(action: ConditionRule) -> void:
 			_call_action_unconditional(action)
 		ConditionRule.Operation.EQUAL:
 			if target == action.comparison_value:
+				_call_action_unconditional(action)
+		ConditionRule.Operation.DIFFERENT:
+			if target != action.comparison_value:
 				_call_action_unconditional(action)
 		ConditionRule.Operation.LESS:
 			if target < action.comparison_value:

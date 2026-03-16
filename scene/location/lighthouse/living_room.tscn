@@ -159,6 +159,7 @@ metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 position = Vector2(38, 4)
 script = ExtResource("3_7fqpu")
 destination_path = "uid://b5lwc6r8gihdf"
+direction = null
 metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bedroom1" unique_id=550245779]
@@ -172,6 +173,7 @@ position = Vector2(-16, -1)
 position = Vector2(-62, -59)
 script = ExtResource("3_7fqpu")
 destination_path = "uid://dle6tyljj31cl"
+direction = null
 metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bedroom2" unique_id=1370316399]
@@ -190,6 +192,7 @@ hframes = 2
 position = Vector2(-101, -46)
 script = ExtResource("3_7fqpu")
 destination_path = "uid://dopm0mckrxugx"
+direction = null
 metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StorageRoom" unique_id=1578011187]
@@ -202,6 +205,7 @@ position = Vector2(28, 2)
 position = Vector2(3, 220)
 script = ExtResource("3_7fqpu")
 destination_path = "uid://c0854c7mmdv3x"
+direction = null
 metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MainDoor" unique_id=1091230155]

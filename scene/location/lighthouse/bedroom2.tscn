@@ -91,14 +91,14 @@ position = Vector2(10, 17)
 position = Vector2(2.5, 3.5)
 shape = SubResource("RectangleShape2D_sqonx")
 
-[node name="Sprite2D" type="Sprite2D" parent="Entities" unique_id=267617673]
+[node name="Bookshelf" type="Sprite2D" parent="Entities" unique_id=267617673]
 light_mask = 2
 visibility_layer = 3
 position = Vector2(-1, 0)
 texture = SubResource("CanvasTexture_7f3sy")
 centered = false
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Entities/Sprite2D" unique_id=1923642477]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Entities/Bookshelf" unique_id=1923642477]
 occluder = SubResource("OccluderPolygon2D_30tur")
 
 [node name="Bedroom2" type="Area2D" parent="." unique_id=911525109]
@@ -126,3 +126,7 @@ occluder = SubResource("OccluderPolygon2D_20ndq")
 
 [node name="LightOccluder2D2" type="LightOccluder2D" parent="." unique_id=505482824]
 occluder = SubResource("OccluderPolygon2D_3r633")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1107882016]
+rotation = -0.8860829
+energy = 0.34

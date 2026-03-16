@@ -7,6 +7,7 @@ const SCREEN_TRANSITION: PackedScene = preload("res://scene/important/screen_tra
 
 var curr_map: Place
 var time_manager: TimeManager
+
 var _screen_transition: ScreenTransition
 var _canvas_layer: CanvasLayer
 var _canvas_layer_subviewport: CanvasLayer
@@ -97,17 +98,19 @@ func fade_in_screen() -> Signal:
 	finished.connect(_screen_transition.hide, CONNECT_ONE_SHOT)
 	return finished
 
-func change_scene(new_scene: PackedScene, spawn_name: String, player: Node) -> void:
+func change_scene(new_scene_path: String, spawn_name: String, player: Node) -> void:
 	await fade_out_screen()
 	
 	player.reparent(self)
 	curr_map.queue_free()
-	_change_scene_deffered.call_deferred(new_scene, spawn_name, player)
+	_change_scene_deffered.call_deferred(new_scene_path, spawn_name, player)
 
-func _change_scene_deffered(new_scene: PackedScene, spawn_location: String, player: Node) -> void:
+func _change_scene_deffered(new_scene_path: String, spawn_location: String, player: Node) -> void:
 	assert(player)
-	var instanciated_scene: Node = new_scene.instantiate()
-	assert(instanciated_scene is Place)
+	
+	assert(ResourceLoader.exists(new_scene_path), "Path does not exist: " + new_scene_path)
+	var instanciated_scene: Node = load(new_scene_path).instantiate()
+	assert(instanciated_scene is Place, "Must be of type Place: " + new_scene_path)
 	curr_map = instanciated_scene
 	_game_subviewport.add_child(curr_map)
 	
@@ -119,7 +122,8 @@ func _change_scene_deffered(new_scene: PackedScene, spawn_location: String, play
 		player.reparent(curr_map)
 		
 	var player_spawn: Transition = GameManager.get_spawn_point(spawn_location)
-	assert(player_spawn)
-	GameManager._player_parent.global_position = player_spawn.spawn_point.global_position
+	assert(player_spawn, "No spawn in" + new_scene_path + " For transition" + spawn_location)
+	if player_spawn:
+		GameManager._player_parent.global_position = player_spawn.spawn_point.global_position
 	
 	fade_in_screen()

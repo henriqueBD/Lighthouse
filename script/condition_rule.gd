@@ -4,7 +4,9 @@ extends Resource
 enum Operation {
 	UNASSIGNED,
 	EXISTS,
+	IS_NULL,
 	EQUAL,
+	DIFFERENT,
 	GREATER,
 	LESS,
 }

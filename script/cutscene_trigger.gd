@@ -6,8 +6,8 @@ signal trigged
 
 @export var active: bool = true
 
-func set_active(value: PackedStringArray) -> void:
-	active = value[0].to_lower() == "true"
+func set_active(value: bool) -> void:
+	active = value
 
 func _ready() -> void:
 	collision_mask = 2 ##TODO: Make this global

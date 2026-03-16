@@ -141,9 +141,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Interact"):
 		interact_pressed.emit()
 
-func change_scene(new_scene: PackedScene, spawn_name: String) -> void:
+func change_scene(new_scene_path: String, spawn_name: String) -> void:
 	_spawn_points_on_current_room.clear()
-	main_node.change_scene(new_scene, spawn_name, _player_parent)
+	main_node.change_scene(new_scene_path, spawn_name, _player_parent)
 
 func create_timer(time_sec: float) -> Signal:
 	return get_tree().create_timer(time_sec).timeout
