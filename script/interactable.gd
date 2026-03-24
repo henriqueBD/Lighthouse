@@ -10,7 +10,7 @@ enum pop_up_texture{
 
 signal interacted
 
-const DIALOGUE_ICON: Texture2D = preload("res://assets/icon/dialogue_icon.png")
+const DIALOGUE_ICON_PATH: String = "res://assets/icon/dialogue_icon.png"
 
 @export var pop_up_type: pop_up_texture
 @export var pop_up_image: Sprite2D
@@ -23,6 +23,8 @@ func set_active(value: bool) -> void:
 	active = value
 
 func _ready() -> void:
+	monitoring = false
+	GameManager.room_faded_in.connect(_on_room_fade_in, CONNECT_ONE_SHOT)
 	collision_mask = 2 ##TODO: MAKE THIS GLOBAL
 	set_process_unhandled_input(false)
 	body_entered.connect(_on_body_entered)
@@ -47,7 +49,8 @@ func _ready() -> void:
 			pop_up_texture.CUSTOM:
 				assert(pop_up_image, "no custom image")
 			pop_up_texture.DIALOGUE:
-				pop_up_image.texture = DIALOGUE_ICON
+				assert(ResourceLoader.exists(DIALOGUE_ICON_PATH))
+				pop_up_image.texture = load(DIALOGUE_ICON_PATH)
 		
 		add_child(pop_up_image)
 		
@@ -58,10 +61,13 @@ func _ready() -> void:
 		pop_up_image.offset.x = -(pop_up_image.texture.get_width() / 2)
 		pop_up_image.offset.y = -pop_up_image.texture.get_height()
 
+func _on_room_fade_in() -> void:
+	monitoring = true
+
 func _unhandled_input(event: InputEvent) -> void:
 	if GameManager.is_player_locked(): return
 	
-	if event.is_action_pressed("Interact"):
+	if event.is_action_pressed("Interact") and not GameManager.is_player_locked():
 		#print("Interacted")
 		interacted.emit()
 

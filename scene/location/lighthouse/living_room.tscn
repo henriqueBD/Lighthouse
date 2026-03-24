@@ -51,7 +51,8 @@ target_var = "chair_moved"
 operation = 1
 comparison_value = true
 source = NodePath("Entities/Chair/Interactable")
-method_name = "queue_free"
+method_name = "set_active"
+method_arguments = [false]
 metadata/_custom_type_script = "uid://l0teuipo17rj"
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_b6s8w"]
@@ -81,7 +82,7 @@ polygon = PackedVector2Array(15, 214, 15, 199, 150, 199, 150, 96, 27, 96, 27, 15
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7fqpu"]
 closed = false
-polygon = PackedVector2Array(-150, 59, -150, 26, -43, 26, -43, 71, -109, 71, -109, 97, -26, 97, -26, -39, -89, -39, -89, -55, -29, -55, -29, -163, 151, -163, 151, -110, 27, -110, 27, -9, 44, -9)
+polygon = PackedVector2Array(-150, 59, -150, 26, -43, 26, -43, 82, -109, 82, -109, 97, -26, 97, -26, -39, -89, -39, -89, -55, -29, -55, -29, -163, 151, -163, 151, -110, 27, -110, 27, -9, 44, -9)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_m50gm"]
 closed = false
@@ -121,25 +122,27 @@ texture = SubResource("CanvasTexture_b6s8w")
 
 [node name="Entities" type="Node2D" parent="." unique_id=220282718]
 unique_name_in_owner = true
-z_as_relative = false
+z_index = 1
 y_sort_enabled = true
 
 [node name="Chair" type="Sprite2D" parent="Entities" unique_id=433094377]
-position = Vector2(5, 188)
+position = Vector2(-6, 171)
 texture = ExtResource("4_x0hpa")
+centered = false
 
 [node name="Tracker" type="Node" parent="Entities/Chair" unique_id=1347393825]
 script = ExtResource("13_w1vs7")
 metadata/_custom_type_script = "uid://bhkymgw54xfkd"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Entities/Chair" unique_id=646927030]
-position = Vector2(-2, 3)
+position = Vector2(8, 19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chair/StaticBody2D" unique_id=1327434999]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_8uvcd")
 
 [node name="Interactable" type="Area2D" parent="Entities/Chair" unique_id=1047763280]
+position = Vector2(9, 17)
 script = ExtResource("5_b6s8w")
 pop_up_type = 2
 metadata/_custom_type_script = "uid://bgp4ssm03oorx"
@@ -271,7 +274,6 @@ position = Vector2(0, -24)
 
 [node name="CutsceneData" type="Node" parent="Map" unique_id=1768290238]
 script = ExtResource("6_x0hpa")
-lock_player = true
 cutscene = ExtResource("7_8uvcd")
 metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 
@@ -290,7 +292,6 @@ position = Vector2(-11, -7)
 
 [node name="CutsceneData" type="Node" parent="HiddenDoor" unique_id=1770520481]
 script = ExtResource("6_x0hpa")
-lock_player = true
 cutscene = ExtResource("13_w4qbt")
 metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 
@@ -307,7 +308,7 @@ position = Vector2(-9, 0)
 shape = SubResource("RectangleShape2D_onacj")
 
 [node name="ChairTable" type="Marker2D" parent="." unique_id=2135681956]
-position = Vector2(-35, 148)
+position = Vector2(-44, 130)
 script = ExtResource("15_ipm2w")
 metadata/_custom_type_script = "uid://cwng3n1pucxf4"
 

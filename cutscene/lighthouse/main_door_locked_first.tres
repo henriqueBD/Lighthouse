@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Cutscene" format=3 uid="uid://fes5qhppqrlf"]
+
+[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/action_base.gd" id="1_6skin"]
+[ext_resource type="Resource" uid="uid://dyaxjict6c3yg" path="res://cutscene/lighthouse/main_door_locked_retry.tres" id="2_qcx36"]
+[ext_resource type="Script" uid="uid://rtgk40vwqyyk" path="res://cutscene/scripts/action_goto_played.gd" id="3_aorii"]
+[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/action_dialogue.gd" id="4_6uubs"]
+[ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/scripts/cutscene.gd" id="5_83wws"]
+
+[sub_resource type="Resource" id="Resource_dafte"]
+script = ExtResource("3_aorii")
+jump_to_if_true = ExtResource("2_qcx36")
+metadata/_custom_type_script = "uid://rtgk40vwqyyk"
+
+[sub_resource type="Resource" id="Resource_0kigp"]
+script = ExtResource("4_6uubs")
+close_dialogue_box_on_end = true
+dialogue = PackedStringArray("There is something blocking the door on the inside", "There must be another way inside")
+metadata/_custom_type_script = "uid://c5daiygjvie4n"
+
+[resource]
+script = ExtResource("5_83wws")
+actions = Array[ExtResource("1_6skin")]([SubResource("Resource_dafte"), SubResource("Resource_0kigp")])
+metadata/_custom_type_script = "uid://c43wcx0hfq43l"

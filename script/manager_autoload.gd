@@ -1,5 +1,7 @@
 extends Node
 
+const CHARACTER_GROUP_NAME: String = "Characters"
+
 const DIALOGUE_SPEED_PER_CHAR: float = 0.05
 
 enum global_variables_bool{
@@ -8,8 +10,10 @@ enum global_variables_bool{
 }
 
 signal interact_pressed
+signal player_just_locked
+signal room_faded_in
 
-var is_playing_dialogue: bool
+var _is_playing_cutscene: bool
 
 #Important nodes
 var main_node: ManagerMainNode
@@ -18,8 +22,7 @@ var _player: Player
 var _player_parent: Character
 
 #Global varibles
-var _unique_entities_map: Dictionary[String, Tracker]
-var _global_variables_bool_map: Dictionary[global_variables_bool, bool]
+var _entities: Dictionary[String, Tracker]
 var _global_variables_string_map: Dictionary[String, String]
 
 #Misc
@@ -52,19 +55,6 @@ func set_player(player: Player) -> void:
 func get_string_var(key: String) -> String:
 	return _global_variables_string_map.get(key, "")
 
-func bool_is_active(key: global_variables_bool) -> bool:
-	return _global_variables_bool_map.has(key)
-
-func bool_set(key: global_variables_bool, value: bool) -> void:
-	if value:
-		assert(not _global_variables_bool_map.has(key), "Tried to add global bool twice")
-		_global_variables_bool_map[key] = true
-	else:
-		if _global_variables_bool_map.has(key):
-			_global_variables_bool_map.erase(key)
-		else:
-			assert(false, "Tried to erase a null global bool")
-
 func call_global_method(name_space: String, method_name: String, arguments: PackedStringArray) -> void:
 	assert(not method_name.is_empty(), "method name is empty")
 	if name_space.is_empty():
@@ -76,14 +66,14 @@ func call_global_method(name_space: String, method_name: String, arguments: Pack
 		else:
 			assert(false, "no function with name " + method_name)
 	else:
-		if _unique_entities_map.has(name_space):
-			_unique_entities_map[name_space].call_method(method_name, arguments)
+		if _entities.has(name_space):
+			_entities[name_space].call_method(method_name, arguments)
 		else:
 			assert(false, "invalid namespace: " + name_space)
 
 func register_unique_entity(unique_name: String, node: Node) -> void:
-	assert(not _unique_entities_map.has(unique_name), "Name " + unique_name + "is not unique")
-	_unique_entities_map[unique_name] = node
+	assert(not _entities.has(unique_name), "Name " + unique_name + "is not unique")
+	_entities[unique_name] = node
 
 func register_spawn_point(point: Transition) -> void:
 	assert(not _spawn_points_on_current_room.has(point.name), 
@@ -96,32 +86,49 @@ func get_spawn_point(point_name: String) -> Transition:
 	return _spawn_points_on_current_room[point_name]
 
 func unregister_unique_entity(unique_name: String) -> void:
-	assert(_unique_entities_map.has(unique_name), "No active entity with name: " + unique_name)
-	_unique_entities_map.erase(unique_name)
+	assert(_entities.has(unique_name), "No active entity with name: " + unique_name)
+	_entities.erase(unique_name)
 
 func get_unique_entity(unique_name: String) -> Tracker:
-	assert(_unique_entities_map.has(unique_name), "No active entity with name: " + unique_name)
-	return _unique_entities_map.get(unique_name)
+	assert(_entities.has(unique_name), "No active entity with name: " + unique_name)
+	return _entities.get(unique_name)
 
 func get_unique_entity_parent(unique_name: String) -> Node2D:
-	var catch: Tracker = _unique_entities_map.get(unique_name)
+	var catch: Tracker = _entities.get(unique_name)
 	if catch:
 		return catch.get_parent()
 	assert(false, "No active entity with name: " + unique_name)
 	return null
 
 func get_marker(unique_name: String) -> Marker:
-	var marker: Marker = main_node.curr_map.get_node(unique_name)
+	var marker: Marker = main_node.curr_map.get_node_or_null(unique_name)
 	assert(marker, "No marker with name " + unique_name)
 	return marker
 
+func get_character(unique_name: String) -> Character:
+	return main_node.curr_map.get_character(unique_name)
+
 func is_player_locked() -> bool:
-	return is_playing_dialogue
+	return _is_playing_cutscene
 
 func set_global_var(var_name: String, value: Variant) -> void:
 	assert(main_node.curr_map is Place)
 	if main_node.curr_map is Place:
 		main_node.curr_map.save_var(var_name, value)
+
+func get_local_var(path: String) -> Variant:
+	return main_node.curr_map.get_var(path)
+
+func local_var_exists(path: String) -> bool:
+	return main_node.curr_map.var_exists(path)
+
+func set_local_var(path: String, value: Variant) -> void:
+	main_node.curr_map.save_var(path, value)
+
+func toggle_is_playing_cutscene(val: bool) -> void:
+	if val and not is_player_locked():
+		player_just_locked.emit()
+	_is_playing_cutscene = val
 
 #endregion
 
@@ -132,10 +139,8 @@ func set_process_func(fn: Callable) -> void:
 func _process(delta: float) -> void:
 	_process_func.call(delta)
 
-##Also locks the player
 func toggle_listen_input(value: bool) -> void:
 	set_process_unhandled_input(value)
-	is_playing_dialogue = value
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Interact"):
@@ -145,11 +150,17 @@ func change_scene(new_scene_path: String, spawn_name: String) -> void:
 	_spawn_points_on_current_room.clear()
 	main_node.change_scene(new_scene_path, spawn_name, _player_parent)
 
-func create_timer(time_sec: float) -> Signal:
-	return get_tree().create_timer(time_sec).timeout
-
 func teleport_entity_to_marker(entity_name: String, marker_name: String) -> void:
 	var entity: Node2D = get_unique_entity_parent(entity_name)
 	var marker: Marker = get_marker(marker_name)
 	if entity and marker:
 		entity.global_position = marker.global_position
+
+func fade_in_finished() -> void:
+	room_faded_in.emit()
+
+func count_down(wait_time_sec: float) -> Signal:
+	if wait_time_sec > 0.0:
+		return get_tree().create_timer(wait_time_sec).timeout
+	assert(false, "Invalid time: " + str(wait_time_sec))
+	return get_tree().create_timer(0.1).timeout

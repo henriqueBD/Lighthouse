@@ -14,6 +14,18 @@ static var _places_keys: Array = places.keys()
 
 var _location: String
 var _actions_dict: Dictionary[String, Array]
+var _entities: Node2D
+
+func get_character(character_name: String) -> Character:
+	if not _entities:
+		assert(false)
+		return null
+	var res: Node = _entities.get_node_or_null(character_name)
+	assert(res, "No character with name " + character_name)
+	if res and res is Character:
+		return res
+	assert(res, "Node " + character_name + " is not of type character")
+	return null
 
 func _enter_tree() -> void:
 	assert(location_path != places.UNASSIGNED)
@@ -21,7 +33,10 @@ func _enter_tree() -> void:
 	GameManager.save_data.create_folder(_location)
 
 func _ready() -> void:
-	if not actions: return
+	_entities = get_node_or_null("%Entities")
+	
+	if not actions: 
+		return
 	_actions_dict = {}
 	
 	for single_action: ConditionRule in actions:
@@ -42,6 +57,9 @@ func save_var(var_name: String, value: Variant) -> void:
 
 func get_var(local_path: String) -> Variant:
 	return GameManager.save_data.get_var_or_null("%s/%s" % [_location, local_path])
+
+func var_exists(local_path: String) -> bool:
+	return GameManager.save_data.var_exists("%s/%s" % [_location, local_path])
 
 func _call_action_if_condition(action: ConditionRule) -> void:
 	assert(action)

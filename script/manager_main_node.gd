@@ -53,13 +53,18 @@ func _ready() -> void:
 
 #region Dialogue
 
-func show_dialogue_box(portrait: Texture2D) -> void:
-	if portrait:
-		_active_dialogue_box = _char_instance
-		_active_dialogue_portrait.texture = portrait
-	else:
-		_active_dialogue_box = _info_instance
-	
+func show_character_dialogue_box(portrait: Texture2D) -> void:
+	if not portrait:
+		assert(false)
+		#TODO: RECOVERY EMPTY IMAGE
+	_active_dialogue_box = _char_instance
+	_active_dialogue_portrait.texture = portrait
+	_active_dialogue_box_label = _active_dialogue_box.get_node("%Label")
+	assert(_active_dialogue_box_label)
+	_active_dialogue_box.show()
+
+func show_info_box() -> void:
+	_active_dialogue_box = _info_instance
 	_active_dialogue_box_label = _active_dialogue_box.get_node("%Label")
 	assert(_active_dialogue_box_label)
 	_active_dialogue_box.show()
@@ -126,4 +131,4 @@ func _change_scene_deffered(new_scene_path: String, spawn_location: String, play
 	if player_spawn:
 		GameManager._player_parent.global_position = player_spawn.spawn_point.global_position
 	
-	fade_in_screen()
+	fade_in_screen().connect(GameManager.fade_in_finished, CONNECT_ONE_SHOT)

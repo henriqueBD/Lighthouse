@@ -13,7 +13,6 @@ func _init() -> void:
 
 ##Path before must be valid
 func store_var(path: String, value: Variant) -> void:
-	assert(value != null, "Value cannot be null")
 	assert(not path.is_empty(), "Path cannot be empty")
 	
 	var split_path: PackedStringArray = _split_path(path)
@@ -45,6 +44,17 @@ func get_var_or_null(path: String) -> Variant:
 	if target_folder:
 		return target_folder.items.get(split_path[1])
 	return null
+
+func var_exists(path: String) -> bool:
+	assert(not path.is_empty(), "Path cannot be empty")
+	
+	var split_path: PackedStringArray = _split_path(path)
+	var target_folder: Folder = _get_folder(split_path[0])
+	
+	assert(target_folder, "Folder does not exist for path: " + path)
+	if target_folder:
+		return target_folder.items.has(split_path[1])
+	return false
 
 func create_folder(path: String) -> void:
 	assert(not path.is_empty())

@@ -5,11 +5,18 @@
 [ext_resource type="Texture2D" uid="uid://cj5vpki1uyv1u" path="res://assets/light/light_texture.png" id="3_ujf4b"]
 [ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="4_23glw"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_23glw"]
+radius = 2.9999998
+height = 14.0
+
 [node name="Player" unique_id=1676178987 instance=ExtResource("1_m66g2")]
 z_index = 1
+z_as_relative = false
 collision_layer = 2
 
 [node name="Sprite2D" parent="." index="0" unique_id=168343517]
+z_index = 1
+z_as_relative = false
 position = Vector2(0, -16)
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=326698374]
@@ -17,6 +24,8 @@ autoplay = &"down_idle"
 
 [node name="CollisionShape2D" parent="." index="2" unique_id=2114423630]
 position = Vector2(0, -3)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_23glw")
 
 [node name="Light" type="PointLight2D" parent="." index="3" unique_id=285483819]
 unique_name_in_owner = true

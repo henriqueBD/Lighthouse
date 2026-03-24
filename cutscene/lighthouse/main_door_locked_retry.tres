@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Cutscene" format=3 uid="uid://dyaxjict6c3yg"]
+
+[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/action_base.gd" id="1_b3wle"]
+[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/action_dialogue.gd" id="2_vw7nq"]
+[ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/scripts/cutscene.gd" id="3_nwyej"]
+
+[sub_resource type="Resource" id="Resource_4j5j5"]
+script = ExtResource("2_vw7nq")
+close_dialogue_box_on_end = true
+dialogue = PackedStringArray("I can\'t open it")
+metadata/_custom_type_script = "uid://c5daiygjvie4n"
+
+[resource]
+script = ExtResource("3_nwyej")
+actions = Array[ExtResource("1_b3wle")]([SubResource("Resource_4j5j5")])
+metadata/_custom_type_script = "uid://c43wcx0hfq43l"

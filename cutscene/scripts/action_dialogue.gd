@@ -24,14 +24,19 @@ static func init_regex() -> RegEx:
 	regex.compile("\\{(.*?)\\}")
 	return regex
 
+#Remember to also change the character dialogue variation
 func execute() -> void:
+	if not dialogue:
+		assert(false)
+		action_ended.emit()
+		return
+	assert(_vibe_check_dialogue(), str(dialogue))
 	_count = 0
-	GameManager.main_node.show_dialogue_box(null)
+	GameManager.main_node.show_info_box()
 	GameManager.main_node.change_dialogue_text(_parse_text(dialogue[0]))
 	GameManager.toggle_listen_input(true)
 	GameManager.interact_pressed.connect(_on_input_pressed)
 	GameManager.set_process_func(_process)
-	GameManager.is_playing_dialogue = true
 
 func _next_char() -> void:
 	if _call_method_indexes.has(_current_char_index):
@@ -58,7 +63,6 @@ func _next_dialogue() -> void:
 	_count += 1
 	if _count >= dialogue.size():
 		#End dialogue
-		GameManager.is_playing_dialogue = false
 		GameManager.set_process_func(Callable())
 		GameManager.toggle_listen_input(false)
 		GameManager.interact_pressed.disconnect(_on_input_pressed)
@@ -72,7 +76,11 @@ func _continue_dialogue() -> void:
 	GameManager.main_node.change_dialogue_text(_parse_text(dialogue[_count]))
 
 func _parse_text(text: String) -> String:
-	assert(not text.is_empty(), "Text should have content")
+	if text.is_empty():
+		assert(false, "Text should have content")
+		return ""
+	
+	text = tr(text)
 	
 	var final_output: String = ""
 	var cursor: int = 0
@@ -125,3 +133,8 @@ func _parse_text(text: String) -> String:
 	
 	final_output += text.substr(cursor)
 	return final_output
+
+func _vibe_check_dialogue() -> bool:
+	for line: String in dialogue:
+		if not line or line.is_empty(): return false
+	return true

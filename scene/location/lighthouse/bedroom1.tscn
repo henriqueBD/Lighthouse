@@ -5,6 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://bdmx3ar1achup" path="res://assets/place/lighthouse/room1_walls.png" id="2_2sxn8"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="2_gie3k"]
 [ext_resource type="Texture2D" uid="uid://cvjjtqchptu6b" path="res://assets/place/lighthouse/room1_normals.png" id="3_cdqvu"]
+[ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="6_75suw"]
+[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_data.gd" id="7_r5kqp"]
+[ext_resource type="Resource" uid="uid://br7nd2fmcqcjy" path="res://cutscene/lighthouse/empty_book.tres" id="8_r5kqp"]
+[ext_resource type="Script" uid="uid://o6isw3ieort0" path="res://script/cutscene_trigger.gd" id="9_8ft64"]
+[ext_resource type="Resource" uid="uid://wwlo557tqeth" path="res://cutscene/lighthouse/enter_lighthouse_from_window.tres" id="10_126fi"]
+[ext_resource type="Script" uid="uid://cwng3n1pucxf4" path="res://script/marker.gd" id="11_126fi"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_ishbb"]
 diffuse_texture = ExtResource("2_2sxn8")
@@ -24,6 +30,17 @@ polygon = PackedVector2Array(66, 54, 66, 82, -59, 82, -59, 74, -72, 74)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2sxn8"]
 size = Vector2(20, 40)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ft64"]
+size = Vector2(21, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_us0x7"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_8ft64"]
+vertices = PackedVector2Array(60, 13.953125, 60, 76, -36, 76, -36, 13.0390625)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-41, 8, -41, 81, 65, 81, 65, 9)])
+agent_radius = 5.0
+
 [node name="Bedroom1" type="Node2D" unique_id=357618366]
 script = ExtResource("1_2sxn8")
 location_path = 1
@@ -34,6 +51,9 @@ texture = ExtResource("1_31u5o")
 [node name="Walls" type="Sprite2D" parent="." unique_id=180253892]
 light_mask = 2
 texture = SubResource("CanvasTexture_ishbb")
+
+[node name="Entities" type="Node2D" parent="." unique_id=1451834229]
+unique_name_in_owner = true
 
 [node name="Bedroom1" type="Area2D" parent="." unique_id=1000044582]
 position = Vector2(-66, 61)
@@ -65,3 +85,43 @@ shape = SubResource("RectangleShape2D_2sxn8")
 
 [node name="Node2D" type="Node2D" parent="Bedroom1Window" unique_id=1077133937]
 position = Vector2(-29, 0)
+
+[node name="Interactable" type="Area2D" parent="." unique_id=402260581]
+position = Vector2(-48, 23)
+script = ExtResource("6_75suw")
+pop_up_type = 2
+metadata/_custom_type_script = "uid://bgp4ssm03oorx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=1709772447]
+position = Vector2(1.5, 2)
+shape = SubResource("RectangleShape2D_8ft64")
+
+[node name="Node2D" type="Node2D" parent="Interactable" unique_id=1782286302]
+position = Vector2(-2, -9)
+
+[node name="CutsceneData" type="Node" parent="Interactable" unique_id=1665260331]
+script = ExtResource("7_r5kqp")
+cutscene = ExtResource("8_r5kqp")
+metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
+
+[node name="CutsceneTrigger" type="Area2D" parent="." unique_id=190107407]
+position = Vector2(52, 38)
+script = ExtResource("9_8ft64")
+metadata/_custom_type_script = "uid://o6isw3ieort0"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CutsceneTrigger" unique_id=984983681]
+shape = SubResource("CircleShape2D_us0x7")
+
+[node name="CutsceneData" type="Node" parent="CutsceneTrigger" unique_id=2014059119]
+script = ExtResource("7_r5kqp")
+one_shot = true
+cutscene = ExtResource("10_126fi")
+metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=241819119]
+navigation_polygon = SubResource("NavigationPolygon_8ft64")
+
+[node name="TableFront" type="Marker2D" parent="." unique_id=427113266]
+position = Vector2(-33, 29)
+script = ExtResource("11_126fi")
+metadata/_custom_type_script = "uid://cwng3n1pucxf4"

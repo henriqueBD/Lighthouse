@@ -3,7 +3,7 @@ class_name CutsceneData
 extends Node
 
 @export var one_shot: bool
-@export var lock_player: bool
+@export var lock_player: bool = true
 @export var cutscene: Cutscene
 
 var _cursor: CutsceneCursor
@@ -33,7 +33,7 @@ func _ready() -> void:
 		assert(false, "Parent is neither Interactable nor CutsceneTrigger.")
 
 func start_cutscene() -> void:
-	assert(_cursor == null, "Two cutscenes active.")
+	assert(_cursor == null, "Two cutscenes active" + str(get_path()))
 	if cutscene == null or _cursor != null: 
 		return
 	
@@ -42,11 +42,13 @@ func start_cutscene() -> void:
 		var save_id: String = _get_save_id()
 		owner.save_var(save_id, true)
 	
+	GameManager.toggle_is_playing_cutscene(true)
 	_cursor = CutsceneCursor.new()
-	_cursor.start_cutscene(cutscene)
 	_cursor.cutscene_ended.connect(finish_cutscene)
+	_cursor.start_cutscene(cutscene)
 
 func finish_cutscene(_reset_value: Cutscene) -> void:
+	GameManager.toggle_is_playing_cutscene(false)
 	_cursor = null
 	
 	if one_shot:
@@ -70,3 +72,6 @@ func _get_save_id() -> String:
 	#TODO: Replaces the dangerous filename characters with safe ones
 	#return Marshalls.raw_to_base64(bytes).trim_suffix("==").replace("/", "_").replace("+", "-")
 	return Marshalls.raw_to_base64(bytes).trim_suffix("==")
+
+func _exit_tree() -> void:
+	assert(not _cursor, "Tried to unload active cutscene " + str(get_path()))

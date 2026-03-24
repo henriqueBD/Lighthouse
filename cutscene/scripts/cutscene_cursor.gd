@@ -1,5 +1,5 @@
 class_name CutsceneCursor
-extends Object
+extends RefCounted
 
 signal cutscene_ended(reset_cutscene: Cutscene)
 
@@ -8,6 +8,10 @@ var _cutscene: Cutscene
 var _current_action: CutsceneAction
 
 func start_cutscene(start: Cutscene) -> void:
+	if not start or start.actions.size() <= 0:
+		assert(false)
+		cutscene_ended.emit(null)
+		return
 	_count = -1
 	_cutscene = start
 	if _advance():
@@ -24,7 +28,7 @@ func _advance() -> bool:
 		_current_action = null
 	else:
 		_current_action = _cutscene.actions[_count]
-		if _current_action is GotoBool:
+		if _current_action is GotoBool or _current_action is GotoPlayed:
 			var evaluated: Cutscene = _current_action.evaluate()
 			if evaluated: 
 				start_cutscene(evaluated)
