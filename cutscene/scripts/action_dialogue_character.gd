@@ -4,7 +4,7 @@ extends TextBox
 @export var portraits: Array[Texture2D]
 
 #Remember to also change the info dialogue variation
-func execute() -> void:
+func execute(context: Node) -> void:
 	if not dialogue:
 		assert(false)
 		action_ended.emit()

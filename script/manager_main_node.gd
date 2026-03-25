@@ -129,6 +129,6 @@ func _change_scene_deffered(new_scene_path: String, spawn_location: String, play
 	var player_spawn: Transition = GameManager.get_spawn_point(spawn_location)
 	assert(player_spawn, "No spawn in" + new_scene_path + " For transition" + spawn_location)
 	if player_spawn:
-		GameManager._player_parent.global_position = player_spawn.spawn_point.global_position
+		GameManager.player_parent.global_position = player_spawn.spawn_point.global_position
 	
 	fade_in_screen().connect(GameManager.fade_in_finished, CONNECT_ONE_SHOT)

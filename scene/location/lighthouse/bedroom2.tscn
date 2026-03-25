@@ -5,30 +5,57 @@
 [ext_resource type="Texture2D" uid="uid://dywttlajucbgr" path="res://assets/place/lighthouse/room2_walls.png" id="2_sqonx"]
 [ext_resource type="Texture2D" uid="uid://5ghbp63i063l" path="res://assets/furniture/chest.png" id="3_20ndq"]
 [ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="4_3r633"]
-[ext_resource type="Texture2D" uid="uid://jrj2xx2v7tb4" path="res://assets/furniture/chest_normal.png" id="4_20ndq"]
 [ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="5_34dd0"]
 [ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_data.gd" id="6_30tur"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="7_psgul"]
 [ext_resource type="Resource" uid="uid://birypmifjp3ou" path="res://cutscene/lighthouse/lantern_chest.tres" id="7_sqonx"]
-[ext_resource type="Texture2D" uid="uid://gjdcuhmk5ts7" path="res://assets/furniture/bookshelf.png" id="10_30tur"]
-[ext_resource type="Texture2D" uid="uid://c7fa36hfukaix" path="res://assets/furniture/bookshelf_normal.png" id="11_psgul"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_3r633"]
-diffuse_texture = ExtResource("3_20ndq")
-normal_texture = ExtResource("4_20ndq")
+[sub_resource type="AtlasTexture" id="AtlasTexture_30tur"]
+atlas = ExtResource("3_20ndq")
+region = Rect2(0, 0, 25, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20ndq"]
+atlas = ExtResource("3_20ndq")
+region = Rect2(0, 0, 25, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3r633"]
+atlas = ExtResource("3_20ndq")
+region = Rect2(25, 0, 25, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34dd0"]
+atlas = ExtResource("3_20ndq")
+region = Rect2(50, 0, 25, 27)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_30tur"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30tur")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_20ndq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3r633")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34dd0")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7f3sy"]
 size = Vector2(22, 6)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sqonx"]
 size = Vector2(25, 13)
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_7f3sy"]
-diffuse_texture = ExtResource("10_30tur")
-normal_texture = ExtResource("11_psgul")
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_30tur"]
-polygon = PackedVector2Array(0, 39, 0, 29, 29, 29, 29, 39)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omk02"]
 size = Vector2(34, 9)
@@ -57,27 +84,29 @@ texture = ExtResource("2_sqonx")
 unique_name_in_owner = true
 y_sort_enabled = true
 
-[node name="Chest" type="Sprite2D" parent="Entities" unique_id=127826598]
+[node name="Chest" type="AnimatedSprite2D" parent="Entities" unique_id=1189581976]
 position = Vector2(26, -54)
-texture = SubResource("CanvasTexture_3r633")
+sprite_frames = SubResource("SpriteFrames_30tur")
+animation = &"idle"
+autoplay = "idle"
 centered = false
-hframes = 3
 
 [node name="Tracker" type="Node" parent="Entities/Chest" unique_id=1550554042]
 script = ExtResource("4_3r633")
 metadata/_custom_type_script = "uid://bhkymgw54xfkd"
 
 [node name="Interactable" type="Area2D" parent="Entities/Chest" unique_id=294728355]
-position = Vector2(12, 30)
+position = Vector2(13, 20)
 script = ExtResource("5_34dd0")
 pop_up_type = 2
 metadata/_custom_type_script = "uid://bgp4ssm03oorx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chest/Interactable" unique_id=1255281982]
+position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_7f3sy")
 
 [node name="Node2D" type="Node2D" parent="Entities/Chest/Interactable" unique_id=1070430461]
-position = Vector2(0, -22)
+position = Vector2(0, -16)
 
 [node name="CutsceneTrigger" type="Node" parent="Entities/Chest/Interactable" unique_id=587233080]
 script = ExtResource("6_30tur")
@@ -90,16 +119,6 @@ position = Vector2(10, 17)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chest/StaticBody2D" unique_id=1999731311]
 position = Vector2(2.5, 3.5)
 shape = SubResource("RectangleShape2D_sqonx")
-
-[node name="Bookshelf" type="Sprite2D" parent="Entities" unique_id=267617673]
-light_mask = 2
-visibility_layer = 3
-position = Vector2(-1, 0)
-texture = SubResource("CanvasTexture_7f3sy")
-centered = false
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Entities/Bookshelf" unique_id=1923642477]
-occluder = SubResource("OccluderPolygon2D_30tur")
 
 [node name="Bedroom2" type="Area2D" parent="." unique_id=911525109]
 position = Vector2(38, 88)

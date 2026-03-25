@@ -5,6 +5,6 @@ extends CutsceneAction
 @export var path: String
 @export var value: Variant
 
-func execute() -> void:
+func execute(context: Node) -> void:
 	GameManager.set_global_var(path, value)
 	action_ended.emit()

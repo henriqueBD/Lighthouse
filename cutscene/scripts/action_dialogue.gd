@@ -25,7 +25,7 @@ static func init_regex() -> RegEx:
 	return regex
 
 #Remember to also change the character dialogue variation
-func execute() -> void:
+func execute(context: Node) -> void:
 	if not dialogue:
 		assert(false)
 		action_ended.emit()

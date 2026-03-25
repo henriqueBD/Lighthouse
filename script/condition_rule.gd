@@ -17,3 +17,4 @@ enum Operation {
 @export var source: NodePath
 @export var method_name: String
 @export var method_arguments: Array
+@export var apply_immediatly: bool

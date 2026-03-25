@@ -10,7 +10,6 @@ enum global_variables_bool{
 }
 
 signal interact_pressed
-signal player_just_locked
 signal room_faded_in
 
 var _is_playing_cutscene: bool
@@ -18,8 +17,8 @@ var _is_playing_cutscene: bool
 #Important nodes
 var main_node: ManagerMainNode
 var save_data: SaveData = SaveData.new()
-var _player: Player
-var _player_parent: Character
+var player: Player
+var player_parent: Character
 
 #Global varibles
 var _entities: Dictionary[String, Tracker]
@@ -46,11 +45,11 @@ func set_main_node(node_to_add: ManagerMainNode) -> void:
 	assert(not main_node, "main node set twice")
 	main_node = node_to_add
 
-func set_player(player: Player) -> void:
-	assert(not _player, "two players on scene")
-	_player = player
-	_player_parent = _player.get_parent()
-	assert(_player_parent)
+func set_player(player_to_add: Player) -> void:
+	assert(not player, "two players on scene")
+	player = player_to_add
+	player_parent = player.get_parent()
+	assert(player_parent)
 
 func get_string_var(key: String) -> String:
 	return _global_variables_string_map.get(key, "")
@@ -126,8 +125,6 @@ func set_local_var(path: String, value: Variant) -> void:
 	main_node.curr_map.save_var(path, value)
 
 func toggle_is_playing_cutscene(val: bool) -> void:
-	if val and not is_player_locked():
-		player_just_locked.emit()
 	_is_playing_cutscene = val
 
 #endregion
@@ -148,7 +145,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func change_scene(new_scene_path: String, spawn_name: String) -> void:
 	_spawn_points_on_current_room.clear()
-	main_node.change_scene(new_scene_path, spawn_name, _player_parent)
+	main_node.change_scene(new_scene_path, spawn_name, player_parent)
 
 func teleport_entity_to_marker(entity_name: String, marker_name: String) -> void:
 	var entity: Node2D = get_unique_entity_parent(entity_name)

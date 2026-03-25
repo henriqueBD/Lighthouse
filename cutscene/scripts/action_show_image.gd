@@ -6,7 +6,7 @@ extends CutsceneAction
 var _can_continue: bool = true
 var _texture_rect: TextureRect
 
-func execute() -> void:
+func execute(context: Node) -> void:
 	assert(image_to_show)
 	
 	_texture_rect = TextureRect.new()

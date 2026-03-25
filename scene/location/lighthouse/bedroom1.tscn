@@ -87,17 +87,17 @@ shape = SubResource("RectangleShape2D_2sxn8")
 position = Vector2(-29, 0)
 
 [node name="Interactable" type="Area2D" parent="." unique_id=402260581]
-position = Vector2(-48, 23)
+position = Vector2(-51, 23)
 script = ExtResource("6_75suw")
 pop_up_type = 2
 metadata/_custom_type_script = "uid://bgp4ssm03oorx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=1709772447]
-position = Vector2(1.5, 2)
+position = Vector2(4, 2)
 shape = SubResource("RectangleShape2D_8ft64")
 
 [node name="Node2D" type="Node2D" parent="Interactable" unique_id=1782286302]
-position = Vector2(-2, -9)
+position = Vector2(1, -9)
 
 [node name="CutsceneData" type="Node" parent="Interactable" unique_id=1665260331]
 script = ExtResource("7_r5kqp")

@@ -45,7 +45,7 @@ func start_cutscene() -> void:
 	GameManager.toggle_is_playing_cutscene(true)
 	_cursor = CutsceneCursor.new()
 	_cursor.cutscene_ended.connect(finish_cutscene)
-	_cursor.start_cutscene(cutscene)
+	_cursor.start_cutscene(cutscene, self)
 
 func finish_cutscene(_reset_value: Cutscene) -> void:
 	GameManager.toggle_is_playing_cutscene(false)

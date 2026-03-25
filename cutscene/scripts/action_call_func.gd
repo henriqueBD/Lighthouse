@@ -12,7 +12,7 @@ enum FuncName{
 @export var function: FuncName
 @export var args: Array
 
-func execute() -> void:
+func execute(context: Node) -> void:
 	assert(function != FuncName.UNASSIGNED)
 	
 	match function:

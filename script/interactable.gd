@@ -68,7 +68,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if GameManager.is_player_locked(): return
 	
 	if event.is_action_pressed("Interact") and not GameManager.is_player_locked():
-		#print("Interacted")
+		GameManager.player_parent.turn_to_point(global_position)
 		interacted.emit()
 
 func _on_body_entered(_body: Node2D) -> void:

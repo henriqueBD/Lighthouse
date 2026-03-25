@@ -40,13 +40,21 @@ texture = ExtResource("3_ujf4b")
 texture_scale = 2.0
 height = 10.0
 
-[node name="Player" type="Node" parent="." index="4" unique_id=94685682]
+[node name="UV_Light" type="PointLight2D" parent="." index="4" unique_id=370519223]
+unique_name_in_owner = true
+position = Vector2(0, -3)
+color = Color(0.8387531, 0.43901455, 1, 1)
+range_item_cull_mask = 32
+shadow_filter = 2
+texture = ExtResource("3_ujf4b")
+
+[node name="Player" type="Node" parent="." index="5" unique_id=94685682]
 script = ExtResource("1_apw8i")
 metadata/_custom_type_script = "uid://d23olrs8sfahq"
 
-[node name="Camera2D" type="Camera2D" parent="." index="5" unique_id=541293806]
+[node name="Camera2D" type="Camera2D" parent="." index="6" unique_id=541293806]
 position = Vector2(0, -16)
 
-[node name="Tracker" type="Node" parent="." index="6" unique_id=962722039]
+[node name="Tracker" type="Node" parent="." index="7" unique_id=962722039]
 script = ExtResource("4_23glw")
 metadata/_custom_type_script = "uid://bhkymgw54xfkd"

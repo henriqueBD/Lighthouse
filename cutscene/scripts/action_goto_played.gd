@@ -4,7 +4,7 @@ extends CutsceneAction
 
 @export var jump_to_if_true: Cutscene #extends Resource
 
-func execute() -> void:
+func execute(context: Node) -> void:
 	assert(false, "no")
 	action_ended.emit()
 

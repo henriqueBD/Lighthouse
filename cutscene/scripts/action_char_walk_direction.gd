@@ -4,7 +4,7 @@ extends CutsceneAction
 @export var character_name: String
 @export var direction: Vector2
 
-func execute() -> void:
+func execute(context: Node) -> void:
 	var character: Character = GameManager.get_character(character_name)
 	if not character:
 		assert(false)
