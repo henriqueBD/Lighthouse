@@ -5,6 +5,11 @@
 [ext_resource type="Script" uid="uid://rtgk40vwqyyk" path="res://cutscene/scripts/action_goto_played.gd" id="3_aorii"]
 [ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/action_dialogue.gd" id="4_6uubs"]
 [ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/scripts/cutscene.gd" id="5_83wws"]
+[ext_resource type="Script" uid="uid://rm2lwtakebtd" path="res://cutscene/scripts/action_play_sound.gd" id="5_dafte"]
+[ext_resource type="AudioStream" uid="uid://c1g0q3q2ec7ow" path="res://assets/sound_effects/door_knock_3x.wav" id="6_hy2m5"]
+[ext_resource type="Texture2D" uid="uid://vcii0f0ihtxl" path="res://assets/character/lucio/lucio_portrait.png" id="7_3cf7r"]
+[ext_resource type="Script" uid="uid://cq47mnj68tk8l" path="res://cutscene/scripts/action_dialogue_character.gd" id="8_kttqd"]
+[ext_resource type="AudioStream" uid="uid://cu0eujfi5tdh7" path="res://assets/sound_effects/door_knock_6x.wav" id="9_dafte"]
 
 [sub_resource type="Resource" id="Resource_dafte"]
 script = ExtResource("3_aorii")
@@ -13,11 +18,40 @@ metadata/_custom_type_script = "uid://rtgk40vwqyyk"
 
 [sub_resource type="Resource" id="Resource_0kigp"]
 script = ExtResource("4_6uubs")
-close_dialogue_box_on_end = true
-dialogue = PackedStringArray("There is something blocking the door on the inside", "There must be another way inside")
+dialogue = PackedStringArray("The door is locked.")
 metadata/_custom_type_script = "uid://c5daiygjvie4n"
+
+[sub_resource type="Resource" id="Resource_sps3t"]
+script = ExtResource("5_dafte")
+sound = ExtResource("6_hy2m5")
+wait_to_finish = true
+metadata/_custom_type_script = "uid://rm2lwtakebtd"
+
+[sub_resource type="Resource" id="Resource_mwgks"]
+script = ExtResource("8_kttqd")
+portraits = Array[Texture2D]([ExtResource("7_3cf7r")])
+dialogue = PackedStringArray("Pete, are you still there?")
+metadata/_custom_type_script = "uid://cq47mnj68tk8l"
+
+[sub_resource type="Resource" id="Resource_hy2m5"]
+script = ExtResource("5_dafte")
+sound = ExtResource("6_hy2m5")
+wait_to_finish = true
+metadata/_custom_type_script = "uid://rm2lwtakebtd"
+
+[sub_resource type="Resource" id="Resource_3cf7r"]
+script = ExtResource("8_kttqd")
+portraits = Array[Texture2D]([ExtResource("7_3cf7r")])
+dialogue = PackedStringArray("I can see the lighthouse is not on.")
+metadata/_custom_type_script = "uid://cq47mnj68tk8l"
+
+[sub_resource type="Resource" id="Resource_kttqd"]
+script = ExtResource("5_dafte")
+sound = ExtResource("9_dafte")
+wait_to_finish = true
+metadata/_custom_type_script = "uid://rm2lwtakebtd"
 
 [resource]
 script = ExtResource("5_83wws")
-actions = Array[ExtResource("1_6skin")]([SubResource("Resource_dafte"), SubResource("Resource_0kigp")])
+actions = Array[ExtResource("1_6skin")]([SubResource("Resource_dafte"), SubResource("Resource_0kigp"), SubResource("Resource_sps3t"), SubResource("Resource_mwgks"), SubResource("Resource_hy2m5"), SubResource("Resource_3cf7r"), SubResource("Resource_kttqd")])
 metadata/_custom_type_script = "uid://c43wcx0hfq43l"

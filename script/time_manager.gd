@@ -14,11 +14,15 @@ var _current_time_hours: float = 10
 var _target_time: float
 var _custom_time_speed: float
 
-func set_time(target: float) -> void:
-	_current_time_hours = clamp(target, 0.0, 24.0)
+func set_time(target_time: float) -> void:
+	assert(target_time >= 0.0 and target_time <= 24.0, "Invalid time of " + str(target_time))
+	_current_time_hours = clamp(target_time, 0.0, 24.0)
 	_update_lights()
 
 func increment_time(time_delta: float) -> void:
+	if time_delta <= 0:
+		assert(false, "Invalid increment of " + str(time_delta))
+		return
 	_current_time_hours = fposmod(_current_time_hours + time_delta, 24.0)
 	_update_lights()
 
@@ -28,6 +32,7 @@ func set_time_smooth(target: float) -> void:
 
 func increment_time_smooth(time_delta: float, custom_speed: float) -> void:
 	assert(time_delta > 0, "Time must be positive, got: " + str(time_delta))
+	assert(custom_speed >= 0, str(custom_speed))
 	if time_delta <= 0: return
 	custom_speed = time_speed if custom_speed <= 0 else custom_speed
 	if is_physics_processing():

@@ -10,6 +10,7 @@ func execute(context: Node) -> void:
 	var target_node: Node = context.get_node(source)
 	if not target_node:
 		assert(false, "Could not get node " + str(source))
+		action_ended.emit()
 		return
 	
 	assert(target_node is AnimatedSprite2D or target_node is AnimationPlayer)

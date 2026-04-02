@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://cp38vwrs6ih0j" path="res://assets/place/lighthouse/roomNormal.png" id="2_m50gm"]
 [ext_resource type="Texture2D" uid="uid://bpjjfdjy3v48a" path="res://assets/place/lighthouse/room_walls.png" id="2_qyrgb"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="3_7fqpu"]
+[ext_resource type="Script" uid="uid://bvyk7wmxvbttc" path="res://cutscene/scripts/action_toggle_active.gd" id="3_bpgmk"]
+[ext_resource type="Script" uid="uid://criudvyc6a0ea" path="res://cutscene/scripts/action_pull_to_marker.gd" id="3_hotc2"]
+[ext_resource type="Script" uid="uid://coma3vrrp33jq" path="res://cutscene/scripts/action_queue_free.gd" id="3_tbh6r"]
 [ext_resource type="Texture2D" uid="uid://b55lxfbd71k7k" path="res://assets/furniture/chair.png" id="4_x0hpa"]
 [ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="5_b6s8w"]
 [ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_data.gd" id="6_x0hpa"]
@@ -16,43 +19,54 @@
 [ext_resource type="Script" uid="uid://l0teuipo17rj" path="res://script/condition_rule.gd" id="15_hotc2"]
 [ext_resource type="Script" uid="uid://cwng3n1pucxf4" path="res://script/marker.gd" id="15_ipm2w"]
 
+[sub_resource type="Resource" id="Resource_pamnv"]
+script = ExtResource("3_tbh6r")
+target = NodePath("HiddenDoor")
+metadata/_custom_type_script = "uid://coma3vrrp33jq"
+
 [sub_resource type="Resource" id="Resource_ipm2w"]
 script = ExtResource("15_hotc2")
 target_var = "open_door"
-operation = 1
-comparison_value = true
-source = NodePath("HiddenDoor")
-method_name = "queue_free"
+action = SubResource("Resource_pamnv")
+apply_immediatly = true
 metadata/_custom_type_script = "uid://l0teuipo17rj"
+
+[sub_resource type="Resource" id="Resource_u57s5"]
+script = ExtResource("3_bpgmk")
+target = NodePath("HiddenDoor")
+active = true
+metadata/_custom_type_script = "uid://bvyk7wmxvbttc"
 
 [sub_resource type="Resource" id="Resource_w4qbt"]
 script = ExtResource("15_hotc2")
 target_var = "saw_map"
-operation = 1
-comparison_value = true
-source = NodePath("HiddenDoor")
-method_name = "set_active"
-method_arguments = [true]
+action = SubResource("Resource_u57s5")
+apply_immediatly = true
 metadata/_custom_type_script = "uid://l0teuipo17rj"
+
+[sub_resource type="Resource" id="Resource_tbh6r"]
+script = ExtResource("3_hotc2")
+entity_name = "Chair"
+marker_path = NodePath("ChairTable")
+metadata/_custom_type_script = "uid://criudvyc6a0ea"
 
 [sub_resource type="Resource" id="Resource_hotc2"]
 script = ExtResource("15_hotc2")
 target_var = "chair_moved"
-operation = 1
-comparison_value = null
-source = NodePath("ChairTable")
-method_name = "pull_object"
-method_arguments = ["Chair"]
+action = SubResource("Resource_tbh6r")
+apply_immediatly = true
 metadata/_custom_type_script = "uid://l0teuipo17rj"
+
+[sub_resource type="Resource" id="Resource_gxt4c"]
+script = ExtResource("3_bpgmk")
+target = NodePath("Entities/Chair/Interactable")
+metadata/_custom_type_script = "uid://bvyk7wmxvbttc"
 
 [sub_resource type="Resource" id="Resource_bpgmk"]
 script = ExtResource("15_hotc2")
 target_var = "chair_moved"
-operation = 1
-comparison_value = true
-source = NodePath("Entities/Chair/Interactable")
-method_name = "set_active"
-method_arguments = [false]
+action = SubResource("Resource_gxt4c")
+apply_immediatly = true
 metadata/_custom_type_script = "uid://l0teuipo17rj"
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_b6s8w"]
@@ -78,7 +92,7 @@ size = Vector2(28, 20)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_i1dq0"]
 closed = false
-polygon = PackedVector2Array(15, 214, 15, 199, 150, 199, 150, 96, 27, 96, 27, 15, 44, 15)
+polygon = PackedVector2Array(150, 120, 150, 96, 27, 96, 27, 15, 44, 15)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7fqpu"]
 closed = false
@@ -91,6 +105,10 @@ polygon = PackedVector2Array(-9, 215, -9, 199, -150, 199, -150, 160)
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_x0hpa"]
 closed = false
 polygon = PackedVector2Array(-150, 127, -150, 90)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_tbh6r"]
+closed = false
+polygon = PackedVector2Array(150, 152, 150, 199, 15, 199, 15, 215)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_dgaau"]
 polygon = PackedVector2Array(47, 108, 49, 110, 56, 110, 58, 108, 58, 104, 56, 102, 49, 102, 47, 104)
@@ -144,7 +162,7 @@ shape = SubResource("RectangleShape2D_8uvcd")
 [node name="Interactable" type="Area2D" parent="Entities/Chair" unique_id=1047763280]
 position = Vector2(9, 17)
 script = ExtResource("5_b6s8w")
-pop_up_type = 2
+pop_up_type = 3
 metadata/_custom_type_script = "uid://bgp4ssm03oorx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chair/Interactable" unique_id=1188438728]
@@ -162,7 +180,6 @@ metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 position = Vector2(38, 4)
 script = ExtResource("3_7fqpu")
 destination_path = "uid://b5lwc6r8gihdf"
-direction = null
 metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bedroom1" unique_id=550245779]
@@ -176,7 +193,6 @@ position = Vector2(-16, -1)
 position = Vector2(-62, -59)
 script = ExtResource("3_7fqpu")
 destination_path = "uid://dle6tyljj31cl"
-direction = null
 metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bedroom2" unique_id=1370316399]
@@ -195,7 +211,6 @@ hframes = 2
 position = Vector2(-101, -46)
 script = ExtResource("3_7fqpu")
 destination_path = "uid://dopm0mckrxugx"
-direction = null
 metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StorageRoom" unique_id=1578011187]
@@ -208,7 +223,6 @@ position = Vector2(28, 2)
 position = Vector2(3, 220)
 script = ExtResource("3_7fqpu")
 destination_path = "uid://c0854c7mmdv3x"
-direction = null
 metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MainDoor" unique_id=1091230155]
@@ -249,6 +263,9 @@ occluder = SubResource("OccluderPolygon2D_m50gm")
 [node name="LightOccluder2D4" type="LightOccluder2D" parent="OccludersFloor" unique_id=1491501091]
 occluder = SubResource("OccluderPolygon2D_x0hpa")
 
+[node name="LightOccluder2D6" type="LightOccluder2D" parent="OccludersFloor" unique_id=531711866]
+occluder = SubResource("OccluderPolygon2D_tbh6r")
+
 [node name="OccludersObjects" type="Node" parent="." unique_id=1270130737]
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="OccludersObjects" unique_id=1057123220]
@@ -263,7 +280,7 @@ occluder = SubResource("OccluderPolygon2D_b6s8w")
 [node name="Map" type="Area2D" parent="." unique_id=62021052]
 position = Vector2(-103, 25)
 script = ExtResource("5_b6s8w")
-pop_up_type = 2
+pop_up_type = 3
 metadata/_custom_type_script = "uid://bgp4ssm03oorx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map" unique_id=1203863576]
@@ -280,7 +297,7 @@ metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 [node name="HiddenDoor" type="Area2D" parent="." unique_id=1043029541]
 position = Vector2(-90, -47)
 script = ExtResource("5_b6s8w")
-pop_up_type = 2
+pop_up_type = 3
 active = false
 metadata/_custom_type_script = "uid://bgp4ssm03oorx"
 
@@ -297,14 +314,14 @@ metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 
 [node name="Tracker" type="Node" parent="HiddenDoor" unique_id=1319714186 node_paths=PackedStringArray("sources")]
 script = ExtResource("13_w1vs7")
-sources = [NodePath(".."), NodePath("../StaticBody2D")]
+sources = [NodePath(".."), NodePath("../../HiddenDoorBlock")]
 method_name = PackedStringArray("set_active", "queue_free")
 metadata/_custom_type_script = "uid://bhkymgw54xfkd"
 
-[node name="StaticBody2D" type="StaticBody2D" parent="HiddenDoor" unique_id=560602849]
-position = Vector2(-9, 0)
+[node name="HiddenDoorBlock" type="StaticBody2D" parent="." unique_id=560602849]
+position = Vector2(-99, -47)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HiddenDoor/StaticBody2D" unique_id=111632546]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HiddenDoorBlock" unique_id=111632546]
 shape = SubResource("RectangleShape2D_onacj")
 
 [node name="ChairTable" type="Marker2D" parent="." unique_id=2135681956]

@@ -8,6 +8,9 @@ extends Area2D
 var spawn_point: Node2D
 var active: bool
 
+func set_active(val: bool) -> void:
+	active = val
+
 func _ready() -> void:
 	GameManager.register_spawn_point(self)
 	collision_mask = 2  ##TODO: MAKE THIS GLOBAL

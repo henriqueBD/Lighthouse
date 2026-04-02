@@ -14,7 +14,6 @@ metadata/_custom_type_script = "uid://biukuwf275bnl"
 
 [sub_resource type="Resource" id="Resource_t7r0g"]
 script = ExtResource("2_enb0f")
-close_dialogue_box_on_end = true
 dialogue = PackedStringArray("There is a chest here.", "It\'s locked.")
 metadata/_custom_type_script = "uid://c5daiygjvie4n"
 

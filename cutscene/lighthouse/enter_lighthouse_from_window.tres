@@ -32,7 +32,6 @@ metadata/_custom_type_script = "uid://b0jbh51tyhmdm"
 [sub_resource type="Resource" id="Resource_vtw36"]
 script = ExtResource("3_vydbp")
 portraits = Array[Texture2D]([ExtResource("2_htxpn")])
-close_dialogue_box_on_end = true
 dialogue = PackedStringArray("Im here.", "Where is Pete?")
 metadata/_custom_type_script = "uid://cq47mnj68tk8l"
 

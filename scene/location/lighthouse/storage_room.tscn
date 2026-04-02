@@ -5,18 +5,22 @@
 [ext_resource type="Script" uid="uid://l0teuipo17rj" path="res://script/condition_rule.gd" id="2_2u2pa"]
 [ext_resource type="Texture2D" uid="uid://b70hv3g1gktvt" path="res://assets/place/lighthouse/room3_walls.png" id="2_kbp8g"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="3_2u2pa"]
+[ext_resource type="Script" uid="uid://coma3vrrp33jq" path="res://cutscene/scripts/action_queue_free.gd" id="3_vncyk"]
 [ext_resource type="Texture2D" uid="uid://b7wlt38jon33h" path="res://assets/furniture/key.png" id="4_vncyk"]
 [ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="5_mes2a"]
 [ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_data.gd" id="6_s2flt"]
 [ext_resource type="Resource" uid="uid://b2bt1swgojjdh" path="res://cutscene/lighthouse/key_on_storage_room.tres" id="7_5p6u7"]
 
+[sub_resource type="Resource" id="Resource_mes2a"]
+script = ExtResource("3_vncyk")
+target = NodePath("Entities/Key")
+metadata/_custom_type_script = "uid://coma3vrrp33jq"
+
 [sub_resource type="Resource" id="Resource_vncyk"]
 script = ExtResource("2_2u2pa")
 target_var = "key_picked"
-operation = 1
-comparison_value = null
-source = NodePath("Entities/Key")
-method_name = "queue_free"
+action = SubResource("Resource_mes2a")
+apply_immediatly = true
 metadata/_custom_type_script = "uid://l0teuipo17rj"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n3wrx"]
@@ -107,7 +111,7 @@ shape = SubResource("RectangleShape2D_ashbk")
 [node name="Interactable" type="Area2D" parent="Entities/Key" unique_id=755871348]
 position = Vector2(2, 3)
 script = ExtResource("5_mes2a")
-pop_up_type = 2
+pop_up_type = 3
 metadata/_custom_type_script = "uid://bgp4ssm03oorx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Key/Interactable" unique_id=1484843527]
@@ -118,6 +122,5 @@ position = Vector2(-1, -6)
 
 [node name="CutsceneTrigger" type="Node" parent="Entities/Key/Interactable" unique_id=1976860417]
 script = ExtResource("6_s2flt")
-lock_player = true
 cutscene = ExtResource("7_5p6u7")
 metadata/_custom_type_script = "uid://b8wvlfgcbauo7"

@@ -66,7 +66,7 @@ position = Vector2(-12, -1)
 shape = SubResource("RectangleShape2D_b0165")
 
 [node name="Node2D" type="Node2D" parent="Bedroom1" unique_id=1425680375]
-position = Vector2(5, 0)
+position = Vector2(16, 0)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=1799751081]
 occluder = SubResource("OccluderPolygon2D_gie3k")
@@ -89,7 +89,7 @@ position = Vector2(-29, 0)
 [node name="Interactable" type="Area2D" parent="." unique_id=402260581]
 position = Vector2(-51, 23)
 script = ExtResource("6_75suw")
-pop_up_type = 2
+pop_up_type = 3
 metadata/_custom_type_script = "uid://bgp4ssm03oorx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=1709772447]

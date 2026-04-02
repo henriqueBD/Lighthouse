@@ -7,6 +7,7 @@ const SCREEN_TRANSITION: PackedScene = preload("res://scene/important/screen_tra
 
 var curr_map: Place
 var time_manager: TimeManager
+var sfx_player: AudioStreamPlayer
 
 var _screen_transition: ScreenTransition
 var _canvas_layer: CanvasLayer
@@ -20,6 +21,9 @@ var _game_subviewport: SubViewport
 
 func _ready() -> void:
 	GameManager.set_main_node(self)
+	
+	sfx_player = AudioStreamPlayer.new()
+	add_child(sfx_player)
 	
 	_canvas_layer = %CanvasLayer
 	assert(_canvas_layer)

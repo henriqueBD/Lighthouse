@@ -75,3 +75,4 @@ func _get_save_id() -> String:
 
 func _exit_tree() -> void:
 	assert(not _cursor, "Tried to unload active cutscene " + str(get_path()))
+	finish_cutscene(null)

@@ -2,13 +2,28 @@
 
 [ext_resource type="Script" uid="uid://d0jw7003rp8mw" path="res://script/place.gd" id="1_3r633"]
 [ext_resource type="Texture2D" uid="uid://dvt1tf12p10t7" path="res://assets/place/lighthouse/room2_floor.png" id="1_f6hxj"]
+[ext_resource type="Script" uid="uid://l0teuipo17rj" path="res://script/condition_rule.gd" id="2_3r633"]
 [ext_resource type="Texture2D" uid="uid://dywttlajucbgr" path="res://assets/place/lighthouse/room2_walls.png" id="2_sqonx"]
 [ext_resource type="Texture2D" uid="uid://5ghbp63i063l" path="res://assets/furniture/chest.png" id="3_20ndq"]
+[ext_resource type="Script" uid="uid://r55kd4snhjhj" path="res://cutscene/scripts/action_play_animation.gd" id="3_34dd0"]
 [ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="4_3r633"]
 [ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="5_34dd0"]
 [ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_data.gd" id="6_30tur"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="7_psgul"]
 [ext_resource type="Resource" uid="uid://birypmifjp3ou" path="res://cutscene/lighthouse/lantern_chest.tres" id="7_sqonx"]
+[ext_resource type="Resource" uid="uid://crnkrrfhnnjl" path="res://cutscene/lighthouse/door_closing.tres" id="12_30tur"]
+
+[sub_resource type="Resource" id="Resource_30tur"]
+script = ExtResource("3_34dd0")
+source = NodePath("Entities/Chest")
+animation_name = "opened"
+metadata/_custom_type_script = "uid://r55kd4snhjhj"
+
+[sub_resource type="Resource" id="Resource_psgul"]
+script = ExtResource("2_3r633")
+target_var = "chest_opened"
+action = SubResource("Resource_30tur")
+metadata/_custom_type_script = "uid://l0teuipo17rj"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_30tur"]
 atlas = ExtResource("3_20ndq")
@@ -23,6 +38,10 @@ atlas = ExtResource("3_20ndq")
 region = Rect2(25, 0, 25, 27)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_34dd0"]
+atlas = ExtResource("3_20ndq")
+region = Rect2(50, 0, 25, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psgul"]
 atlas = ExtResource("3_20ndq")
 region = Rect2(50, 0, 25, 27)
 
@@ -49,6 +68,14 @@ animations = [{
 "loop": false,
 "name": &"open",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psgul")
+}],
+"loop": true,
+"name": &"opened",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7f3sy"]
@@ -69,9 +96,16 @@ polygon = PackedVector2Array(24, 88, 24, 77, -62, 77, -62, 10)
 closed = false
 polygon = PackedVector2Array(-62, -18, -62, -39, 63, -39, 63, 77, 52, 77, 52, 89)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_34dd0"]
+size = Vector2(36, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_30tur"]
+size = Vector2(34, 20)
+
 [node name="Bedroom2" type="Node2D" unique_id=201229335]
 script = ExtResource("1_3r633")
 location_path = 1
+actions = Array[ExtResource("2_3r633")]([SubResource("Resource_psgul")])
 
 [node name="Floor" type="Sprite2D" parent="." unique_id=547638183]
 texture = ExtResource("1_f6hxj")
@@ -87,7 +121,7 @@ y_sort_enabled = true
 [node name="Chest" type="AnimatedSprite2D" parent="Entities" unique_id=1189581976]
 position = Vector2(26, -54)
 sprite_frames = SubResource("SpriteFrames_30tur")
-animation = &"idle"
+animation = &"opened"
 autoplay = "idle"
 centered = false
 
@@ -98,7 +132,7 @@ metadata/_custom_type_script = "uid://bhkymgw54xfkd"
 [node name="Interactable" type="Area2D" parent="Entities/Chest" unique_id=294728355]
 position = Vector2(13, 20)
 script = ExtResource("5_34dd0")
-pop_up_type = 2
+pop_up_type = 3
 metadata/_custom_type_script = "uid://bgp4ssm03oorx"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chest/Interactable" unique_id=1255281982]
@@ -149,3 +183,28 @@ occluder = SubResource("OccluderPolygon2D_3r633")
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1107882016]
 rotation = -0.8860829
 energy = 0.34
+
+[node name="DoorClosed" type="Area2D" parent="." unique_id=578956911]
+position = Vector2(38, 88)
+script = ExtResource("5_34dd0")
+pop_up_type = 3
+active = false
+metadata/_custom_type_script = "uid://bgp4ssm03oorx"
+
+[node name="Node2D" type="Node2D" parent="DoorClosed" unique_id=235119636]
+position = Vector2(0, -16)
+
+[node name="CutsceneData" type="Node" parent="DoorClosed" unique_id=1140666217]
+script = ExtResource("6_30tur")
+cutscene = ExtResource("12_30tur")
+metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorClosed" unique_id=1452048702]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_34dd0")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="DoorClosed" unique_id=968128902]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorClosed/StaticBody2D" unique_id=1768568426]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_30tur")

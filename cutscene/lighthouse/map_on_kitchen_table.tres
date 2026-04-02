@@ -6,11 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://h6jn28utmtjg" path="res://assets/place/lighthouse/main_house_map.png" id="3_hhbfx"]
 [ext_resource type="Script" uid="uid://wiwfbe5cfydw" path="res://cutscene/scripts/action_show_image.gd" id="4_eenlc"]
 [ext_resource type="Script" uid="uid://dyr0awso8vtj" path="res://cutscene/scripts/action_set_value.gd" id="5_eenlc"]
-[ext_resource type="Script" uid="uid://043tmom2vq86" path="res://cutscene/scripts/action_call_func.gd" id="6_1n8fa"]
+[ext_resource type="Script" uid="uid://dql0d83th3wg7" path="res://cutscene/scripts/action_increment_time.gd" id="6_1n8fa"]
 
 [sub_resource type="Resource" id="Resource_hhbfx"]
 script = ExtResource("2_s7wxx")
-close_dialogue_box_on_end = true
 dialogue = PackedStringArray("There is a map here.")
 metadata/_custom_type_script = "uid://c5daiygjvie4n"
 
@@ -27,9 +26,8 @@ metadata/_custom_type_script = "uid://dyr0awso8vtj"
 
 [sub_resource type="Resource" id="Resource_ual2w"]
 script = ExtResource("6_1n8fa")
-function = 4
-args = [5.0]
-metadata/_custom_type_script = "uid://043tmom2vq86"
+increment = 5.0
+metadata/_custom_type_script = "uid://dql0d83th3wg7"
 
 [resource]
 script = ExtResource("2_exgbf")

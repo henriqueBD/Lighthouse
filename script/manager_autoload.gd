@@ -28,13 +28,6 @@ var _global_variables_string_map: Dictionary[String, String]
 var _spawn_points_on_current_room: Dictionary[String, Transition] = {}
 var _process_func: Callable
 
-var _global_methods_map: Dictionary[String, Callable] = {
-	"test" : func() -> void: 
-		print("Hello, world"),
-	"test2" : func() -> void:
-		print("Hello again")
-}
-
 func _ready() -> void:
 	set_process_unhandled_input(false)
 	set_process(false)
@@ -53,22 +46,6 @@ func set_player(player_to_add: Player) -> void:
 
 func get_string_var(key: String) -> String:
 	return _global_variables_string_map.get(key, "")
-
-func call_global_method(name_space: String, method_name: String, arguments: PackedStringArray) -> void:
-	assert(not method_name.is_empty(), "method name is empty")
-	if name_space.is_empty():
-		if _global_methods_map.has(method_name):
-			if arguments.is_empty(): 
-				_global_methods_map[method_name].call()
-			else: 
-				_global_methods_map[method_name].call(arguments)
-		else:
-			assert(false, "no function with name " + method_name)
-	else:
-		if _entities.has(name_space):
-			_entities[name_space].call_method(method_name, arguments)
-		else:
-			assert(false, "invalid namespace: " + name_space)
 
 func register_unique_entity(unique_name: String, node: Node) -> void:
 	assert(not _entities.has(unique_name), "Name " + unique_name + "is not unique")
@@ -161,3 +138,23 @@ func count_down(wait_time_sec: float) -> Signal:
 		return get_tree().create_timer(wait_time_sec).timeout
 	assert(false, "Invalid time: " + str(wait_time_sec))
 	return get_tree().create_timer(0.1).timeout
+
+func play_sound(to_play: AudioStream) -> Signal:
+	assert(to_play)
+	if main_node.sfx_player.playing:
+		main_node.sfx_player.stop()
+		assert(false, "Unsupported playinf two sounds at once")
+	main_node.sfx_player.stream = to_play
+	main_node.sfx_player.play()
+	return main_node.sfx_player.finished
+
+func set_node_active(node: Node, val: bool) -> void:
+	if node is Interactable:
+		node.set_active(val)
+	elif node is Transition:
+		node.set_active(false)
+	elif node is CollisionShape2D:
+		node.set_deferred("disabled", not val)
+	
+	for child: Node in node.get_children():
+		set_node_active(child, val)

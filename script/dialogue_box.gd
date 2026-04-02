@@ -1,48 +1,42 @@
-class_name TextBox
-extends CutsceneAction
-
-const DIALOGUE_SPEED_PER_CHAR: float = 0.04
-
-@export_multiline var dialogue: PackedStringArray
-@export var close_dialogue_box_on_end: bool = true
+extends Node
+const _dialogue_SPEED_PER_CHAR: float = 0.04
 
 static var _regex: RegEx
 
+var _dialogue: PackedStringArray
+var _close_dialogue_box_on_end: bool = true
 var _count: int = 0
 var _current_char_index: int
 var _call_method_indexes: Dictionary[int, Array]
 var _next_char_countdown: float
 var _can_advance_dialogue: bool
+var _text: Label
 
 static func _static_init() -> void:
 	_regex = RegEx.new()
 	_regex.compile("\\{(.*?)\\}")
 
-#Remember to also change the character dialogue variation
-func execute(_context: Node) -> void:
-	if not dialogue:
+func start_dialogue() -> void:
+	if not _dialogue:
 		assert(false)
-		action_ended.emit()
+		_end_dialogue()
 		return
-	assert(_vibe_check_dialogue(), str(dialogue))
+	assert(_vibe_check_dialogue(), str(_dialogue))
 	_count = 0
-	GameManager.main_node.show_info_box()
-	GameManager.main_node.change_dialogue_text(_parse_text(dialogue[0]))
+	GameManager.main_node.change_dialogue_text(_parse_text(_dialogue[0]))
 	GameManager.toggle_listen_input(true)
 	GameManager.interact_pressed.connect(_on_input_pressed)
 	GameManager.set_process_func(_process)
 
-func _next_char() -> void:
-	if _call_method_indexes.has(_current_char_index):
-		for parameters: Array in _call_method_indexes[_current_char_index]:
-			GameManager.call_global_method(parameters[0], parameters[1], parameters[2])
-	_current_char_index += 1
+func _ready() -> void:
+	_text = %Label
+	assert(_text)
 
 func _process(delta: float) -> void:
 	_next_char_countdown -= delta
 	
 	if _next_char_countdown <= 0.0 and not _can_advance_dialogue:
-		_next_char_countdown = DIALOGUE_SPEED_PER_CHAR
+		_next_char_countdown = _dialogue_SPEED_PER_CHAR
 		_next_char()
 		if GameManager.main_node.show_next_char():
 			_can_advance_dialogue = true
@@ -52,22 +46,28 @@ func _on_input_pressed() -> void:
 		_can_advance_dialogue = false
 		_next_dialogue()
 
+func _next_char() -> void:
+	if _call_method_indexes.has(_current_char_index):
+		for parameters: Array in _call_method_indexes[_current_char_index]:
+			GameManager.call_global_method(parameters[0], parameters[1], parameters[2])
+	_current_char_index += 1
+
 func _next_dialogue() -> void:
 	_next_char()
 	_count += 1
-	if _count >= dialogue.size():
-		#End dialogue
+	if _count >= _dialogue.size():
+		#End _dialogue
 		GameManager.set_process_func(Callable())
 		GameManager.toggle_listen_input(false)
 		GameManager.interact_pressed.disconnect(_on_input_pressed)
-		if close_dialogue_box_on_end:
+		if _close_dialogue_box_on_end:
 			GameManager.main_node.hide_dialogue_box()
-		action_ended.emit()
+		_end_dialogue()
 	else:
 		_continue_dialogue()
 
 func _continue_dialogue() -> void:
-	GameManager.main_node.change_dialogue_text(_parse_text(dialogue[_count]))
+	GameManager.main_node.change__dialogue_text(_parse_text(_dialogue[_count]))
 
 func _parse_text(text: String) -> String:
 	if text.is_empty():
@@ -128,7 +128,10 @@ func _parse_text(text: String) -> String:
 	final_output += text.substr(cursor)
 	return final_output
 
+func _end_dialogue() -> void:
+	pass
+
 func _vibe_check_dialogue() -> bool:
-	for line: String in dialogue:
+	for line: String in _dialogue:
 		if not line or line.is_empty(): return false
 	return true
