@@ -12,7 +12,9 @@
 [ext_resource type="Script" uid="uid://r1kolymix5d" path="res://cutscene/scripts/action_if_var.gd" id="9_lmuld"]
 [ext_resource type="Resource" uid="uid://d4eviplsaq63o" path="res://variable/prologue/chair_move.tres" id="10_etcc1"]
 [ext_resource type="Script" uid="uid://coma3vrrp33jq" path="res://cutscene/scripts/actions/action_queue_free.gd" id="11_x1be5"]
+[ext_resource type="Texture2D" uid="uid://b55lxfbd71k7k" path="res://assets/furniture/chair.png" id="14_puxh4"]
 [ext_resource type="Script" uid="uid://x3r5qujm5s6u" path="res://script/transition_input.gd" id="15_puxh4"]
+[ext_resource type="Script" uid="uid://dygpv4cllfl5b" path="res://script/shadow_cast.gd" id="15_vk7d8"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_a2sve"]
 diffuse_texture = ExtResource("2_chmau")
@@ -50,6 +52,9 @@ texture = ExtResource("2_r1vk6")
 position = Vector2(-83, -74)
 texture = SubResource("CanvasTexture_a2sve")
 centered = false
+
+[node name="Entities" type="Node2D" parent="." unique_id=1111068046]
+unique_name_in_owner = true
 
 [node name="MainDoor" type="Area2D" parent="." unique_id=939554037]
 position = Vector2(-18, 90)
@@ -116,3 +121,15 @@ position = Vector2(23, 40)
 script = ExtResource("15_puxh4")
 destination_path = "uid://kb7byravxoof"
 metadata/_custom_type_script = "uid://x3r5qujm5s6u"
+
+[node name="Chair" type="Sprite2D" parent="." unique_id=1780153873]
+position = Vector2(86, 21)
+texture = ExtResource("14_puxh4")
+centered = false
+script = ExtResource("15_vk7d8")
+
+[node name="Start" type="Area2D" parent="." unique_id=290221379]
+position = Vector2(-17, 101)
+script = ExtResource("4_tnwcy")
+destination_path = "uid://dopm0mckrxugx"
+metadata/_custom_type_script = "uid://csoqjsxgxwixr"

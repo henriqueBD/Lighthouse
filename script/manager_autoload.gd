@@ -54,7 +54,7 @@ func set_player(player_to_add: Player) -> void:
 	assert(player_parent)
 
 func register_unique_entity(unique_name: String, node: Node) -> void:
-	assert(not _entities.has(unique_name), "Name " + unique_name + "is not unique")
+	assert(not _entities.has(unique_name), "Name " + unique_name + " is not unique")
 	_entities[unique_name] = node
 
 func unregister_unique_entity(unique_name: String) -> void:
@@ -150,12 +150,15 @@ func play_sound(to_play: AudioStream) -> Signal:
 	return main_node.sfx_player.finished
 
 func set_node_active(node: Node, val: bool) -> void:
+	#NEVER put a EventListner or a Action here
 	if node is Interactable:
 		node.active = val
 	elif node is Transition:
-		node.set_active(false)
+		node.set_active(val)
 	elif node is CollisionShape2D:
 		node.set_deferred("disabled", not val)
+	elif node is Sprite2D:
+		node.visible = val
 	
 	for child: Node in node.get_children():
 		set_node_active(child, val)

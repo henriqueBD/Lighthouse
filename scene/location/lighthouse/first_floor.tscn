@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cg400m2ynts36" path="res://assets/place/lighthouse/first_floor.png" id="2_w1vs7"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="3_7fqpu"]
 [ext_resource type="Texture2D" uid="uid://dv5acutgxp53g" path="res://assets/place/lighthouse/first_floor_normal.png" id="3_w4qbt"]
+[ext_resource type="Texture2D" uid="uid://ciefaxrjga115" path="res://assets/furniture/trapdoor.png" id="4_bv84q"]
 [ext_resource type="Texture2D" uid="uid://b55lxfbd71k7k" path="res://assets/furniture/chair.png" id="4_x0hpa"]
 [ext_resource type="Texture2D" uid="uid://8eqptottivll" path="res://assets/furniture/carpet_trap_door.png" id="4_xfcoq"]
 [ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://cutscene/scripts/interactable.gd" id="5_b6s8w"]
@@ -16,30 +17,16 @@
 [ext_resource type="Texture2D" uid="uid://5ghbp63i063l" path="res://assets/furniture/chest.png" id="9_nuher"]
 [ext_resource type="Resource" uid="uid://birypmifjp3ou" path="res://cutscene/lighthouse/lantern_chest.tres" id="10_dbskv"]
 [ext_resource type="Resource" uid="uid://c7lc5h7v76bje" path="res://cutscene/lighthouse/rool_up_carpet.tres" id="11_bv84q"]
+[ext_resource type="Texture2D" uid="uid://dopkygkevolyo" path="res://assets/furniture/carpet_roll.png" id="13_3mqy2"]
 [ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="13_w1vs7"]
+[ext_resource type="Texture2D" uid="uid://dxcvetibyq5s4" path="res://assets/furniture/carpet_roll_normal.png" id="14_bw7es"]
+[ext_resource type="Script" uid="uid://bvyk7wmxvbttc" path="res://cutscene/scripts/actions/action_toggle_active.gd" id="15_2edap"]
 [ext_resource type="Script" uid="uid://cwng3n1pucxf4" path="res://script/marker.gd" id="15_ipm2w"]
 [ext_resource type="Texture2D" uid="uid://cm2hlxwwuyttr" path="res://assets/place/lighthouse/base_front_wall.png" id="16_8sl2f"]
 [ext_resource type="Texture2D" uid="uid://cxnrntuj3k0hs" path="res://assets/place/lighthouse/base_front_wall_normal.png" id="17_yve08"]
 [ext_resource type="Script" uid="uid://r1kolymix5d" path="res://cutscene/scripts/action_if_var.gd" id="21_2uowo"]
 [ext_resource type="Script" uid="uid://b30r4q35gc826" path="res://script/event_listener.gd" id="21_siuw1"]
 [ext_resource type="Script" uid="uid://bq6c4x6xkwqsq" path="res://cutscene/scripts/actions/action_pull_entity.gd" id="22_uc04b"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_ipm2w"]
-diffuse_texture = ExtResource("2_w1vs7")
-normal_texture = ExtResource("3_w4qbt")
-specular_color = Color(0, 0, 0, 1)
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_ex6cr"]
-diffuse_texture = ExtResource("4_xfcoq")
-normal_texture = ExtResource("5_vpub7")
-
-[sub_resource type="Resource" id="Resource_e3l41"]
-script = ExtResource("8_siuw1")
-new_frame = 1
-metadata/_custom_type_script = "uid://bcu7r2x4j5nbk"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dh0k1"]
-size = Vector2(107, 49)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8uvcd"]
 size = Vector2(16, 22)
@@ -105,8 +92,56 @@ size = Vector2(25, 20)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bv84q"]
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_1x21k"]
+diffuse_texture = ExtResource("13_3mqy2")
+normal_texture = ExtResource("14_bw7es")
+
+[sub_resource type="Resource" id="Resource_6iofa"]
+script = ExtResource("15_2edap")
+active = true
+recursive = true
+metadata/_custom_type_script = "uid://bvyk7wmxvbttc"
+
+[sub_resource type="Resource" id="Resource_moxaf"]
+script = ExtResource("15_2edap")
+recursive = true
+metadata/_custom_type_script = "uid://bvyk7wmxvbttc"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_prbqp"]
+size = Vector2(16, 48)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ipm2w"]
+diffuse_texture = ExtResource("2_w1vs7")
+normal_texture = ExtResource("3_w4qbt")
+specular_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_xfcoq"]
+diffuse_texture = ExtResource("16_8sl2f")
+normal_texture = ExtResource("17_yve08")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ex6cr"]
+diffuse_texture = ExtResource("4_xfcoq")
+normal_texture = ExtResource("5_vpub7")
+
+[sub_resource type="Resource" id="Resource_e3l41"]
+script = ExtResource("8_siuw1")
+new_frame = 1
+metadata/_custom_type_script = "uid://bcu7r2x4j5nbk"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dh0k1"]
+size = Vector2(107, 49)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipm2w"]
 size = Vector2(28, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hotc2"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jmswd"]
+closed = false
+polygon = PackedVector2Array(95, 46, 70, 125, -154, 88, -185, -56, -61, -137, 194, -83, 115, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nuher"]
+size = Vector2(28, 11)
 
 [sub_resource type="Resource" id="Resource_2p0gb"]
 script = ExtResource("22_uc04b")
@@ -118,19 +153,6 @@ script = ExtResource("22_uc04b")
 entity_name = "Player"
 metadata/_custom_type_script = "uid://bq6c4x6xkwqsq"
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hotc2"]
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jmswd"]
-closed = false
-polygon = PackedVector2Array(95, 46, 70, 125, -154, 88, -185, -56, -61, -137, 194, -83, 115, 26)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nuher"]
-size = Vector2(28, 11)
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_xfcoq"]
-diffuse_texture = ExtResource("16_8sl2f")
-normal_texture = ExtResource("17_yve08")
-
 [sub_resource type="Resource" id="Resource_bv84q"]
 script = ExtResource("22_uc04b")
 entity_name = "Player"
@@ -140,46 +162,13 @@ metadata/_custom_type_script = "uid://bq6c4x6xkwqsq"
 script = ExtResource("1_w1vs7")
 location_path = 1
 
-[node name="Floor" type="Sprite2D" parent="." unique_id=984682791]
-visibility_layer = 3
-position = Vector2(-130, -103)
-texture = SubResource("CanvasTexture_ipm2w")
-centered = false
-
-[node name="Carpet" type="Sprite2D" parent="." unique_id=586611980]
-position = Vector2(-52, -27)
-texture = SubResource("CanvasTexture_ex6cr")
-centered = false
-hframes = 2
-
-[node name="ActionIfVarExists" type="Node" parent="Carpet" unique_id=541456433]
-script = ExtResource("21_2uowo")
-to_check = ExtResource("7_2fydd")
-action_if_exists = SubResource("Resource_e3l41")
-apply_immediately = true
-metadata/_custom_type_script = "uid://r1kolymix5d"
-
-[node name="Interactable" type="Area2D" parent="Carpet" unique_id=1299760182]
-position = Vector2(52, 27)
-script = ExtResource("5_b6s8w")
-metadata/_custom_type_script = "uid://bgp4ssm03oorx"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Carpet/Interactable" unique_id=1458714076]
-shape = SubResource("RectangleShape2D_dh0k1")
-
-[node name="CutsceneData" type="Node" parent="Carpet/Interactable" unique_id=1086133609]
-script = ExtResource("6_x0hpa")
-one_shot = true
-cutscene = ExtResource("11_bv84q")
-metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
-
 [node name="Entities" type="Node2D" parent="." unique_id=220282718]
 unique_name_in_owner = true
 z_index = 1
 y_sort_enabled = true
 
 [node name="Chair" type="Sprite2D" parent="Entities" unique_id=433094377]
-position = Vector2(-6, 55)
+position = Vector2(-7, 49)
 texture = ExtResource("4_x0hpa")
 centered = false
 
@@ -241,6 +230,71 @@ script = ExtResource("6_x0hpa")
 cutscene = ExtResource("10_dbskv")
 metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 
+[node name="CarpetRoll" type="Sprite2D" parent="Entities" unique_id=1936943614]
+position = Vector2(8, -5)
+texture = SubResource("CanvasTexture_1x21k")
+
+[node name="ActionIfVarExists" type="Node" parent="Entities/CarpetRoll" unique_id=991592718]
+script = ExtResource("21_2uowo")
+to_check = ExtResource("7_2fydd")
+action_if_exists = SubResource("Resource_6iofa")
+action_if_null = SubResource("Resource_moxaf")
+apply_immediately = true
+metadata/_custom_type_script = "uid://r1kolymix5d"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Entities/CarpetRoll" unique_id=2034507618]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CarpetRoll/StaticBody2D" unique_id=1340850516]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_prbqp")
+
+[node name="Floor" type="Sprite2D" parent="." unique_id=984682791]
+visibility_layer = 3
+position = Vector2(-130, -103)
+texture = SubResource("CanvasTexture_ipm2w")
+centered = false
+
+[node name="Trapdoor" type="Sprite2D" parent="." unique_id=27005056]
+position = Vector2(-36, -17)
+texture = ExtResource("4_bv84q")
+centered = false
+hframes = 2
+
+[node name="Wall" type="Sprite2D" parent="." unique_id=2099181755]
+z_index = 4
+position = Vector2(-129, -2)
+texture = SubResource("CanvasTexture_xfcoq")
+centered = false
+
+[node name="Carpet" type="Sprite2D" parent="." unique_id=586611980]
+position = Vector2(-52, -27)
+texture = SubResource("CanvasTexture_ex6cr")
+centered = false
+hframes = 2
+
+[node name="ActionIfVarExists" type="Node" parent="Carpet" unique_id=541456433]
+script = ExtResource("21_2uowo")
+to_check = ExtResource("7_2fydd")
+action_if_exists = SubResource("Resource_e3l41")
+apply_immediately = true
+metadata/_custom_type_script = "uid://r1kolymix5d"
+
+[node name="Interactable" type="Area2D" parent="Carpet" unique_id=1299760182]
+position = Vector2(52, 27)
+script = ExtResource("5_b6s8w")
+pop_up_type = 3
+metadata/_custom_type_script = "uid://bgp4ssm03oorx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Carpet/Interactable" unique_id=1458714076]
+visible = false
+shape = SubResource("RectangleShape2D_dh0k1")
+
+[node name="CutsceneData" type="Node" parent="Carpet/Interactable" unique_id=1086133609]
+script = ExtResource("6_x0hpa")
+one_shot = true
+cutscene = ExtResource("11_bv84q")
+metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
+
 [node name="MainDoor" type="Area2D" parent="." unique_id=1694688327]
 position = Vector2(2, 79)
 script = ExtResource("3_7fqpu")
@@ -250,29 +304,6 @@ metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MainDoor" unique_id=1091230155]
 position = Vector2(0, 20)
 shape = SubResource("RectangleShape2D_ipm2w")
-
-[node name="ChairTable" type="Marker2D" parent="." unique_id=2135681956]
-position = Vector2(-53, 45)
-script = ExtResource("15_ipm2w")
-metadata/_custom_type_script = "uid://cwng3n1pucxf4"
-
-[node name="ActionIfVarExists" type="Node" parent="ChairTable" unique_id=1850665223]
-script = ExtResource("21_2uowo")
-to_check = ExtResource("7_pamnv")
-action_if_exists = SubResource("Resource_2p0gb")
-apply_immediately = true
-metadata/_custom_type_script = "uid://r1kolymix5d"
-
-[node name="PlayerTable" type="Marker2D" parent="." unique_id=393522983]
-position = Vector2(-43, 52)
-script = ExtResource("15_ipm2w")
-metadata/_custom_type_script = "uid://cwng3n1pucxf4"
-
-[node name="EventListener" type="Node" parent="PlayerTable" unique_id=1400805880]
-script = ExtResource("21_siuw1")
-event = ExtResource("7_pamnv")
-action = SubResource("Resource_siuw1")
-metadata/_custom_type_script = "uid://b30r4q35gc826"
 
 [node name="OpenWindow" type="Area2D" parent="." unique_id=1013175927]
 position = Vector2(99, 27)
@@ -299,10 +330,28 @@ metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 position = Vector2(1, -18)
 shape = SubResource("RectangleShape2D_nuher")
 
-[node name="Wall" type="Sprite2D" parent="." unique_id=2099181755]
-position = Vector2(-129, -2)
-texture = SubResource("CanvasTexture_xfcoq")
-centered = false
+[node name="ChairTable" type="Marker2D" parent="." unique_id=2135681956]
+position = Vector2(-40, 29)
+script = ExtResource("15_ipm2w")
+metadata/_custom_type_script = "uid://cwng3n1pucxf4"
+
+[node name="ActionIfVarExists" type="Node" parent="ChairTable" unique_id=1850665223]
+script = ExtResource("21_2uowo")
+to_check = ExtResource("7_pamnv")
+action_if_exists = SubResource("Resource_2p0gb")
+apply_immediately = true
+metadata/_custom_type_script = "uid://r1kolymix5d"
+
+[node name="PlayerTable" type="Marker2D" parent="." unique_id=393522983]
+position = Vector2(-31, 34)
+script = ExtResource("15_ipm2w")
+metadata/_custom_type_script = "uid://cwng3n1pucxf4"
+
+[node name="EventListener" type="Node" parent="PlayerTable" unique_id=1400805880]
+script = ExtResource("21_siuw1")
+event = ExtResource("7_pamnv")
+action = SubResource("Resource_siuw1")
+metadata/_custom_type_script = "uid://b30r4q35gc826"
 
 [node name="CarpetPlayer" type="Marker2D" parent="." unique_id=618155079]
 position = Vector2(-18, 0)

@@ -1,6 +1,8 @@
 class_name ManagerMainNode
 extends Node2D
 
+@export_file("*.tscn") var start_scene: String
+
 const DIALOGUE_BOX_INFO: PackedScene = preload("res://scene/important/dialogue_box.tscn")
 const DIALOGUE_BOX_CHAR: PackedScene = preload("res://scene/important/dialogue_box_char.tscn")
 const SCREEN_TRANSITION: PackedScene = preload("res://scene/important/screen_transition.tscn")
@@ -30,7 +32,7 @@ func _ready() -> void:
 	assert(_canvas_layer_subviewport)
 	time_manager = %TimeManager
 	assert(time_manager)
-	curr_map = _game_subviewport.get_child(0)
+	curr_map = %CurrMap
 	assert(curr_map)
 	
 	#Dialogue initialization
@@ -49,6 +51,9 @@ func _ready() -> void:
 	assert(_screen_transition)
 	_screen_transition.hide()
 	add_child(_screen_transition)
+	
+	assert(start_scene)
+	GameManager.change_scene(start_scene, "Start")
 
 #region Dialogue
 
@@ -100,6 +105,7 @@ func _change_scene_deffered(new_scene_path: String, spawn_name: String, player: 
 	var entities_node: Node2D = curr_map.get_node_or_null("%Entities")
 	if entities_node:
 		entities_node.z_index = 1 ##TODO: Make this global
+		entities_node.y_sort_enabled = true
 		player.reparent(entities_node)
 	else:
 		player.reparent(curr_map)
