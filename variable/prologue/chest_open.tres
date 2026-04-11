@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="GameVariable" format=3 uid="uid://b2guran7o617s"]
+
+[ext_resource type="Script" uid="uid://clh4rifgk54xm" path="res://variable/game_variable_base.gd" id="1_ermln"]
+
+[resource]
+script = ExtResource("1_ermln")
+metadata/_custom_type_script = "uid://clh4rifgk54xm"

@@ -1,335 +1,47 @@
-[gd_scene format=3 uid="uid://kb7byravxoof"]
+[gd_scene format=3 uid="uid://c2qfgdafyun1h"]
 
-[ext_resource type="Texture2D" uid="uid://bgx0s4ucm3w3" path="res://assets/place/lighthouse/room_floor.png" id="1_dgaau"]
-[ext_resource type="Script" uid="uid://d0jw7003rp8mw" path="res://script/place.gd" id="1_w1vs7"]
-[ext_resource type="Texture2D" uid="uid://cp38vwrs6ih0j" path="res://assets/place/lighthouse/roomNormal.png" id="2_m50gm"]
-[ext_resource type="Texture2D" uid="uid://bpjjfdjy3v48a" path="res://assets/place/lighthouse/room_walls.png" id="2_qyrgb"]
-[ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="3_7fqpu"]
-[ext_resource type="Script" uid="uid://bvyk7wmxvbttc" path="res://cutscene/scripts/action_toggle_active.gd" id="3_bpgmk"]
-[ext_resource type="Script" uid="uid://criudvyc6a0ea" path="res://cutscene/scripts/action_pull_to_marker.gd" id="3_hotc2"]
-[ext_resource type="Script" uid="uid://coma3vrrp33jq" path="res://cutscene/scripts/action_queue_free.gd" id="3_tbh6r"]
-[ext_resource type="Texture2D" uid="uid://b55lxfbd71k7k" path="res://assets/furniture/chair.png" id="4_x0hpa"]
-[ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="5_b6s8w"]
-[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_data.gd" id="6_x0hpa"]
-[ext_resource type="Resource" uid="uid://d3xh44u7o525r" path="res://cutscene/lighthouse/map_on_kitchen_table.tres" id="7_8uvcd"]
-[ext_resource type="Resource" uid="uid://dcwm7u0jd6yw5" path="res://cutscene/lighthouse/chair_blocking_door.tres" id="7_vis30"]
-[ext_resource type="Texture2D" uid="uid://bo868i81pkqu1" path="res://assets/furniture/door.png" id="9_vis30"]
-[ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="13_w1vs7"]
-[ext_resource type="Resource" uid="uid://dgfnusn8rs2l" path="res://cutscene/lighthouse/hidden_door.tres" id="13_w4qbt"]
-[ext_resource type="Script" uid="uid://l0teuipo17rj" path="res://script/condition_rule.gd" id="15_hotc2"]
-[ext_resource type="Script" uid="uid://cwng3n1pucxf4" path="res://script/marker.gd" id="15_ipm2w"]
+[ext_resource type="Script" uid="uid://d0jw7003rp8mw" path="res://script/place.gd" id="1_qyrgb"]
+[ext_resource type="Texture2D" uid="uid://drxw04q6wjnod" path="res://assets/place/lighthouse/living_room.png" id="2_b6s8w"]
+[ext_resource type="Texture2D" uid="uid://dluweuajs1fo2" path="res://assets/place/lighthouse/living_room_normal.png" id="3_x0hpa"]
+[ext_resource type="Texture2D" uid="uid://csddbbn8uyulc" path="res://assets/place/lighthouse/room_front_wall.png" id="4_8uvcd"]
+[ext_resource type="Texture2D" uid="uid://m416113e0tjq" path="res://assets/place/lighthouse/room_front_wall_normal.png" id="5_vis30"]
+[ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="6_shjv7"]
 
-[sub_resource type="Resource" id="Resource_pamnv"]
-script = ExtResource("3_tbh6r")
-target = NodePath("HiddenDoor")
-metadata/_custom_type_script = "uid://coma3vrrp33jq"
+[sub_resource type="CanvasTexture" id="CanvasTexture_onacj"]
+diffuse_texture = ExtResource("2_b6s8w")
+normal_texture = ExtResource("3_x0hpa")
 
-[sub_resource type="Resource" id="Resource_ipm2w"]
-script = ExtResource("15_hotc2")
-target_var = "open_door"
-action = SubResource("Resource_pamnv")
-apply_immediatly = true
-metadata/_custom_type_script = "uid://l0teuipo17rj"
+[sub_resource type="CanvasTexture" id="CanvasTexture_w1vs7"]
+diffuse_texture = ExtResource("4_8uvcd")
+normal_texture = ExtResource("5_vis30")
 
-[sub_resource type="Resource" id="Resource_u57s5"]
-script = ExtResource("3_bpgmk")
-target = NodePath("HiddenDoor")
-active = true
-metadata/_custom_type_script = "uid://bvyk7wmxvbttc"
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qyrgb"]
+size = Vector2(29, 11)
 
-[sub_resource type="Resource" id="Resource_w4qbt"]
-script = ExtResource("15_hotc2")
-target_var = "saw_map"
-action = SubResource("Resource_u57s5")
-apply_immediatly = true
-metadata/_custom_type_script = "uid://l0teuipo17rj"
-
-[sub_resource type="Resource" id="Resource_tbh6r"]
-script = ExtResource("3_hotc2")
-entity_name = "Chair"
-marker_path = NodePath("ChairTable")
-metadata/_custom_type_script = "uid://criudvyc6a0ea"
-
-[sub_resource type="Resource" id="Resource_hotc2"]
-script = ExtResource("15_hotc2")
-target_var = "chair_moved"
-action = SubResource("Resource_tbh6r")
-apply_immediatly = true
-metadata/_custom_type_script = "uid://l0teuipo17rj"
-
-[sub_resource type="Resource" id="Resource_gxt4c"]
-script = ExtResource("3_bpgmk")
-target = NodePath("Entities/Chair/Interactable")
-metadata/_custom_type_script = "uid://bvyk7wmxvbttc"
-
-[sub_resource type="Resource" id="Resource_bpgmk"]
-script = ExtResource("15_hotc2")
-target_var = "chair_moved"
-action = SubResource("Resource_gxt4c")
-apply_immediatly = true
-metadata/_custom_type_script = "uid://l0teuipo17rj"
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_b6s8w"]
-diffuse_texture = ExtResource("2_qyrgb")
-normal_texture = ExtResource("2_m50gm")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8uvcd"]
-size = Vector2(16, 22)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_shjv7"]
-radius = 14.035668
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m50gm"]
-size = Vector2(16, 28)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_shjv7"]
-size = Vector2(26, 8)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w4qbt"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ipm2w"]
-size = Vector2(28, 20)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_i1dq0"]
-closed = false
-polygon = PackedVector2Array(150, 120, 150, 96, 27, 96, 27, 15, 44, 15)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7fqpu"]
-closed = false
-polygon = PackedVector2Array(-150, 59, -150, 26, -43, 26, -43, 82, -109, 82, -109, 97, -26, 97, -26, -39, -89, -39, -89, -55, -29, -55, -29, -163, 151, -163, 151, -110, 27, -110, 27, -9, 44, -9)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_m50gm"]
-closed = false
-polygon = PackedVector2Array(-9, 215, -9, 199, -150, 199, -150, 160)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_x0hpa"]
-closed = false
-polygon = PackedVector2Array(-150, 127, -150, 90)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_tbh6r"]
-closed = false
-polygon = PackedVector2Array(150, 152, 150, 199, 15, 199, 15, 215)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_dgaau"]
-polygon = PackedVector2Array(47, 108, 49, 110, 56, 110, 58, 108, 58, 104, 56, 102, 49, 102, 47, 104)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qyrgb"]
-polygon = PackedVector2Array(-53, 171, -53, 169, -50, 169, -50, 171)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_b6s8w"]
-polygon = PackedVector2Array(-54, 141, -54, 143, -51, 143, -51, 141)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_vis30"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_onacj"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_onacj"]
-
-[node name="LivingRoom" type="Node2D" unique_id=1060505341]
-script = ExtResource("1_w1vs7")
+[node name="LivingRoom" type="Node" unique_id=740737229]
+script = ExtResource("1_qyrgb")
 location_path = 1
-actions = Array[ExtResource("15_hotc2")]([SubResource("Resource_ipm2w"), SubResource("Resource_w4qbt"), SubResource("Resource_hotc2"), SubResource("Resource_bpgmk")])
+metadata/_custom_type_script = "uid://d0jw7003rp8mw"
 
-[node name="Floor" type="Sprite2D" parent="." unique_id=984682791]
-visibility_layer = 3
-texture = ExtResource("1_dgaau")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=995550140]
+texture = SubResource("CanvasTexture_onacj")
+centered = false
 
-[node name="Walls" type="Sprite2D" parent="." unique_id=249294264]
-light_mask = 2
-texture = SubResource("CanvasTexture_b6s8w")
-
-[node name="Entities" type="Node2D" parent="." unique_id=220282718]
+[node name="Entities" type="Node2D" parent="." unique_id=1676747816]
 unique_name_in_owner = true
-z_index = 1
 y_sort_enabled = true
 
-[node name="Chair" type="Sprite2D" parent="Entities" unique_id=433094377]
-position = Vector2(-6, 171)
-texture = ExtResource("4_x0hpa")
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=2044699898]
+position = Vector2(1, 101)
+texture = SubResource("CanvasTexture_w1vs7")
 centered = false
 
-[node name="Tracker" type="Node" parent="Entities/Chair" unique_id=1347393825]
-script = ExtResource("13_w1vs7")
-metadata/_custom_type_script = "uid://bhkymgw54xfkd"
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Entities/Chair" unique_id=646927030]
-position = Vector2(8, 19)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chair/StaticBody2D" unique_id=1327434999]
-position = Vector2(0, 3)
-shape = SubResource("RectangleShape2D_8uvcd")
-
-[node name="Interactable" type="Area2D" parent="Entities/Chair" unique_id=1047763280]
-position = Vector2(9, 17)
-script = ExtResource("5_b6s8w")
-pop_up_type = 3
-metadata/_custom_type_script = "uid://bgp4ssm03oorx"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chair/Interactable" unique_id=1188438728]
-shape = SubResource("CircleShape2D_shjv7")
-
-[node name="Node2D" type="Node2D" parent="Entities/Chair/Interactable" unique_id=330964273]
-position = Vector2(0, -16)
-
-[node name="CutsceneData" type="Node" parent="Entities/Chair/Interactable" unique_id=1997613198]
-script = ExtResource("6_x0hpa")
-cutscene = ExtResource("7_vis30")
-metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
-
-[node name="Bedroom1" type="Area2D" parent="." unique_id=734764994]
-position = Vector2(38, 4)
-script = ExtResource("3_7fqpu")
-destination_path = "uid://b5lwc6r8gihdf"
+[node name="BaseStairs" type="Area2D" parent="." unique_id=1512763358]
+position = Vector2(29, 93)
+script = ExtResource("6_shjv7")
+destination_path = "uid://kb7byravxoof"
 metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bedroom1" unique_id=550245779]
-position = Vector2(2, -2)
-shape = SubResource("RectangleShape2D_m50gm")
-
-[node name="Node2D" type="Node2D" parent="Bedroom1" unique_id=451083292]
-position = Vector2(-16, -1)
-
-[node name="Bedroom2" type="Area2D" parent="." unique_id=2059519623]
-position = Vector2(-62, -59)
-script = ExtResource("3_7fqpu")
-destination_path = "uid://dle6tyljj31cl"
-metadata/_custom_type_script = "uid://csoqjsxgxwixr"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bedroom2" unique_id=1370316399]
-shape = SubResource("RectangleShape2D_shjv7")
-
-[node name="Node2D" type="Node2D" parent="Bedroom2" unique_id=1276302689]
-position = Vector2(0, 14)
-
-[node name="Sprite2D" type="Sprite2D" parent="Bedroom2" unique_id=276370879]
-position = Vector2(-13, -33)
-texture = ExtResource("9_vis30")
-centered = false
-hframes = 2
-
-[node name="StorageRoom" type="Area2D" parent="." unique_id=535613321]
-position = Vector2(-101, -46)
-script = ExtResource("3_7fqpu")
-destination_path = "uid://dopm0mckrxugx"
-metadata/_custom_type_script = "uid://csoqjsxgxwixr"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StorageRoom" unique_id=1578011187]
-shape = SubResource("RectangleShape2D_w4qbt")
-
-[node name="Node2D" type="Node2D" parent="StorageRoom" unique_id=1910617917]
-position = Vector2(28, 2)
-
-[node name="MainDoor" type="Area2D" parent="." unique_id=1694688327]
-position = Vector2(3, 220)
-script = ExtResource("3_7fqpu")
-destination_path = "uid://c0854c7mmdv3x"
-metadata/_custom_type_script = "uid://csoqjsxgxwixr"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MainDoor" unique_id=1091230155]
-shape = SubResource("RectangleShape2D_ipm2w")
-
-[node name="Node2D" type="Node2D" parent="MainDoor" unique_id=160355694]
-position = Vector2(0, -23)
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1341103966]
-visible = false
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2" unique_id=1507528885]
-polygon = PackedVector2Array(15, 215, 15, 199, 150, 199, 150, 96, 27, 96, 27, 14, 53, 14, 196, 45, 157, 212)
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D2" unique_id=1169453899]
-polygon = PackedVector2Array(53, 14, 53, -9, 27, -9, 27, -110, 151, -110, 151, -163, 176, -103)
-
-[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D2" unique_id=993249683]
-polygon = PackedVector2Array(151, -163, -29, -163, -29, -55, -49, -55, -49, -77, -75, -77, -75, -55, -89, -55, -71, -240)
-
-[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="StaticBody2D2" unique_id=1187065625]
-polygon = PackedVector2Array(-109, 97, -109, 83, -43, 83, -43, 26, -150, 26, -150, -39, -26, -39, -26, 97)
-
-[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="StaticBody2D2" unique_id=2045504573]
-polygon = PackedVector2Array(-9, 215, -9, 199, -150, 199, -150, 26, -163, 212)
-
-[node name="OccludersFloor" type="Node" parent="." unique_id=950038710]
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="OccludersFloor" unique_id=199027774]
-occluder = SubResource("OccluderPolygon2D_i1dq0")
-
-[node name="LightOccluder2D2" type="LightOccluder2D" parent="OccludersFloor" unique_id=1122372774]
-occluder = SubResource("OccluderPolygon2D_7fqpu")
-
-[node name="LightOccluder2D3" type="LightOccluder2D" parent="OccludersFloor" unique_id=1045008562]
-occluder = SubResource("OccluderPolygon2D_m50gm")
-
-[node name="LightOccluder2D4" type="LightOccluder2D" parent="OccludersFloor" unique_id=1491501091]
-occluder = SubResource("OccluderPolygon2D_x0hpa")
-
-[node name="LightOccluder2D6" type="LightOccluder2D" parent="OccludersFloor" unique_id=531711866]
-occluder = SubResource("OccluderPolygon2D_tbh6r")
-
-[node name="OccludersObjects" type="Node" parent="." unique_id=1270130737]
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="OccludersObjects" unique_id=1057123220]
-occluder = SubResource("OccluderPolygon2D_dgaau")
-
-[node name="LightOccluder2D2" type="LightOccluder2D" parent="OccludersObjects" unique_id=1917307743]
-occluder = SubResource("OccluderPolygon2D_qyrgb")
-
-[node name="LightOccluder2D3" type="LightOccluder2D" parent="OccludersObjects" unique_id=1471129668]
-occluder = SubResource("OccluderPolygon2D_b6s8w")
-
-[node name="Map" type="Area2D" parent="." unique_id=62021052]
-position = Vector2(-103, 25)
-script = ExtResource("5_b6s8w")
-pop_up_type = 3
-metadata/_custom_type_script = "uid://bgp4ssm03oorx"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map" unique_id=1203863576]
-shape = SubResource("CircleShape2D_vis30")
-
-[node name="Node2D" type="Node2D" parent="Map" unique_id=1519602618]
-position = Vector2(0, -24)
-
-[node name="CutsceneData" type="Node" parent="Map" unique_id=1768290238]
-script = ExtResource("6_x0hpa")
-cutscene = ExtResource("7_8uvcd")
-metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
-
-[node name="HiddenDoor" type="Area2D" parent="." unique_id=1043029541]
-position = Vector2(-90, -47)
-script = ExtResource("5_b6s8w")
-pop_up_type = 3
-active = false
-metadata/_custom_type_script = "uid://bgp4ssm03oorx"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HiddenDoor" unique_id=794351443]
-shape = SubResource("CircleShape2D_onacj")
-
-[node name="Node2D" type="Node2D" parent="HiddenDoor" unique_id=2105280195]
-position = Vector2(-11, -7)
-
-[node name="CutsceneData" type="Node" parent="HiddenDoor" unique_id=1770520481]
-script = ExtResource("6_x0hpa")
-cutscene = ExtResource("13_w4qbt")
-metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
-
-[node name="Tracker" type="Node" parent="HiddenDoor" unique_id=1319714186 node_paths=PackedStringArray("sources")]
-script = ExtResource("13_w1vs7")
-sources = [NodePath(".."), NodePath("../../HiddenDoorBlock")]
-method_name = PackedStringArray("set_active", "queue_free")
-metadata/_custom_type_script = "uid://bhkymgw54xfkd"
-
-[node name="HiddenDoorBlock" type="StaticBody2D" parent="." unique_id=560602849]
-position = Vector2(-99, -47)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HiddenDoorBlock" unique_id=111632546]
-shape = SubResource("RectangleShape2D_onacj")
-
-[node name="ChairTable" type="Marker2D" parent="." unique_id=2135681956]
-position = Vector2(-44, 130)
-script = ExtResource("15_ipm2w")
-metadata/_custom_type_script = "uid://cwng3n1pucxf4"
-
-[node name="PlayerTable" type="Marker2D" parent="." unique_id=393522983]
-position = Vector2(-34, 137)
-script = ExtResource("15_ipm2w")
-metadata/_custom_type_script = "uid://cwng3n1pucxf4"
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseStairs" unique_id=1430982057]
+position = Vector2(-7, 21)
+shape = SubResource("RectangleShape2D_qyrgb")

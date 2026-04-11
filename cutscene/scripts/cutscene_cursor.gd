@@ -11,7 +11,7 @@ var _context: Node
 func start_cutscene(start: Cutscene, context: Node) -> void:
 	if not start or start.actions.size() <= 0:
 		assert(false)
-		cutscene_ended.emit(null)
+		cutscene_ended.emit.call_deferred(null)
 		return
 	_context = context
 	_count = -1
@@ -43,7 +43,7 @@ func _on_action_ended() -> void:
 		return
 	
 	if not _current_action:
-		cutscene_ended.emit(null)
+		cutscene_ended.emit.call_deferred(null)
 		return
 	
 	_execute.call_deferred()

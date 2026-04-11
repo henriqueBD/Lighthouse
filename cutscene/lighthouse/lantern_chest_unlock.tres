@@ -1,11 +1,12 @@
 [gd_resource type="Resource" script_class="Cutscene" format=3 uid="uid://c2pwyyj7k8lvv"]
 
-[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/action_base.gd" id="1_0s8d8"]
+[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/actions/action_base.gd" id="1_0s8d8"]
 [ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/scripts/cutscene.gd" id="2_7sk7q"]
-[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/action_dialogue.gd" id="2_c8fv5"]
-[ext_resource type="Script" uid="uid://dyr0awso8vtj" path="res://cutscene/scripts/action_set_value.gd" id="3_r5ew7"]
-[ext_resource type="Script" uid="uid://r55kd4snhjhj" path="res://cutscene/scripts/action_play_animation.gd" id="4_r5ew7"]
-[ext_resource type="Script" uid="uid://bvyk7wmxvbttc" path="res://cutscene/scripts/action_toggle_active.gd" id="5_hq2ax"]
+[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/actions/action_dialogue.gd" id="2_c8fv5"]
+[ext_resource type="Script" uid="uid://dyr0awso8vtj" path="res://cutscene/scripts/actions/action_create_var.gd" id="3_hq2ax"]
+[ext_resource type="Resource" uid="uid://b2guran7o617s" path="res://variable/prologue/chest_open.tres" id="4_mllej"]
+[ext_resource type="Script" uid="uid://r55kd4snhjhj" path="res://cutscene/scripts/actions/action_play_animation.gd" id="4_r5ew7"]
+[ext_resource type="Script" uid="uid://bvyk7wmxvbttc" path="res://cutscene/scripts/actions/action_toggle_active.gd" id="5_hq2ax"]
 
 [sub_resource type="Resource" id="Resource_hq2ax"]
 script = ExtResource("2_c8fv5")
@@ -13,9 +14,8 @@ dialogue = PackedStringArray("[Used key to unlock chest]")
 metadata/_custom_type_script = "uid://c5daiygjvie4n"
 
 [sub_resource type="Resource" id="Resource_mllej"]
-script = ExtResource("3_r5ew7")
-path = "chest_opened"
-value = true
+script = ExtResource("3_hq2ax")
+variable = ExtResource("4_mllej")
 metadata/_custom_type_script = "uid://dyr0awso8vtj"
 
 [sub_resource type="Resource" id="Resource_ufqjp"]
@@ -32,7 +32,6 @@ metadata/_custom_type_script = "uid://c5daiygjvie4n"
 
 [sub_resource type="Resource" id="Resource_g8hli"]
 script = ExtResource("5_hq2ax")
-target = NodePath("../../../../DoorClosed")
 active = true
 metadata/_custom_type_script = "uid://bvyk7wmxvbttc"
 

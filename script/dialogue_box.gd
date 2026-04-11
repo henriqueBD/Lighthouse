@@ -1,36 +1,58 @@
-extends Node
+class_name DialogueBox
+extends Control
 const _dialogue_SPEED_PER_CHAR: float = 0.04
+
+signal dialogue_ended(close_dialogue_box: bool)
 
 static var _regex: RegEx
 
-var _dialogue: PackedStringArray
-var _close_dialogue_box_on_end: bool = true
+var _raw_dialogue: PackedStringArray
+var _close_on_end: bool = true
 var _count: int = 0
 var _current_char_index: int
 var _call_method_indexes: Dictionary[int, Array]
 var _next_char_countdown: float
 var _can_advance_dialogue: bool
 var _text: Label
+var _portrait: TextureRect
+var _character_portraits: Array[Texture2D]
 
 static func _static_init() -> void:
 	_regex = RegEx.new()
 	_regex.compile("\\{(.*?)\\}")
 
-func start_dialogue() -> void:
-	if not _dialogue:
+func start_dialogue(raw_dialogue: PackedStringArray, close_on_end: bool) -> void:
+	if not raw_dialogue:
 		assert(false)
 		_end_dialogue()
 		return
-	assert(_vibe_check_dialogue(), str(_dialogue))
+	_can_advance_dialogue = false
+	_raw_dialogue = raw_dialogue
+	_close_on_end = close_on_end
+	assert(_vibe_check_dialogue(), str(_raw_dialogue))
 	_count = 0
-	GameManager.main_node.change_dialogue_text(_parse_text(_dialogue[0]))
-	GameManager.toggle_listen_input(true)
-	GameManager.interact_pressed.connect(_on_input_pressed)
-	GameManager.set_process_func(_process)
+	_text.visible_characters = 0
+	_text.text = _parse_text(_raw_dialogue[0])
+	set_process_unhandled_input(true)
+	set_process(true)
+	show()
+
+func start_dialogue_character(portraits: Array[Texture2D]) -> void:
+	if not _portrait:
+		assert(false, "Tried to start character dialogue on a info box")
+		get_tree().create_timer(0.3).timeout.connect(_end_dialogue, CONNECT_ONE_SHOT)
+		return
+	_character_portraits = portraits
+	if not _character_portraits[0]:
+		assert(false, "The first portrait should not be null")
+		return
+	_portrait.texture = _character_portraits[0]
 
 func _ready() -> void:
+	set_process(false)
 	_text = %Label
 	assert(_text)
+	_portrait = get_node_or_null("%Portrait")
 
 func _process(delta: float) -> void:
 	_next_char_countdown -= delta
@@ -38,36 +60,32 @@ func _process(delta: float) -> void:
 	if _next_char_countdown <= 0.0 and not _can_advance_dialogue:
 		_next_char_countdown = _dialogue_SPEED_PER_CHAR
 		_next_char()
-		if GameManager.main_node.show_next_char():
+		_text.visible_characters += 1
+		if _text.visible_ratio == 1.0:
 			_can_advance_dialogue = true
 
-func _on_input_pressed() -> void:
-	if _can_advance_dialogue:
-		_can_advance_dialogue = false
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("Interact") and _can_advance_dialogue:
 		_next_dialogue()
+
+func _next_dialogue() -> void:
+	_next_char()
+	_count += 1
+	if _count >= _raw_dialogue.size():
+		#End dialogue
+		_end_dialogue()
+	else:
+		_can_advance_dialogue = false
+		_text.text = _parse_text(_raw_dialogue[_count])
+		_text.visible_characters = 0
+		if _portrait and _count < _character_portraits.size() and _character_portraits[_count]:
+			_portrait.texture = _character_portraits[_count]
 
 func _next_char() -> void:
 	if _call_method_indexes.has(_current_char_index):
 		for parameters: Array in _call_method_indexes[_current_char_index]:
 			GameManager.call_global_method(parameters[0], parameters[1], parameters[2])
 	_current_char_index += 1
-
-func _next_dialogue() -> void:
-	_next_char()
-	_count += 1
-	if _count >= _dialogue.size():
-		#End _dialogue
-		GameManager.set_process_func(Callable())
-		GameManager.toggle_listen_input(false)
-		GameManager.interact_pressed.disconnect(_on_input_pressed)
-		if _close_dialogue_box_on_end:
-			GameManager.main_node.hide_dialogue_box()
-		_end_dialogue()
-	else:
-		_continue_dialogue()
-
-func _continue_dialogue() -> void:
-	GameManager.main_node.change__dialogue_text(_parse_text(_dialogue[_count]))
 
 func _parse_text(text: String) -> String:
 	if text.is_empty():
@@ -129,9 +147,17 @@ func _parse_text(text: String) -> String:
 	return final_output
 
 func _end_dialogue() -> void:
-	pass
+	hide()
+	set_process(false)
+	set_process_unhandled_input(false)
+	dialogue_ended.emit(_close_on_end)
 
 func _vibe_check_dialogue() -> bool:
-	for line: String in _dialogue:
-		if not line or line.is_empty(): return false
+	for line: String in _raw_dialogue:
+		if not line:
+			push_error("NULL LINE")
+			return false
+		if line.is_empty():
+			push_error("EMPTY LINE")
+			return false
 	return true

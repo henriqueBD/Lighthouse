@@ -3,27 +3,23 @@ class_name Transition
 extends Area2D
 
 @export_file("*.tscn") var destination_path: String
-@export_enum("unassigned", "north", "south", "west", "east") var direction: int
+#@export_enum("unassigned", "north", "south", "west", "east") var direction: int
 
-var spawn_point: Node2D
 var active: bool
 
 func set_active(val: bool) -> void:
 	active = val
 
 func _ready() -> void:
-	GameManager.register_spawn_point(self)
 	collision_mask = 2  ##TODO: MAKE THIS GLOBAL
 	active = true
-	spawn_point = $Node2D
 	
 	body_entered.connect(_player_entered, CONNECT_ONE_SHOT)
-	assert(spawn_point, "no spawn point for transition: " + name)
 	assert(not destination_path.is_empty(), "No destination path set for transition: " + name)
 	assert(ResourceLoader.exists(destination_path), destination_path + " does not exist for: " + name)
 
 func _player_entered(_player: Node2D) -> void:
-	if not active or not ResourceLoader.exists(destination_path): return
+	if not active: return
 	for child: Node in get_children():
 		if child is Sprite2D:
 			child.frame = 1

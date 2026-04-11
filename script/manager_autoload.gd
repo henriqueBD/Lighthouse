@@ -22,11 +22,20 @@ var player_parent: Character
 
 #Global varibles
 var _entities: Dictionary[String, Tracker]
-var _global_variables_string_map: Dictionary[String, String]
+var _events: Dictionary[String, Array]
 
-#Misc
-var _spawn_points_on_current_room: Dictionary[String, Transition] = {}
-var _process_func: Callable
+static func is_same_type(x: Variant, y: Variant) -> bool:
+	if typeof(x) != typeof(y):
+		return false
+	
+	if typeof(x) == TYPE_OBJECT:
+		if x == null or y == null:
+			return x == y
+		
+		return x.get_class() == y.get_class() and x.get_script() == y.get_script()
+	
+	assert(false, "?????????")
+	return true
 
 func _ready() -> void:
 	set_process_unhandled_input(false)
@@ -44,22 +53,9 @@ func set_player(player_to_add: Player) -> void:
 	player_parent = player.get_parent()
 	assert(player_parent)
 
-func get_string_var(key: String) -> String:
-	return _global_variables_string_map.get(key, "")
-
 func register_unique_entity(unique_name: String, node: Node) -> void:
 	assert(not _entities.has(unique_name), "Name " + unique_name + "is not unique")
 	_entities[unique_name] = node
-
-func register_spawn_point(point: Transition) -> void:
-	assert(not _spawn_points_on_current_room.has(point.name), 
-	"Two transitions with the same name " + point.name)
-	
-	_spawn_points_on_current_room[point.name] = point
-
-func get_spawn_point(point_name: String) -> Transition:
-	assert(_spawn_points_on_current_room.has(point_name), "No spawn with name: " + point_name)
-	return _spawn_points_on_current_room[point_name]
 
 func unregister_unique_entity(unique_name: String) -> void:
 	assert(_entities.has(unique_name), "No active entity with name: " + unique_name)
@@ -87,31 +83,33 @@ func get_character(unique_name: String) -> Character:
 func is_player_locked() -> bool:
 	return _is_playing_cutscene
 
-func set_global_var(var_name: String, value: Variant) -> void:
-	assert(main_node.curr_map is Place)
-	if main_node.curr_map is Place:
-		main_node.curr_map.save_var(var_name, value)
+func get_local_var(variable: GameVariable) -> Variant:
+	return main_node.curr_map.get_var(variable)
 
-func get_local_var(path: String) -> Variant:
-	return main_node.curr_map.get_var(path)
+func local_var_exists(variable: GameVariable) -> bool:
+	return main_node.curr_map.var_exists(variable)
 
-func local_var_exists(path: String) -> bool:
-	return main_node.curr_map.var_exists(path)
-
-func set_local_var(path: String, value: Variant) -> void:
-	main_node.curr_map.save_var(path, value)
+func set_local_var(variable: GameVariable, value: Variant) -> void:
+	main_node.curr_map.save_var(variable, value)
 
 func toggle_is_playing_cutscene(val: bool) -> void:
 	_is_playing_cutscene = val
 
+func subscribe_to_event(event: GameVariable, node: EventListener) -> void:
+	var id: String = event.get_ID()
+	if _events.has(id):
+		_events[id].append(node)
+	else:
+		var new_array: Array[EventListener] = [node]
+		_events[id] = new_array
+
+func emit_event(event: GameVariable) -> void:
+	var arr: Array[EventListener] = _events.get(event.get_ID())
+	if arr:
+		for node: EventListener in arr:
+			node.execute()
+
 #endregion
-
-func set_process_func(fn: Callable) -> void:
-	set_process(not fn.is_null())
-	_process_func = fn
-
-func _process(delta: float) -> void:
-	_process_func.call(delta)
 
 func toggle_listen_input(value: bool) -> void:
 	set_process_unhandled_input(value)
@@ -121,7 +119,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		interact_pressed.emit()
 
 func change_scene(new_scene_path: String, spawn_name: String) -> void:
-	_spawn_points_on_current_room.clear()
+	_events.clear()
+	if not ResourceLoader.exists(new_scene_path):
+		assert(false, "Missing scene at: " + new_scene_path)
+		return
 	main_node.change_scene(new_scene_path, spawn_name, player_parent)
 
 func teleport_entity_to_marker(entity_name: String, marker_name: String) -> void:
@@ -150,7 +151,7 @@ func play_sound(to_play: AudioStream) -> Signal:
 
 func set_node_active(node: Node, val: bool) -> void:
 	if node is Interactable:
-		node.set_active(val)
+		node.active = val
 	elif node is Transition:
 		node.set_active(false)
 	elif node is CollisionShape2D:

@@ -12,11 +12,8 @@ var sfx_player: AudioStreamPlayer
 var _screen_transition: ScreenTransition
 var _canvas_layer: CanvasLayer
 var _canvas_layer_subviewport: CanvasLayer
-var _info_instance: Control
-var _char_instance: Control
-var _active_dialogue_box: Control
-var _active_dialogue_portrait: TextureRect
-var _active_dialogue_box_label: Label
+var _dialogue_info_instance: DialogueBox
+var _dialogue_char_instance: DialogueBox
 var _game_subviewport: SubViewport
 
 func _ready() -> void:
@@ -37,17 +34,15 @@ func _ready() -> void:
 	assert(curr_map)
 	
 	#Dialogue initialization
-	_info_instance = DIALOGUE_BOX_INFO.instantiate()
-	_info_instance.hide()
-	_canvas_layer.add_child(_info_instance)
+	_dialogue_info_instance = DIALOGUE_BOX_INFO.instantiate()
+	_dialogue_info_instance.hide()
+	_canvas_layer.add_child(_dialogue_info_instance)
 	
-	_char_instance = DIALOGUE_BOX_CHAR.instantiate()
-	_char_instance.hide()
-	_canvas_layer.add_child(_char_instance)
-	_active_dialogue_portrait = _char_instance.get_node("%Portrait")
-	assert(_active_dialogue_portrait)
+	_dialogue_char_instance = DIALOGUE_BOX_CHAR.instantiate()
+	_dialogue_char_instance.hide()
+	_canvas_layer.add_child(_dialogue_char_instance)
 	
-	assert(_info_instance and _char_instance)
+	assert(_dialogue_info_instance and _dialogue_char_instance)
 	
 	#Screen transition
 	_screen_transition = SCREEN_TRANSITION.instantiate()
@@ -57,41 +52,20 @@ func _ready() -> void:
 
 #region Dialogue
 
-func show_character_dialogue_box(portrait: Texture2D) -> void:
-	if not portrait:
-		assert(false)
-		#TODO: RECOVERY EMPTY IMAGE
-	_active_dialogue_box = _char_instance
-	_active_dialogue_portrait.texture = portrait
-	_active_dialogue_box_label = _active_dialogue_box.get_node("%Label")
-	assert(_active_dialogue_box_label)
-	_active_dialogue_box.show()
+func start_dialogue_info(raw_dialogue: PackedStringArray, close_on_end: bool) -> Signal:
+	_dialogue_info_instance.start_dialogue(raw_dialogue, close_on_end)
+	return _dialogue_info_instance.dialogue_ended
 
-func show_info_box() -> void:
-	_active_dialogue_box = _info_instance
-	_active_dialogue_box_label = _active_dialogue_box.get_node("%Label")
-	assert(_active_dialogue_box_label)
-	_active_dialogue_box.show()
-
-func hide_dialogue_box() -> void:
-	_active_dialogue_portrait.texture = null
-	_active_dialogue_box.hide()
-
-## Changes the label text and set label.visible_characters = 0
-func change_dialogue_text(new_text: String) -> void:
-	_active_dialogue_box_label.text = new_text
-	_active_dialogue_box_label.visible_characters = 0
-
-## Makes the next char visible and returns if all chars are visible
-func show_next_char() -> bool:
-	_active_dialogue_box_label.visible_characters += 1
-	return _active_dialogue_box_label.visible_ratio == 1.0
+func start_dialogue_character(raw_dialogue: PackedStringArray, portraits: Array[Texture2D], close_on_end: bool) -> Signal:
+	_dialogue_char_instance.start_dialogue(raw_dialogue, close_on_end)
+	_dialogue_char_instance.start_dialogue_character(portraits)
+	return _dialogue_char_instance.dialogue_ended
 
 #TODO: Assert that every portrait has the same dimensions
 #TODO: Would be nice to support animated portrairs (new_portrait passed as as sprite frames)
 func change_dialogue_portrait(new_portrait: Texture2D) -> void:
 	assert(new_portrait)
-	_active_dialogue_portrait.texture = new_portrait
+	#_active_dialogue_portrait.texture = new_portrait
 
 #endregion
 
@@ -114,7 +88,7 @@ func change_scene(new_scene_path: String, spawn_name: String, player: Node) -> v
 	curr_map.queue_free()
 	_change_scene_deffered.call_deferred(new_scene_path, spawn_name, player)
 
-func _change_scene_deffered(new_scene_path: String, spawn_location: String, player: Node) -> void:
+func _change_scene_deffered(new_scene_path: String, spawn_name: String, player: Node) -> void:
 	assert(player)
 	
 	assert(ResourceLoader.exists(new_scene_path), "Path does not exist: " + new_scene_path)
@@ -129,10 +103,29 @@ func _change_scene_deffered(new_scene_path: String, spawn_location: String, play
 		player.reparent(entities_node)
 	else:
 		player.reparent(curr_map)
-		
-	var player_spawn: Transition = GameManager.get_spawn_point(spawn_location)
-	assert(player_spawn, "No spawn in" + new_scene_path + " For transition" + spawn_location)
-	if player_spawn:
-		GameManager.player_parent.global_position = player_spawn.spawn_point.global_position
+	
+	#Get spawn point
+	var player_spawn: Vector2 = Vector2.ZERO
+	var res: Node2D = curr_map.get_node_or_null(spawn_name)
+	if res:
+		assert(res is Transition or res is Interactable)
+		if res is Transition:
+			player_spawn = res.global_position
+		elif res is Interactable:
+			for tmp: Node in res.get_children():
+				if tmp is TransitionInput: 
+					player_spawn = tmp.global_position
+					break
+	else:
+		assert(false, "No spawn in" + new_scene_path + " For transition" + spawn_name)
+		#Panic, Return first valid spawn point
+		var spawn_node: Array[Node] = curr_map.find_children("*", "Transition", true) 
+		if spawn_node.is_empty():
+			spawn_node = curr_map.find_children("*", "TransitionInput", true)
+		if not spawn_node.is_empty():
+			player_spawn = spawn_node[0].global_position
+	#----=====-----
+	
+	GameManager.player_parent.global_position = player_spawn
 	
 	fade_in_screen().connect(GameManager.fade_in_finished, CONNECT_ONE_SHOT)

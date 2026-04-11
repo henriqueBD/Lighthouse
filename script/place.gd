@@ -10,10 +10,8 @@ enum places{
 static var _places_keys: Array = places.keys()
 
 @export var location_path: places
-@export var actions: Array[ConditionRule]
 
 var _location: String
-var _actions_dict: Dictionary[String, Array]
 var _entities: Node2D
 
 func get_character(character_name: String) -> Character:
@@ -27,40 +25,29 @@ func get_character(character_name: String) -> Character:
 	assert(res, "Node " + character_name + " is not of type character")
 	return null
 
+func subscribe_to_var(variable: GameVariable) -> Signal:
+	var ID: String = variable.get_ID()
+	if not has_signal(ID):
+		add_user_signal(ID)
+	return Signal(self, ID)
+
 func _enter_tree() -> void:
 	assert(location_path != places.UNASSIGNED)
 	_location = _places_keys[location_path]
+	_entities = get_node_or_null("%Entities")
 	GameManager.save_data.create_folder(_location)
 
-func _ready() -> void:
-	_entities = get_node_or_null("%Entities")
-	
-	if not actions: 
-		return
-	_actions_dict = {}
-	
-	for single_action: ConditionRule in actions:
-		if _actions_dict.has(single_action.target_var):
-			_actions_dict[single_action.target_var].append(single_action)
-		else:
-			var new_array: Array[ConditionRule] = [single_action]
-			_actions_dict[single_action.target_var] = new_array
-		_call_action_if_condition(single_action)
-	
-	actions.clear()
+func save_var(variable: GameVariable, _value: Variant) -> void:
+	GameManager.save_data.store_var(_location, variable)
+	var ID: String = variable.get_ID()
+	if has_signal(ID):
+		Signal(self, ID).emit()
 
-func save_var(var_name: String, value: Variant) -> void:
-	GameManager.save_data.store_var("%s/%s" % [_location, var_name], value)
-	if _actions_dict.has(var_name):
-		for action: ConditionRule in _actions_dict[var_name] as Array[ConditionRule]:
-			if action.apply_immediatly:
-				_call_action_if_condition(action)
+func get_var(variable: GameVariable) -> Variant:
+	return GameManager.save_data.get_var_or_null(_location, variable)
 
-func get_var(local_path: String) -> Variant:
-	return GameManager.save_data.get_var_or_null("%s/%s" % [_location, local_path])
-
-func var_exists(local_path: String) -> bool:
-	return GameManager.save_data.var_exists("%s/%s" % [_location, local_path])
+func var_exists(variable: GameVariable) -> bool:
+	return GameManager.save_data.var_exists(_location, variable)
 
 func _call_action_if_condition(action: ConditionRule) -> void:
 	assert(action)

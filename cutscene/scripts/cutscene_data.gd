@@ -18,19 +18,23 @@ func _ready() -> void:
 	
 	assert(owner is Place, "Owner must be of type Place")
 	if one_shot and owner is Place:
-		var save_id: String = _get_save_id()
-		var played: Variant = owner.get_var(save_id)
-		
-		if played:
+		assert(owner is Place)
+		if owner.var_exists(_get_save_id()):
 			parent.queue_free()
-			return 
+			return
 	
 	if parent is Interactable:
+		parent.pop_up_type = Interactable.pop_up_texture.DIALOGUE
 		parent.interacted.connect(start_cutscene)
 	elif parent is CutsceneTrigger:
 		parent.trigged.connect(start_cutscene) 
 	else:
 		assert(false, "Parent is neither Interactable nor CutsceneTrigger.")
+
+func _exit_tree() -> void:
+	assert(not _cursor, "Tried to unload active cutscene " + str(get_path()))
+	if _cursor:
+		finish_cutscene(null)
 
 func start_cutscene() -> void:
 	assert(_cursor == null, "Two cutscenes active" + str(get_path()))
@@ -39,8 +43,7 @@ func start_cutscene() -> void:
 	
 	assert(owner is Place, "What the fuck")
 	if one_shot and owner is Place:
-		var save_id: String = _get_save_id()
-		owner.save_var(save_id, true)
+		owner.save_var(_get_save_id(), true)
 	
 	GameManager.toggle_is_playing_cutscene(true)
 	_cursor = CutsceneCursor.new()
@@ -56,23 +59,5 @@ func finish_cutscene(_reset_value: Cutscene) -> void:
 		if parent != null:
 			parent.queue_free()
 
-func _get_save_id() -> String:
-	const prime: int = 16777619
-	var text: String = str(owner.get_path_to(self))
-	var hash_res: int = 2166136261
-	# FNV prime (32-bit)
-	var bytes: PackedByteArray = text.to_utf8_buffer()
-	
-	for b: int in bytes:
-		hash_res = hash_res ^ b
-		hash_res = (hash_res * prime) & 0xFFFFFFFF
-	
-	bytes.resize(4)
-	bytes.encode_u32(0, hash_res)
-	#TODO: Replaces the dangerous filename characters with safe ones
-	#return Marshalls.raw_to_base64(bytes).trim_suffix("==").replace("/", "_").replace("+", "-")
-	return Marshalls.raw_to_base64(bytes).trim_suffix("==")
-
-func _exit_tree() -> void:
-	assert(not _cursor, "Tried to unload active cutscene " + str(get_path()))
-	finish_cutscene(null)
+func _get_save_id() -> GameVariable:
+	return GameVariable.create(str(owner.get_path_to(self)))

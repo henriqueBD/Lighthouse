@@ -1,9 +1,10 @@
 [gd_resource type="Resource" script_class="Cutscene" format=3 uid="uid://b2bt1swgojjdh"]
 
-[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/action_base.gd" id="1_xph7q"]
+[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/actions/action_base.gd" id="1_xph7q"]
 [ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/scripts/cutscene.gd" id="2_081hw"]
-[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/action_dialogue.gd" id="2_ap5nr"]
-[ext_resource type="Script" uid="uid://dyr0awso8vtj" path="res://cutscene/scripts/action_set_value.gd" id="3_ap5nr"]
+[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/actions/action_dialogue.gd" id="2_ap5nr"]
+[ext_resource type="Script" uid="uid://dyr0awso8vtj" path="res://cutscene/scripts/actions/action_create_var.gd" id="3_ap5nr"]
+[ext_resource type="Resource" uid="uid://cmsmfc6r6swaq" path="res://variable/prologue/pick_chest_key.tres" id="4_61xhy"]
 
 [sub_resource type="Resource" id="Resource_61xhy"]
 script = ExtResource("2_ap5nr")
@@ -12,8 +13,7 @@ metadata/_custom_type_script = "uid://c5daiygjvie4n"
 
 [sub_resource type="Resource" id="Resource_ewjgy"]
 script = ExtResource("3_ap5nr")
-path = "key_picked"
-value = true
+variable = ExtResource("4_61xhy")
 metadata/_custom_type_script = "uid://dyr0awso8vtj"
 
 [resource]

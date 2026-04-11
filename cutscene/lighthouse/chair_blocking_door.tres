@@ -1,11 +1,12 @@
 [gd_resource type="Resource" script_class="Cutscene" format=3 uid="uid://dcwm7u0jd6yw5"]
 
-[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/action_base.gd" id="1_kr8i5"]
-[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/action_dialogue.gd" id="2_5dtoo"]
+[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/actions/action_base.gd" id="1_kr8i5"]
+[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/actions/action_dialogue.gd" id="2_5dtoo"]
 [ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/scripts/cutscene.gd" id="2_g3o31"]
-[ext_resource type="Script" uid="uid://043tmom2vq86" path="res://cutscene/scripts/action_call_func.gd" id="3_5dtoo"]
-[ext_resource type="Script" uid="uid://dyr0awso8vtj" path="res://cutscene/scripts/action_set_value.gd" id="4_7ssgb"]
-[ext_resource type="Script" uid="uid://criudvyc6a0ea" path="res://cutscene/scripts/action_pull_to_marker.gd" id="5_370nj"]
+[ext_resource type="Script" uid="uid://043tmom2vq86" path="res://cutscene/scripts/actions/action_call_func.gd" id="3_5dtoo"]
+[ext_resource type="Script" uid="uid://dyr0awso8vtj" path="res://cutscene/scripts/actions/action_create_var.gd" id="4_bh01i"]
+[ext_resource type="Resource" uid="uid://d4eviplsaq63o" path="res://variable/prologue/chair_move.tres" id="5_b5d3t"]
+[ext_resource type="Script" uid="uid://v7663pqgepil" path="res://cutscene/scripts/actions/action_emit_event.gd" id="6_bh01i"]
 
 [sub_resource type="Resource" id="Resource_7ssgb"]
 script = ExtResource("2_5dtoo")
@@ -15,25 +16,21 @@ metadata/_custom_type_script = "uid://c5daiygjvie4n"
 [sub_resource type="Resource" id="Resource_370nj"]
 script = ExtResource("3_5dtoo")
 function = 1
-args = [true]
 metadata/_custom_type_script = "uid://043tmom2vq86"
 
 [sub_resource type="Resource" id="Resource_b5d3t"]
-script = ExtResource("4_7ssgb")
-path = "chair_moved"
-value = true
+script = ExtResource("4_bh01i")
+variable = ExtResource("5_b5d3t")
 metadata/_custom_type_script = "uid://dyr0awso8vtj"
 
 [sub_resource type="Resource" id="Resource_6onf6"]
-script = ExtResource("5_370nj")
-entity_name = "Player"
-marker_path = NodePath("../../../../PlayerTable")
-metadata/_custom_type_script = "uid://criudvyc6a0ea"
+script = ExtResource("6_bh01i")
+event = ExtResource("5_b5d3t")
+metadata/_custom_type_script = "uid://v7663pqgepil"
 
 [sub_resource type="Resource" id="Resource_bh01i"]
 script = ExtResource("3_5dtoo")
 function = 2
-args = [false]
 metadata/_custom_type_script = "uid://043tmom2vq86"
 
 [resource]

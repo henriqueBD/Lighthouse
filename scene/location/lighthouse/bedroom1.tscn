@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://bdmx3ar1achup" path="res://assets/place/lighthouse/room1_walls.png" id="2_2sxn8"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="2_gie3k"]
 [ext_resource type="Texture2D" uid="uid://cvjjtqchptu6b" path="res://assets/place/lighthouse/room1_normals.png" id="3_cdqvu"]
-[ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="6_75suw"]
+[ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://cutscene/scripts/interactable.gd" id="6_75suw"]
 [ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_data.gd" id="7_r5kqp"]
 [ext_resource type="Resource" uid="uid://br7nd2fmcqcjy" path="res://cutscene/lighthouse/empty_book.tres" id="8_r5kqp"]
-[ext_resource type="Script" uid="uid://o6isw3ieort0" path="res://script/cutscene_trigger.gd" id="9_8ft64"]
+[ext_resource type="Script" uid="uid://o6isw3ieort0" path="res://cutscene/scripts/cutscene_trigger.gd" id="9_8ft64"]
 [ext_resource type="Resource" uid="uid://wwlo557tqeth" path="res://cutscene/lighthouse/enter_lighthouse_from_window.tres" id="10_126fi"]
 [ext_resource type="Script" uid="uid://cwng3n1pucxf4" path="res://script/marker.gd" id="11_126fi"]
 
@@ -101,6 +101,8 @@ position = Vector2(1, -9)
 
 [node name="CutsceneData" type="Node" parent="Interactable" unique_id=1665260331]
 script = ExtResource("7_r5kqp")
+one_shot = null
+lock_player = null
 cutscene = ExtResource("8_r5kqp")
 metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 
@@ -115,6 +117,7 @@ shape = SubResource("CircleShape2D_us0x7")
 [node name="CutsceneData" type="Node" parent="CutsceneTrigger" unique_id=2014059119]
 script = ExtResource("7_r5kqp")
 one_shot = true
+lock_player = null
 cutscene = ExtResource("10_126fi")
 metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 

@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="Cutscene" format=3 uid="uid://c7lc5h7v76bje"]
+
+[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/actions/action_base.gd" id="1_ki2qw"]
+[ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/scripts/cutscene.gd" id="2_vb4b8"]
+[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/actions/action_dialogue.gd" id="2_wbw1w"]
+[ext_resource type="Script" uid="uid://043tmom2vq86" path="res://cutscene/scripts/actions/action_call_func.gd" id="3_e007o"]
+[ext_resource type="Script" uid="uid://dyr0awso8vtj" path="res://cutscene/scripts/actions/action_create_var.gd" id="4_rtsqd"]
+[ext_resource type="Resource" uid="uid://cbrta8gyhmobd" path="res://variable/prologue/carpet_roll.tres" id="5_h6noo"]
+[ext_resource type="Script" uid="uid://v7663pqgepil" path="res://cutscene/scripts/actions/action_emit_event.gd" id="6_e007o"]
+
+[sub_resource type="Resource" id="Resource_rj8j5"]
+script = ExtResource("2_wbw1w")
+dialogue = PackedStringArray("The map shows that there is some sort of baesement in the lighthouse.", "I don`t see an entrance though.", "but maybe...")
+metadata/_custom_type_script = "uid://c5daiygjvie4n"
+
+[sub_resource type="Resource" id="Resource_aadca"]
+script = ExtResource("3_e007o")
+function = 1
+metadata/_custom_type_script = "uid://043tmom2vq86"
+
+[sub_resource type="Resource" id="Resource_n6107"]
+script = ExtResource("4_rtsqd")
+variable = ExtResource("5_h6noo")
+metadata/_custom_type_script = "uid://dyr0awso8vtj"
+
+[sub_resource type="Resource" id="Resource_rtsqd"]
+script = ExtResource("6_e007o")
+event = ExtResource("5_h6noo")
+metadata/_custom_type_script = "uid://v7663pqgepil"
+
+[sub_resource type="Resource" id="Resource_3tnu2"]
+script = ExtResource("3_e007o")
+function = 2
+metadata/_custom_type_script = "uid://043tmom2vq86"
+
+[resource]
+script = ExtResource("2_vb4b8")
+actions = Array[ExtResource("1_ki2qw")]([SubResource("Resource_rj8j5"), SubResource("Resource_aadca"), SubResource("Resource_n6107"), SubResource("Resource_rtsqd"), SubResource("Resource_3tnu2")])
+metadata/_custom_type_script = "uid://c43wcx0hfq43l"

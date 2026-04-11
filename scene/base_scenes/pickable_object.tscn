@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://eyq3nn0ftgis"]
 
 [ext_resource type="Texture2D" uid="uid://bruqfk8f3du42" path="res://icon.svg" id="1_4frei"]
-[ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://script/interactable.gd" id="1_xvmly"]
+[ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://cutscene/scripts/interactable.gd" id="1_xvmly"]
 [ext_resource type="Script" uid="uid://bq1kkl6a4be32" path="res://script/pickable_object.gd" id="2_v22s2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q8mcc"]

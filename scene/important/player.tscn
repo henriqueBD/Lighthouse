@@ -35,7 +35,7 @@ shadow_enabled = true
 shadow_filter = 2
 texture = ExtResource("3_ujf4b")
 texture_scale = 2.0
-height = 10.0
+height = 40.0
 
 [node name="UV_Light" type="PointLight2D" parent="." index="4" unique_id=370519223]
 unique_name_in_owner = true

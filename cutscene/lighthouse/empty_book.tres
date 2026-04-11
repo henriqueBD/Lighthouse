@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Cutscene" format=3 uid="uid://br7nd2fmcqcjy"]
 
-[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/action_base.gd" id="1_b24wa"]
-[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/action_dialogue.gd" id="2_mmuw0"]
+[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/actions/action_base.gd" id="1_b24wa"]
+[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/actions/action_dialogue.gd" id="2_mmuw0"]
 [ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/scripts/cutscene.gd" id="2_y165e"]
 
 [sub_resource type="Resource" id="Resource_4l0e3"]

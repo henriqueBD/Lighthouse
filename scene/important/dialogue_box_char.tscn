@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dtup8fe66n30o"]
 
-[ext_resource type="Texture2D" uid="uid://dy3xor2n1vjp" path="res://assets/placeholders/difuse.png" id="1_p8u1f"]
+[ext_resource type="Script" uid="uid://cxgwo6gn5672o" path="res://script/dialogue_box.gd" id="1_g14o5"]
+[ext_resource type="Texture2D" uid="uid://vcii0f0ihtxl" path="res://assets/character/lucio/lucio_portrait.png" id="2_g14o5"]
 
 [node name="DialogueBox" type="Control" unique_id=1409851303]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_g14o5")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=444665831]
 layout_mode = 1
@@ -31,11 +33,11 @@ grow_vertical = 2
 [node name="Portrait" type="TextureRect" parent="ColorRect/HBoxContainer" unique_id=1328992279]
 unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("1_p8u1f")
+texture = ExtResource("2_g14o5")
 expand_mode = 3
 
 [node name="Label" type="Label" parent="ColorRect/HBoxContainer" unique_id=1104181122]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 42
-text = "Testttttt"
+text = "Test"

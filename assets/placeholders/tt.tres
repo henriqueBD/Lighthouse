@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Cutscene" format=3 uid="uid://b2d2wtb47j0hs"]
 
-[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/action_base.gd" id="1_l0n6j"]
+[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/actions/action_base.gd" id="1_l0n6j"]
 [ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/scripts/cutscene.gd" id="2_8ip6y"]
 [ext_resource type="Texture2D" uid="uid://dy3xor2n1vjp" path="res://assets/placeholders/difuse.png" id="2_ntm3v"]
 [ext_resource type="Texture2D" uid="uid://vrp5g76cppel" path="res://assets/placeholders/normal_map.png" id="3_b304p"]
-[ext_resource type="Script" uid="uid://cq47mnj68tk8l" path="res://cutscene/scripts/action_dialogue_character.gd" id="3_p8f47"]
+[ext_resource type="Script" uid="uid://cq47mnj68tk8l" path="res://cutscene/scripts/actions/action_dialogue_character.gd" id="3_p8f47"]
 
 [sub_resource type="Resource" id="Resource_b304p"]
 script = ExtResource("3_p8f47")

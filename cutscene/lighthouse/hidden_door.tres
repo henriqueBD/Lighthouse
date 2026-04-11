@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="Cutscene" format=3 uid="uid://dgfnusn8rs2l"]
 
-[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/action_base.gd" id="1_jjyck"]
-[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/action_dialogue.gd" id="2_4qc1k"]
-[ext_resource type="Script" uid="uid://dyr0awso8vtj" path="res://cutscene/scripts/action_set_value.gd" id="3_4qc1k"]
+[ext_resource type="Script" uid="uid://ceg1algnms5p8" path="res://cutscene/scripts/actions/action_base.gd" id="1_jjyck"]
+[ext_resource type="Script" uid="uid://c5daiygjvie4n" path="res://cutscene/scripts/actions/action_dialogue.gd" id="2_4qc1k"]
 [ext_resource type="Script" uid="uid://c43wcx0hfq43l" path="res://cutscene/scripts/cutscene.gd" id="3_mn5tl"]
-[ext_resource type="Script" uid="uid://dql0d83th3wg7" path="res://cutscene/scripts/action_increment_time.gd" id="4_mn5tl"]
+[ext_resource type="Script" uid="uid://dyr0awso8vtj" path="res://cutscene/scripts/actions/action_create_var.gd" id="3_mvc7k"]
+[ext_resource type="Script" uid="uid://dql0d83th3wg7" path="res://cutscene/scripts/actions/action_increment_time.gd" id="4_mn5tl"]
+[ext_resource type="Resource" uid="uid://baolxjpahbbvi" path="res://variable/prologue/open_hidden_door.tres" id="4_mvc7k"]
 
 [sub_resource type="Resource" id="Resource_mn5tl"]
 script = ExtResource("2_4qc1k")
@@ -12,9 +13,8 @@ dialogue = PackedStringArray("The map says there should be a room here.", "I don
 metadata/_custom_type_script = "uid://c5daiygjvie4n"
 
 [sub_resource type="Resource" id="Resource_mvc7k"]
-script = ExtResource("3_4qc1k")
-path = "open_door"
-value = true
+script = ExtResource("3_mvc7k")
+variable = ExtResource("4_mvc7k")
 metadata/_custom_type_script = "uid://dyr0awso8vtj"
 
 [sub_resource type="Resource" id="Resource_yrttn"]

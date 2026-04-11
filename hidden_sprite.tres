@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dgfy4y5m6yfg2"]
+
+[ext_resource type="Shader" uid="uid://b0sg577tua2ds" path="res://hidden_sprite.gdshader" id="1_4jcd1"]
+
+[resource]
+shader = ExtResource("1_4jcd1")
