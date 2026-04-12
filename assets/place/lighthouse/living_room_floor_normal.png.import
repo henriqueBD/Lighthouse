@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7fa36hfukaix"
-path="res://.godot/imported/bookshelf_normal.png-d82703dff8c9b067afb5fd3d661f0835.ctex"
+uid="uid://cca1h7nq8vi4v"
+path="res://.godot/imported/living_room_floor_normal.png-c1539a5fff9987815af43db6b4c2efbc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/furniture/bookshelf_normal.png"
-dest_files=["res://.godot/imported/bookshelf_normal.png-d82703dff8c9b067afb5fd3d661f0835.ctex"]
+source_file="res://assets/place/lighthouse/living_room_floor_normal.png"
+dest_files=["res://.godot/imported/living_room_floor_normal.png-c1539a5fff9987815af43db6b4c2efbc.ctex"]
 
 [params]
 

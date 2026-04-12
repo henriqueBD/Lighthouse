@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gjdcuhmk5ts7"
-path="res://.godot/imported/bookshelf.png-bc495b2e0a064af3f27f46d51562d528.ctex"
+uid="uid://5yod3suopak2"
+path="res://.godot/imported/bedroom_door.png-abd78a03294b3f755bcdef2d3ce5ddbf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/furniture/bookshelf.png"
-dest_files=["res://.godot/imported/bookshelf.png-bc495b2e0a064af3f27f46d51562d528.ctex"]
+source_file="res://assets/furniture/bedroom_door.png"
+dest_files=["res://.godot/imported/bedroom_door.png-abd78a03294b3f755bcdef2d3ce5ddbf.ctex"]
 
 [params]
 

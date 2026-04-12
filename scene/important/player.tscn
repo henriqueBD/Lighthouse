@@ -2,12 +2,27 @@
 
 [ext_resource type="Script" uid="uid://d23olrs8sfahq" path="res://script/player.gd" id="1_apw8i"]
 [ext_resource type="PackedScene" uid="uid://cr37csya8pvfj" path="res://scene/base_scenes/character.tscn" id="1_m66g2"]
-[ext_resource type="Texture2D" uid="uid://cj5vpki1uyv1u" path="res://assets/light/light_texture.png" id="3_ujf4b"]
+[ext_resource type="Texture2D" uid="uid://djrl7dqmta3bv" path="res://assets/light/radial_gradient_128.tres" id="2_23glw"]
 [ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="4_23glw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_23glw"]
 radius = 2.9999998
 height = 14.0
+
+[sub_resource type="Gradient" id="Gradient_23glw"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.4973545, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_osj6f"]
+gradient = SubResource("Gradient_23glw")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+metadata/_snap_enabled = true
+metadata/_snap_count = 2
 
 [node name="Player" unique_id=1676178987 instance=ExtResource("1_m66g2")]
 y_sort_enabled = true
@@ -29,29 +44,39 @@ unique_name_in_owner = true
 light_mask = 3
 position = Vector2(0, -3)
 color = Color(0.94, 0.517, 0, 1)
-energy = 4.0
+energy = 2.0
 range_item_cull_mask = 3
 shadow_enabled = true
 shadow_filter = 2
-texture = ExtResource("3_ujf4b")
-texture_scale = 2.0
+texture = ExtResource("2_23glw")
 height = 40.0
 
-[node name="UV_Light" type="PointLight2D" parent="." index="4" unique_id=370519223]
+[node name="Light2" type="PointLight2D" parent="." index="4" unique_id=243688735]
+unique_name_in_owner = true
+light_mask = 3
+position = Vector2(0, -3)
+color = Color(0.94, 0.5326667, 0, 1)
+energy = 3.2
+range_item_cull_mask = 3
+shadow_enabled = true
+shadow_filter = 2
+texture = ExtResource("2_23glw")
+
+[node name="UV_Light" type="PointLight2D" parent="." index="5" unique_id=370519223]
 unique_name_in_owner = true
 position = Vector2(0, -3)
-color = Color(0.8387531, 0.43901455, 1, 1)
-range_item_cull_mask = 32
+energy = 0.0
+range_item_cull_mask = 4
 shadow_filter = 2
-texture = ExtResource("3_ujf4b")
+texture = SubResource("GradientTexture2D_osj6f")
 
-[node name="Player" type="Node" parent="." index="5" unique_id=94685682]
+[node name="Player" type="Node" parent="." index="6" unique_id=94685682]
 script = ExtResource("1_apw8i")
 metadata/_custom_type_script = "uid://d23olrs8sfahq"
 
-[node name="Camera2D" type="Camera2D" parent="." index="6" unique_id=541293806]
+[node name="Camera2D" type="Camera2D" parent="." index="7" unique_id=541293806]
 position = Vector2(0, -16)
 
-[node name="Tracker" type="Node" parent="." index="7" unique_id=962722039]
+[node name="Tracker" type="Node" parent="." index="8" unique_id=962722039]
 script = ExtResource("4_23glw")
 metadata/_custom_type_script = "uid://bhkymgw54xfkd"

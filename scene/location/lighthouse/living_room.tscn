@@ -4,12 +4,28 @@
 [ext_resource type="Texture2D" uid="uid://drxw04q6wjnod" path="res://assets/place/lighthouse/living_room.png" id="2_b6s8w"]
 [ext_resource type="Texture2D" uid="uid://dluweuajs1fo2" path="res://assets/place/lighthouse/living_room_normal.png" id="3_x0hpa"]
 [ext_resource type="Texture2D" uid="uid://csddbbn8uyulc" path="res://assets/place/lighthouse/room_front_wall.png" id="4_8uvcd"]
+[ext_resource type="Texture2D" uid="uid://4b5ae8a0kucr" path="res://assets/furniture/table.png" id="4_hotc2"]
 [ext_resource type="Texture2D" uid="uid://m416113e0tjq" path="res://assets/place/lighthouse/room_front_wall_normal.png" id="5_vis30"]
+[ext_resource type="Texture2D" uid="uid://cno5vhf3n7722" path="res://assets/furniture/chair_front.png" id="6_bpgmk"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="6_shjv7"]
+[ext_resource type="Texture2D" uid="uid://0uymn38b7eov" path="res://assets/furniture/chair_side.png" id="7_tbh6r"]
+[ext_resource type="Texture2D" uid="uid://p1b18vysw6ed" path="res://assets/furniture/frame_lighthouse.png" id="7_vis30"]
+[ext_resource type="Texture2D" uid="uid://cyu1fxfofngxp" path="res://assets/furniture/desk.png" id="8_shjv7"]
+[ext_resource type="Script" uid="uid://dygpv4cllfl5b" path="res://script/rendering/shadow_cast.gd" id="9_onacj"]
+[ext_resource type="Texture2D" uid="uid://5yod3suopak2" path="res://assets/furniture/bedroom_door.png" id="10_w1vs7"]
+[ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://cutscene/scripts/interactable.gd" id="12_u57s5"]
+[ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_data.gd" id="13_gxt4c"]
+[ext_resource type="Resource" uid="uid://d3xh44u7o525r" path="res://cutscene/lighthouse/map_on_kitchen_table.tres" id="14_pamnv"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_onacj"]
 diffuse_texture = ExtResource("2_b6s8w")
 normal_texture = ExtResource("3_x0hpa")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2uowo"]
+size = Vector2(48, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uc04b"]
+size = Vector2(14, 14)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_w1vs7"]
 diffuse_texture = ExtResource("4_8uvcd")
@@ -17,6 +33,20 @@ normal_texture = ExtResource("5_vis30")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qyrgb"]
 size = Vector2(29, 11)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2p0gb"]
+radius = 12.0415945
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w4qbt"]
+size = Vector2(56, 26)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_hotc2"]
+closed = false
+polygon = PackedVector2Array(4, 127, 62, 201, 227, 198, 256, 131)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_bpgmk"]
+closed = false
+polygon = PackedVector2Array(261, 100, 266, 5, -14, 10, 1, 104)
 
 [node name="LivingRoom" type="Node" unique_id=740737229]
 script = ExtResource("1_qyrgb")
@@ -30,6 +60,72 @@ centered = false
 [node name="Entities" type="Node2D" parent="." unique_id=1676747816]
 unique_name_in_owner = true
 y_sort_enabled = true
+
+[node name="Table" type="Sprite2D" parent="Entities" unique_id=1358175336]
+position = Vector2(125, 113)
+texture = ExtResource("4_hotc2")
+centered = false
+script = ExtResource("9_onacj")
+metadata/_custom_type_script = "uid://dygpv4cllfl5b"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Entities/Table" unique_id=1369902682]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Table/StaticBody2D" unique_id=1547142012]
+position = Vector2(26, 21)
+shape = SubResource("RectangleShape2D_2uowo")
+
+[node name="Chair" type="Sprite2D" parent="Entities" unique_id=136795067]
+position = Vector2(156, 98)
+texture = ExtResource("6_bpgmk")
+centered = false
+script = ExtResource("9_onacj")
+metadata/_custom_type_script = "uid://dygpv4cllfl5b"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Entities/Chair" unique_id=1540248248]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chair/StaticBody2D" unique_id=597710819]
+position = Vector2(7, 17)
+shape = SubResource("RectangleShape2D_uc04b")
+
+[node name="Chair2" type="Sprite2D" parent="Entities" unique_id=503506151]
+position = Vector2(132, 98)
+texture = ExtResource("6_bpgmk")
+centered = false
+script = ExtResource("9_onacj")
+metadata/_custom_type_script = "uid://dygpv4cllfl5b"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Entities/Chair2" unique_id=187690025]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chair2/StaticBody2D" unique_id=655286151]
+position = Vector2(7, 17)
+shape = SubResource("RectangleShape2D_uc04b")
+
+[node name="Chair3" type="Sprite2D" parent="Entities" unique_id=434404407]
+position = Vector2(107, 116)
+texture = ExtResource("7_tbh6r")
+centered = false
+script = ExtResource("9_onacj")
+metadata/_custom_type_script = "uid://dygpv4cllfl5b"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Entities/Chair3" unique_id=27767127]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chair3/StaticBody2D" unique_id=2121099503]
+position = Vector2(9, 17)
+shape = SubResource("RectangleShape2D_uc04b")
+
+[node name="Chair4" type="Sprite2D" parent="Entities" unique_id=1573099677]
+position = Vector2(179, 115)
+texture = ExtResource("7_tbh6r")
+centered = false
+flip_h = true
+script = ExtResource("9_onacj")
+metadata/_custom_type_script = "uid://dygpv4cllfl5b"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Entities/Chair4" unique_id=1559942749]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/Chair4/StaticBody2D" unique_id=1796360372]
+position = Vector2(7, 17)
+shape = SubResource("RectangleShape2D_uc04b")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=2044699898]
 position = Vector2(1, 101)
@@ -45,3 +141,48 @@ metadata/_custom_type_script = "uid://csoqjsxgxwixr"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BaseStairs" unique_id=1430982057]
 position = Vector2(-7, 21)
 shape = SubResource("RectangleShape2D_qyrgb")
+
+[node name="FrameLighthouse" type="Sprite2D" parent="." unique_id=1538026767]
+position = Vector2(39, 54)
+texture = ExtResource("7_vis30")
+
+[node name="Interactable" type="Area2D" parent="FrameLighthouse" unique_id=932422528]
+position = Vector2(0, -5)
+script = ExtResource("12_u57s5")
+metadata/_custom_type_script = "uid://bgp4ssm03oorx"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FrameLighthouse/Interactable" unique_id=785743257]
+position = Vector2(0, 32)
+shape = SubResource("CircleShape2D_2p0gb")
+
+[node name="CutsceneData" type="Node" parent="FrameLighthouse/Interactable" unique_id=1833211976]
+script = ExtResource("13_gxt4c")
+cutscene = ExtResource("14_pamnv")
+metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
+
+[node name="Desk" type="Sprite2D" parent="." unique_id=767752925]
+position = Vector2(60, 66)
+texture = ExtResource("8_shjv7")
+centered = false
+script = ExtResource("9_onacj")
+metadata/_custom_type_script = "uid://dygpv4cllfl5b"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Desk" unique_id=649652350]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Desk/StaticBody2D" unique_id=952058948]
+position = Vector2(28, 12)
+shape = SubResource("RectangleShape2D_w4qbt")
+
+[node name="BedroomDoor" type="Sprite2D" parent="." unique_id=69981714]
+position = Vector2(124, 42)
+texture = ExtResource("10_w1vs7")
+centered = false
+hframes = 2
+
+[node name="Occluders" type="Node2D" parent="." unique_id=1331125029]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Occluders" unique_id=1650715601]
+occluder = SubResource("OccluderPolygon2D_hotc2")
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="Occluders" unique_id=1111170774]
+occluder = SubResource("OccluderPolygon2D_bpgmk")

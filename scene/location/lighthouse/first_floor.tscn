@@ -19,6 +19,7 @@
 [ext_resource type="Resource" uid="uid://c7lc5h7v76bje" path="res://cutscene/lighthouse/rool_up_carpet.tres" id="11_bv84q"]
 [ext_resource type="Texture2D" uid="uid://dopkygkevolyo" path="res://assets/furniture/carpet_roll.png" id="13_3mqy2"]
 [ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="13_w1vs7"]
+[ext_resource type="Script" uid="uid://dygpv4cllfl5b" path="res://script/rendering/shadow_cast.gd" id="14_2edap"]
 [ext_resource type="Texture2D" uid="uid://dxcvetibyq5s4" path="res://assets/furniture/carpet_roll_normal.png" id="14_bw7es"]
 [ext_resource type="Script" uid="uid://bvyk7wmxvbttc" path="res://cutscene/scripts/actions/action_toggle_active.gd" id="15_2edap"]
 [ext_resource type="Script" uid="uid://cwng3n1pucxf4" path="res://script/marker.gd" id="15_ipm2w"]
@@ -99,12 +100,10 @@ normal_texture = ExtResource("14_bw7es")
 [sub_resource type="Resource" id="Resource_6iofa"]
 script = ExtResource("15_2edap")
 active = true
-recursive = true
 metadata/_custom_type_script = "uid://bvyk7wmxvbttc"
 
 [sub_resource type="Resource" id="Resource_moxaf"]
 script = ExtResource("15_2edap")
-recursive = true
 metadata/_custom_type_script = "uid://bvyk7wmxvbttc"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_prbqp"]
@@ -171,6 +170,7 @@ y_sort_enabled = true
 position = Vector2(-7, 49)
 texture = ExtResource("4_x0hpa")
 centered = false
+script = ExtResource("14_2edap")
 
 [node name="Tracker" type="Node" parent="Entities/Chair" unique_id=1347393825]
 script = ExtResource("13_w1vs7")
@@ -233,6 +233,7 @@ metadata/_custom_type_script = "uid://b8wvlfgcbauo7"
 [node name="CarpetRoll" type="Sprite2D" parent="Entities" unique_id=1936943614]
 position = Vector2(8, -5)
 texture = SubResource("CanvasTexture_1x21k")
+script = ExtResource("14_2edap")
 
 [node name="ActionIfVarExists" type="Node" parent="Entities/CarpetRoll" unique_id=991592718]
 script = ExtResource("21_2uowo")
@@ -247,6 +248,11 @@ metadata/_custom_type_script = "uid://r1kolymix5d"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Entities/CarpetRoll/StaticBody2D" unique_id=1340850516]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_prbqp")
+
+[node name="Chair2" type="Sprite2D" parent="Entities" unique_id=527206827]
+position = Vector2(71, -12)
+texture = ExtResource("4_x0hpa")
+script = ExtResource("14_2edap")
 
 [node name="Floor" type="Sprite2D" parent="." unique_id=984682791]
 visibility_layer = 3

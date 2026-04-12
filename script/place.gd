@@ -2,14 +2,15 @@
 class_name Place
 extends Node
 
-enum places{
+enum Places{
 	UNASSIGNED,
 	LIGHTHOUSE_MAIN_HOUSE
 }
 
-static var _places_keys: Array = places.keys()
+static var _places_keys: Array = Places.keys()
 
-@export var location_path: places
+@export var location_path: Places
+@export var is_outdoor: bool
 
 var _location: String
 var _entities: Node2D
@@ -32,7 +33,7 @@ func subscribe_to_var(variable: GameVariable) -> Signal:
 	return Signal(self, ID)
 
 func _enter_tree() -> void:
-	assert(location_path != places.UNASSIGNED)
+	assert(location_path != Places.UNASSIGNED)
 	_location = _places_keys[location_path]
 	_entities = get_node_or_null("%Entities")
 	GameManager.save_data.create_folder(_location)

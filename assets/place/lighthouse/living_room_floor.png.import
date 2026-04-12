@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj5vpki1uyv1u"
-path="res://.godot/imported/light_texture.png-abdcf06ee7b173dc51caed47ce265ab2.ctex"
+uid="uid://cqgtjl3n5ttxv"
+path="res://.godot/imported/living_room_floor.png-3ed5f5f79c401d44f067f75733c2f3ba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/light/light_texture.png"
-dest_files=["res://.godot/imported/light_texture.png-abdcf06ee7b173dc51caed47ce265ab2.ctex"]
+source_file="res://assets/place/lighthouse/living_room_floor.png"
+dest_files=["res://.godot/imported/living_room_floor.png-3ed5f5f79c401d44f067f75733c2f3ba.ctex"]
 
 [params]
 

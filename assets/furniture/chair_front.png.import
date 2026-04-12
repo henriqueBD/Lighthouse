@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yocdvx0w4m8f"
-path="res://.godot/imported/albedo.png-d73ff8af9d67d96a59d3de4a9a700403.ctex"
+uid="uid://cno5vhf3n7722"
+path="res://.godot/imported/chair_front.png-24df8c91b1b24b955de9eb618a23ab75.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/furniture/albedo.png"
-dest_files=["res://.godot/imported/albedo.png-d73ff8af9d67d96a59d3de4a9a700403.ctex"]
+source_file="res://assets/furniture/chair_front.png"
+dest_files=["res://.godot/imported/chair_front.png-24df8c91b1b24b955de9eb618a23ab75.ctex"]
 
 [params]
 

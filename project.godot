@@ -90,6 +90,9 @@ Toggle_lantern={
 
 [layer_names]
 
+2d_render/layer_2="Shadow Cast"
+2d_render/layer_3="UV Light"
+2d_render/layer_4="Canvas Modulate"
 2d_physics/layer_1="Player"
 
 [physics]

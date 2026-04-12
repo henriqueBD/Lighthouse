@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cermwrmapnfm1" path="res://script/manager_main_node.gd" id="1_x58px"]
 [ext_resource type="Script" uid="uid://d0jw7003rp8mw" path="res://script/place.gd" id="2_brvut"]
 [ext_resource type="PackedScene" uid="uid://cvgmeo84fvgyh" path="res://scene/important/player.tscn" id="3_wp4xf"]
-[ext_resource type="Script" uid="uid://dce3xegws4wst" path="res://script/time_manager.gd" id="4_brvut"]
+[ext_resource type="Script" uid="uid://dce3xegws4wst" path="res://script/rendering/time_manager.gd" id="4_brvut"]
 
 [sub_resource type="Gradient" id="Gradient_0ha60"]
 offsets = PackedFloat32Array(0, 0.29166666, 0.625, 0.7916667, 1)

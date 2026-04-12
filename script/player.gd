@@ -1,19 +1,27 @@
 class_name Player
 extends Node
 
+signal lantern_toggle(state: bool)
+
 const WALK_SPEED: float = 60.0
 
 var _controller: Character
 var _light: PointLight2D
+var _low_light: PointLight2D
 var _UV_light: PointLight2D
 var _lantern_on: bool
 var _is_locked: bool
+
+func is_lantern_on() -> bool:
+	return _lantern_on
 
 func _ready() -> void:
 	_controller = $".."
 	_light = %Light
 	_UV_light = %UV_Light
-	_light.enabled = false
+	_low_light = %Light2
+	_lantern_on = true
+	_toggle_lantern()
 	GameManager.set_player(self)
 
 func _physics_process(_delta: float) -> void:
@@ -35,3 +43,6 @@ func _physics_process(_delta: float) -> void:
 func _toggle_lantern() -> void:
 	_lantern_on = not _lantern_on
 	_light.enabled = _lantern_on
+	_low_light.enabled = _lantern_on
+	_UV_light.enabled = _lantern_on
+	lantern_toggle.emit(_lantern_on)

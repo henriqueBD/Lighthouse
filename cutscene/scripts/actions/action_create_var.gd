@@ -9,5 +9,6 @@ func execute(_context: Node) -> void:
 		action_ended.emit()
 		return
 	
+	variable.initialize()
 	GameManager.set_local_var(variable, null)
 	action_ended.emit()
