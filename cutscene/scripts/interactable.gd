@@ -42,7 +42,7 @@ func _ready() -> void:
 		_pop_up_image.centered = false
 		_pop_up_image.light_mask = 0
 		_pop_up_image.hide()
-		_pop_up_image.z_index = 5 ##TODO: MAKE THIS GLOBAL
+		_pop_up_image.z_index = Global.pop_up_z_index
 		
 		var target_texture: Texture2D
 		

@@ -1,10 +1,7 @@
 [gd_scene format=3 uid="uid://b5lwc6r8gihdf"]
 
 [ext_resource type="Script" uid="uid://d0jw7003rp8mw" path="res://script/place.gd" id="1_2sxn8"]
-[ext_resource type="Texture2D" uid="uid://cfhq2a3v3wtxh" path="res://assets/place/lighthouse/room1_floor.png" id="1_31u5o"]
-[ext_resource type="Texture2D" uid="uid://bdmx3ar1achup" path="res://assets/place/lighthouse/room1_walls.png" id="2_2sxn8"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="2_gie3k"]
-[ext_resource type="Texture2D" uid="uid://cvjjtqchptu6b" path="res://assets/place/lighthouse/room1_normals.png" id="3_cdqvu"]
 [ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://cutscene/scripts/interactable.gd" id="6_75suw"]
 [ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_data.gd" id="7_r5kqp"]
 [ext_resource type="Resource" uid="uid://br7nd2fmcqcjy" path="res://cutscene/lighthouse/empty_book.tres" id="8_r5kqp"]
@@ -12,9 +9,18 @@
 [ext_resource type="Resource" uid="uid://wwlo557tqeth" path="res://cutscene/lighthouse/enter_lighthouse_from_window.tres" id="10_126fi"]
 [ext_resource type="Script" uid="uid://cwng3n1pucxf4" path="res://script/marker.gd" id="11_126fi"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_75suw"]
+load_path = "res://.godot/imported/room1_floor.png-5cc692f015520a436d53a7e0e0efcf81.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r5kqp"]
+load_path = "res://.godot/imported/room1_walls.png-325c738f79883f6ff19969d13deba7e9.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8ft64"]
+load_path = "res://.godot/imported/room1_normals.png-7f76ab3f39882559d6cb6907cc40fb86.ctex"
+
 [sub_resource type="CanvasTexture" id="CanvasTexture_ishbb"]
-diffuse_texture = ExtResource("2_2sxn8")
-normal_texture = ExtResource("3_cdqvu")
+diffuse_texture = SubResource("CompressedTexture2D_r5kqp")
+normal_texture = SubResource("CompressedTexture2D_8ft64")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b0165"]
 size = Vector2(20, 30)
@@ -46,7 +52,7 @@ script = ExtResource("1_2sxn8")
 location_path = 1
 
 [node name="Floor" type="Sprite2D" parent="." unique_id=730249022]
-texture = ExtResource("1_31u5o")
+texture = SubResource("CompressedTexture2D_75suw")
 
 [node name="Walls" type="Sprite2D" parent="." unique_id=180253892]
 light_mask = 2

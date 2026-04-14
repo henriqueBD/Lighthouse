@@ -1,13 +1,21 @@
+class_name Global
 extends Node
 
-const CHARACTER_GROUP_NAME: String = "Characters"
+#region global const
 
-const DIALOGUE_SPEED_PER_CHAR: float = 0.05
+# Collision Layer
+const player_collision_layer: int = 2
 
-enum global_variables_bool{
-	NULL,
-	SAW_MAP_ON_LIGHTHOUSE_LIVING_ROOM
-}
+# Light mask
+const shadow_light_mask: int = 4
+
+# Z-Index
+const pop_up_z_index: int = 5
+const player_z_index: int = 1
+const shadow_z_index: int = -1
+const floor_z_index: int = -2
+
+#endregion
 
 signal interact_pressed
 signal room_faded_in
@@ -24,6 +32,8 @@ var player_parent: Character
 var _entities: Dictionary[String, Tracker]
 var _events: Dictionary[String, Array]
 
+#region static
+
 static func is_same_type(x: Variant, y: Variant) -> bool:
 	if typeof(x) != typeof(y):
 		return false
@@ -36,6 +46,22 @@ static func is_same_type(x: Variant, y: Variant) -> bool:
 	
 	assert(false, "?????????")
 	return true
+
+#endregion
+
+func set_node_active(node: Node, val: bool) -> void:
+	#NEVER put a EventListner or a Action here
+	if node is Interactable:
+		node.active = val
+	elif node is Transition:
+		node.set_active(val)
+	elif node is CollisionShape2D:
+		node.set_deferred("disabled", not val)
+	elif node is Sprite2D:
+		node.visible = val
+	
+	for child: Node in node.get_children():
+		set_node_active(child, val)
 
 func _ready() -> void:
 	set_process_unhandled_input(false)
@@ -148,17 +174,3 @@ func play_sound(to_play: AudioStream) -> Signal:
 	main_node.sfx_player.stream = to_play
 	main_node.sfx_player.play()
 	return main_node.sfx_player.finished
-
-func set_node_active(node: Node, val: bool) -> void:
-	#NEVER put a EventListner or a Action here
-	if node is Interactable:
-		node.active = val
-	elif node is Transition:
-		node.set_active(val)
-	elif node is CollisionShape2D:
-		node.set_deferred("disabled", not val)
-	elif node is Sprite2D:
-		node.visible = val
-	
-	for child: Node in node.get_children():
-		set_node_active(child, val)

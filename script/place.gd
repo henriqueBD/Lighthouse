@@ -35,8 +35,19 @@ func subscribe_to_var(variable: GameVariable) -> Signal:
 func _enter_tree() -> void:
 	assert(location_path != Places.UNASSIGNED)
 	_location = _places_keys[location_path]
+	
 	_entities = get_node_or_null("%Entities")
+	assert(_check_entities(_entities))
+	
 	GameManager.save_data.create_folder(_location)
+
+func _ready() -> void:
+	var floor_node: Sprite2D = get_node_or_null("Floor")
+	#TODO: MAKE THIS GLOBAL
+	if floor_node:
+		floor_node.z_index = -2
+	else:
+		push_warning("Missing floor at scene " + name)
 
 func save_var(variable: GameVariable, _value: Variant) -> void:
 	GameManager.save_data.store_var(_location, variable)
@@ -57,3 +68,12 @@ func _call_action_if_condition(action: ConditionRule) -> void:
 
 func _call_action_unconditional(action: ConditionRule) -> void:
 	action.action.execute(self)
+
+func _check_entities(entities: Node) -> bool:
+	if not entities: return true
+	for entity: Node in entities.get_children():
+		if not entity is ShadowCast:
+			push_warning(
+			"Entity " + str(entity.name) + " should be of type ShadowCast"
+			)
+	return true

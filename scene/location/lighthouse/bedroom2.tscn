@@ -1,11 +1,7 @@
 [gd_scene format=3 uid="uid://dle6tyljj31cl"]
 
 [ext_resource type="Script" uid="uid://d0jw7003rp8mw" path="res://script/place.gd" id="1_3r633"]
-[ext_resource type="Texture2D" uid="uid://dvt1tf12p10t7" path="res://assets/place/lighthouse/room2_floor.png" id="1_f6hxj"]
-[ext_resource type="Script" uid="uid://l0teuipo17rj" path="res://script/condition_rule.gd" id="2_3r633"]
-[ext_resource type="Texture2D" uid="uid://dywttlajucbgr" path="res://assets/place/lighthouse/room2_walls.png" id="2_sqonx"]
 [ext_resource type="Texture2D" uid="uid://5ghbp63i063l" path="res://assets/furniture/chest.png" id="3_20ndq"]
-[ext_resource type="Script" uid="uid://r55kd4snhjhj" path="res://cutscene/scripts/actions/action_play_animation.gd" id="3_34dd0"]
 [ext_resource type="Script" uid="uid://bhkymgw54xfkd" path="res://script/tracker.gd" id="4_3r633"]
 [ext_resource type="Script" uid="uid://bgp4ssm03oorx" path="res://cutscene/scripts/interactable.gd" id="5_34dd0"]
 [ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_data.gd" id="6_30tur"]
@@ -13,17 +9,11 @@
 [ext_resource type="Resource" uid="uid://birypmifjp3ou" path="res://cutscene/lighthouse/lantern_chest.tres" id="7_sqonx"]
 [ext_resource type="Resource" uid="uid://crnkrrfhnnjl" path="res://cutscene/lighthouse/door_closing.tres" id="12_30tur"]
 
-[sub_resource type="Resource" id="Resource_30tur"]
-script = ExtResource("3_34dd0")
-source = NodePath("Entities/Chest")
-animation_name = "opened"
-metadata/_custom_type_script = "uid://r55kd4snhjhj"
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sqonx"]
+load_path = "res://.godot/imported/room2_floor.png-fa5487d2e436bc9d2eda4f13b58dd531.ctex"
 
-[sub_resource type="Resource" id="Resource_psgul"]
-script = ExtResource("2_3r633")
-target_var = "chest_opened"
-action = SubResource("Resource_30tur")
-metadata/_custom_type_script = "uid://l0teuipo17rj"
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_20ndq"]
+load_path = "res://.godot/imported/room2_walls.png-a829c3ca55d8cd07aea6c86c96a6277d.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_30tur"]
 atlas = ExtResource("3_20ndq")
@@ -105,14 +95,13 @@ size = Vector2(34, 20)
 [node name="Bedroom2" type="Node2D" unique_id=201229335]
 script = ExtResource("1_3r633")
 location_path = 1
-actions = Array[ExtResource("2_3r633")]([SubResource("Resource_psgul")])
 
 [node name="Floor" type="Sprite2D" parent="." unique_id=547638183]
-texture = ExtResource("1_f6hxj")
+texture = SubResource("CompressedTexture2D_sqonx")
 
 [node name="Walls" type="Sprite2D" parent="." unique_id=1859911890]
 light_mask = 2
-texture = ExtResource("2_sqonx")
+texture = SubResource("CompressedTexture2D_20ndq")
 
 [node name="Entities" type="Node2D" parent="." unique_id=1227164077]
 unique_name_in_owner = true

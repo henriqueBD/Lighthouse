@@ -28,12 +28,12 @@ func _ready() -> void:
 	_shadow.hframes = hframes
 	_shadow.vframes = vframes
 	_shadow.modulate = shadow_color
-	_shadow.show_behind_parent = true
 	_shadow.centered = false
 	_shadow.offset = Vector2(-frame_size.x / 2.0, -frame_size.y)
 	_shadow.material = light_only_mat
-	#TODO: MAKE GLOBAL
-	_shadow.light_mask = 4
+	_shadow.light_mask = Global.shadow_light_mask
+	_shadow.z_as_relative = false
+	_shadow.z_index = Global.shadow_z_index
 	
 	_target_light = GameManager.player.get_node_or_null("%Light")
 	

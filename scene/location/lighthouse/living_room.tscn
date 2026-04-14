@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://c2qfgdafyun1h"]
 
 [ext_resource type="Script" uid="uid://d0jw7003rp8mw" path="res://script/place.gd" id="1_qyrgb"]
-[ext_resource type="Texture2D" uid="uid://drxw04q6wjnod" path="res://assets/place/lighthouse/living_room.png" id="2_b6s8w"]
-[ext_resource type="Texture2D" uid="uid://dluweuajs1fo2" path="res://assets/place/lighthouse/living_room_normal.png" id="3_x0hpa"]
+[ext_resource type="Texture2D" uid="uid://cqgtjl3n5ttxv" path="res://assets/place/lighthouse/living_room_floor.png" id="2_tbh6r"]
+[ext_resource type="Texture2D" uid="uid://cca1h7nq8vi4v" path="res://assets/place/lighthouse/living_room_floor_normal.png" id="3_u57s5"]
 [ext_resource type="Texture2D" uid="uid://csddbbn8uyulc" path="res://assets/place/lighthouse/room_front_wall.png" id="4_8uvcd"]
+[ext_resource type="Texture2D" uid="uid://bx13qyyvx5gsg" path="res://assets/place/lighthouse/living_room_wall.png" id="4_gxt4c"]
 [ext_resource type="Texture2D" uid="uid://4b5ae8a0kucr" path="res://assets/furniture/table.png" id="4_hotc2"]
+[ext_resource type="Texture2D" uid="uid://b16jic1k2idip" path="res://assets/place/lighthouse/living_room_wall_normal.png" id="5_pamnv"]
 [ext_resource type="Texture2D" uid="uid://m416113e0tjq" path="res://assets/place/lighthouse/room_front_wall_normal.png" id="5_vis30"]
 [ext_resource type="Texture2D" uid="uid://cno5vhf3n7722" path="res://assets/furniture/chair_front.png" id="6_bpgmk"]
 [ext_resource type="Script" uid="uid://csoqjsxgxwixr" path="res://script/transition.gd" id="6_shjv7"]
@@ -17,9 +19,13 @@
 [ext_resource type="Script" uid="uid://b8wvlfgcbauo7" path="res://cutscene/scripts/cutscene_data.gd" id="13_gxt4c"]
 [ext_resource type="Resource" uid="uid://d3xh44u7o525r" path="res://cutscene/lighthouse/map_on_kitchen_table.tres" id="14_pamnv"]
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_2uowo"]
+diffuse_texture = ExtResource("2_tbh6r")
+normal_texture = ExtResource("3_u57s5")
+
 [sub_resource type="CanvasTexture" id="CanvasTexture_onacj"]
-diffuse_texture = ExtResource("2_b6s8w")
-normal_texture = ExtResource("3_x0hpa")
+diffuse_texture = ExtResource("4_gxt4c")
+normal_texture = ExtResource("5_pamnv")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2uowo"]
 size = Vector2(48, 32)
@@ -53,7 +59,13 @@ script = ExtResource("1_qyrgb")
 location_path = 1
 metadata/_custom_type_script = "uid://d0jw7003rp8mw"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=995550140]
+[node name="Floor" type="Sprite2D" parent="." unique_id=1687141294]
+position = Vector2(8, 72)
+texture = SubResource("CanvasTexture_2uowo")
+centered = false
+
+[node name="Wall" type="Sprite2D" parent="." unique_id=995550140]
+position = Vector2(0, 10)
 texture = SubResource("CanvasTexture_onacj")
 centered = false
 
@@ -128,7 +140,7 @@ position = Vector2(7, 17)
 shape = SubResource("RectangleShape2D_uc04b")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=2044699898]
-position = Vector2(1, 101)
+position = Vector2(1, 102)
 texture = SubResource("CanvasTexture_w1vs7")
 centered = false
 

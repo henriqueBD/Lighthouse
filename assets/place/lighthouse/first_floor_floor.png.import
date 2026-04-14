@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvjjtqchptu6b"
-path="res://.godot/imported/room1_normals.png-7f76ab3f39882559d6cb6907cc40fb86.ctex"
+uid="uid://cqf18pkp4c5d1"
+path="res://.godot/imported/first_floor_floor.png-618e5b606d2da3f85b539d4509abe6b4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/place/lighthouse/room1_normals.png"
-dest_files=["res://.godot/imported/room1_normals.png-7f76ab3f39882559d6cb6907cc40fb86.ctex"]
+source_file="res://assets/place/lighthouse/first_floor_floor.png"
+dest_files=["res://.godot/imported/first_floor_floor.png-618e5b606d2da3f85b539d4509abe6b4.ctex"]
 
 [params]
 
